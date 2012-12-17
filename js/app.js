@@ -13,8 +13,6 @@ canvas.height = 600;
 
 /* Création du contexte */
 var ctx = canvas.getContext("2d");
-//ctx.fillRect(0, 0, canvas.width, canvas.height);
-//ctx.fillStyle = "rgb(0,0,0)";
 
 /* Ajout du canvas au document HTML */
 document.body.appendChild(canvas);
@@ -23,7 +21,11 @@ var currentTimestamp = Date.now();
 var previousTimestamp = 0;
 var elapsedTime = 0;
 
+/* Tableau pour stocker les comètes */
 var arrayComete = [];
+
+/* Position des colonnes où apparaissent les comètes */
+var arrayColonneX = [150, 350, 550, 750];
 
 /* Fonction Step */
 var step = function () {
@@ -49,7 +51,7 @@ var addComete = function() {
 	if (elapsedTime >= 3000) {
 		
 		/* Création d'une nouvelle comète et ajout au tableau */
-		var oComete = new Comete(Math.random() * 1000, 50, "rgb(20,20,20)");
+		var oComete = new Comete(arrayColonneX[Math.floor(Math.random() * 4)], 50, "rgb(255,255,255)");
 		arrayComete.push(oComete);
 		
 		ctx.beginPath();
@@ -63,9 +65,10 @@ var addComete = function() {
 	for(var i=0;i<arrayComete.length;i++) {
 		ctx.beginPath();
 		ctx.fillStyle = "rgb(255,255,255)";
-		ctx.arc(arrayComete[i].x, arrayComete[i].y++, arrayComete[i].radius, arrayComete[i].startAngle, arrayComete[i].endAngle);
+		ctx.arc(arrayComete[i].x, arrayComete[i].y++*0.5, arrayComete[i].radius, arrayComete[i].startAngle, arrayComete[i].endAngle);
 		ctx.fill();
 	}
+	
 	
 }
 /* Fonction main */
