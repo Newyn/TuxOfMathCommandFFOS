@@ -1,10 +1,10 @@
 function Comete(x, y, rgb) {
-	this.x = x;
-	this.y = y;
-	this.radius = 30;
-	this.rgb = rgb;
-	this.startAngle = 0;
-	this.endAngle = 2 * Math.PI;
+	this._x = x;
+	this._y = y;
+	this._radius = 30;
+	this._rgb = rgb;
+	this._startAngle = 0;
+	this._endAngle = 2 * Math.PI;
 }
 
 /*Object.defineProperty(MathCommand.prototype, "x",
