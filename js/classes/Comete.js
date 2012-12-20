@@ -1,8 +1,8 @@
-function Comete(x, y, rgb) {
+function Comete(img, x, y) {
+	this._img = img;
 	this._x = x;
 	this._y = y;
 	this._radius = 30;
-	this._rgb = rgb;
 	this._startAngle = 0;
 	this._endAngle = 2 * Math.PI;
 }

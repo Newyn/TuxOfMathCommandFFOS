@@ -8,7 +8,7 @@ var requestAnimationFrame =
 /* Création du canvas */
 var canvas = document.createElement("canvas");
 canvas.id = "game";
-canvas.width = 900;
+canvas.width = 1000;
 canvas.height = 600;
 
 /* Création du contexte */
@@ -17,9 +17,15 @@ var ctx = canvas.getContext("2d");
 /* Ajout du canvas au document HTML */
 document.body.appendChild(canvas);
 
+/* Gestion du timer d'apparition des comètes */
 var currentTimestamp = Date.now();
 var previousTimestamp = 0;
 var elapsedTime = 0;
+
+/* Gestion du timer du mouvement des comètes */
+var currentTimestamp2 = Date.now();
+var previousTimestamp2 = 0;
+var elapsedTime2 = 0;
 
 /* Tableau pour stocker les comètes */
 var aListComete = [];
@@ -37,14 +43,14 @@ var colonneX4 = 750;
 var aListColonneX = [colonneX1, colonneX2, colonneX3, colonneX4];
 
 var GAME_SPEED = 0.5;
-var GAME_ENDLINE_HEIGHT = 500;
+var GAME_ENDLINE_HEIGHT = 725;
 
 for (var i=0;i<4;i++) {
 
 	var oIglooImage = new Image();
 	oIglooImage.src = "resources/igloos/intact.png";
 	//oIglooImage.onload = function () {
-		var oIgloo = new Igloo(oIglooImage, aListColonneX[i] - 60, 500);
+		var oIgloo = new Igloo(oIglooImage, aListColonneX[i] - 15, 500);
 		aListIgloo.push(oIgloo);
 	//}
 }
@@ -78,32 +84,60 @@ var addComete = function() {
 	previousTimestamp = currentTimestamp;
 	currentTimestamp = Date.now();
 	elapsedTime += currentTimestamp - previousTimestamp;
-		
+	
 	/* 3000 = 3 secondes */
 	if (elapsedTime >= 3000) {
 		
+		var oCometeImage = new Image();
+		oCometeImage.src = "resources/comets/comet0.png";
+		
 		/* Création d'une nouvelle comète et ajout au tableau */
-		var oComete = new Comete(aListColonneX[Math.floor(Math.random() * 4)], 50, "rgb(255,255,255)");
+		var oComete = new Comete(oCometeImage, aListColonneX[Math.floor(Math.random() * 4)], 0);
 		aListComete.push(oComete);
 		
-		ctx.beginPath();
-		ctx.fillStyle = oComete._rgb;
-		ctx.arc(oComete._x, oComete._y, oComete._radius, oComete._startAngle, oComete._endAngle);
-		ctx.fill();
-		
+		ctx.drawImage(oComete._img, oComete._x, oComete._y);
+
 		elapsedTime = 0;
 	}
 	
 	for(var i=0;i<aListComete.length;i++) {
-		ctx.beginPath();
-		ctx.fillStyle = "rgb(255,255,255)";
-		ctx.arc(aListComete[i]._x, aListComete[i]._y++, aListComete[i]._radius, aListComete[i]._startAngle, aListComete[i]._endAngle);
-		ctx.fill();
+		
+		previousTimestamp2 = currentTimestamp2;
+		currentTimestamp2 = Date.now();
+		elapsedTime2 += currentTimestamp2 - previousTimestamp2;
+		
+		if (elapsedTime2 >= 100) {
+		
+			for(var j=0;j<aListComete.length;j++) {
+				if (aListComete[j]._img.src.indexOf("comet0.png") !== -1) {
+					var oCometeImage = new Image();
+					oCometeImage.src = "resources/comets/comet1.png";
+					aListComete[j]._img = oCometeImage;
+				}
+				else if (aListComete[j]._img.src.indexOf("comet1.png") !== -1) {
+					var oCometeImage = new Image();
+					oCometeImage.src = "resources/comets/comet2.png";
+					aListComete[j]._img = oCometeImage;
+				}
+				else {
+					var oCometeImage = new Image();
+					oCometeImage.src = "resources/comets/comet0.png";
+					aListComete[j]._img = oCometeImage;
+				}
+			}
+			
+			elapsedTime2 = 0;	
+		}
+		
+		ctx.drawImage(aListComete[i]._img, aListComete[i]._x, aListComete[i]._y++*0.5);
 		
 		if (aListComete[i]._y == GAME_ENDLINE_HEIGHT) {
 			aListComete.remove(i);
 		}
+		
+		
 	}
+	
 	
 	
 }
