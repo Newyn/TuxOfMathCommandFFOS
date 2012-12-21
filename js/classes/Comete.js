@@ -7,6 +7,9 @@ function Comete(img, x, y) {
 	this._endAngle = 2 * Math.PI;
 }
 
+Comete.prototype.descendre = function(speed) {
+	this._y = this._y + 1 * GAME_SPEED;
+}
 /*Object.defineProperty(MathCommand.prototype, "x",
 	{
 		get: function() {

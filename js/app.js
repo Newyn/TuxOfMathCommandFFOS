@@ -43,7 +43,7 @@ var colonneX4 = 750;
 var aListColonneX = [colonneX1, colonneX2, colonneX3, colonneX4];
 
 var GAME_SPEED = 0.5;
-var GAME_ENDLINE_HEIGHT = 725;
+var GAME_ENDLINE_HEIGHT = 360;
 
 for (var i=0;i<4;i++) {
 
@@ -55,7 +55,6 @@ for (var i=0;i<4;i++) {
 	//}
 }
 
-	
 /* Fonction Step */
 var step = function () {
 
@@ -85,8 +84,8 @@ var addComete = function() {
 	currentTimestamp = Date.now();
 	elapsedTime += currentTimestamp - previousTimestamp;
 	
-	/* 3000 = 3 secondes */
-	if (elapsedTime >= 3000) {
+	/* 5000 = 5 secondes */
+	if (elapsedTime >= 5000) {
 		
 		var oCometeImage = new Image();
 		oCometeImage.src = "resources/comets/comet0.png";
@@ -129,9 +128,19 @@ var addComete = function() {
 			elapsedTime2 = 0;	
 		}
 		
-		ctx.drawImage(aListComete[i]._img, aListComete[i]._x, aListComete[i]._y++*0.5);
 		
-		if (aListComete[i]._y == GAME_ENDLINE_HEIGHT) {
+		if (aListComete[i]._y < GAME_ENDLINE_HEIGHT) {
+			aListComete[i].descendre(GAME_SPEED);
+			ctx.drawImage(aListComete[i]._img, aListComete[i]._x, aListComete[i]._y);
+			console.log(aListComete[i]._y);
+		}
+		else {
+		
+			/*var oCometeImage = new Image();
+			oCometeImage.src = "resources/comets/cometex0.png";
+			aListComete[i]._img = oCometeImage;*/
+			//ctx.drawImage(aListComete[i]._img, aListComete[i]._x, aListComete[i]._y);
+			//ctx.drawImage(oCometeImage, aListComete[i]._x, aListComete[i]._y);
 			aListComete.remove(i);
 		}
 		
