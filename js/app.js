@@ -101,13 +101,22 @@ var addComete = function() {
 	
 	for(var i=0;i<aListComete.length;i++) {
 		
+		/* Mise à jour de l'intervalle du mouvement des comètes descendantes */
 		previousTimestamp2 = currentTimestamp2;
 		currentTimestamp2 = Date.now();
 		elapsedTime2 += currentTimestamp2 - previousTimestamp2;
 		
+		/* 100 = 0.1 secondes */
 		if (elapsedTime2 >= 100) {
 		
+			/* Principe de fonctionnement, pour chacune des comètes :
+				- Si comet0 alors comet1
+				- Si comet1 alors comet2
+				- Si comet2 alors comet0
+			   Et ainsi de suite ... cela permet d'avoir l'illusion de mouvement pour chacune des comètes
+			*/
 			for(var j=0;j<aListComete.length;j++) {
+			
 				if (aListComete[j]._img.src.indexOf("comet0.png") !== -1) {
 					var oCometeImage = new Image();
 					oCometeImage.src = "resources/comets/comet1.png";
@@ -132,15 +141,59 @@ var addComete = function() {
 		if (aListComete[i]._y < GAME_ENDLINE_HEIGHT) {
 			aListComete[i].descendre(GAME_SPEED);
 			ctx.drawImage(aListComete[i]._img, aListComete[i]._x, aListComete[i]._y);
-			console.log(aListComete[i]._y);
 		}
 		else {
 		
+			// TOFIX : Explosion de la comète
+			
 			/*var oCometeImage = new Image();
 			oCometeImage.src = "resources/comets/cometex0.png";
 			aListComete[i]._img = oCometeImage;*/
 			//ctx.drawImage(aListComete[i]._img, aListComete[i]._x, aListComete[i]._y);
 			//ctx.drawImage(oCometeImage, aListComete[i]._x, aListComete[i]._y);
+			
+			
+			for (var j=0;j<aListIgloo.length;j++) {
+				
+				/* Réajustement de la position x des igloos avec celle des comètes */
+				var oIglooX = aListIgloo[j]._x + 15;
+				
+				/* Dès qu'on a trouvé l'igloo qui correspond à la comète */
+				if (oIglooX == aListComete[i]._x) {
+					
+					/* Principe de fonctionnement, à chaque fois qu'une comète touche un igloo :
+						- Si igloo intact alors il devient half
+						- Si igloo half alors il devient melted1
+						- Si igloo melted1 alors GAME OVER
+					*/
+					if (aListIgloo[j]._img.src.indexOf("intact.png") !== -1) {
+					
+						var oIglooImage = new Image();
+						oIglooImage.src = "resources/igloos/half.png";	
+						aListIgloo[j]._img = oIglooImage;
+						
+						ctx.drawImage(aListIgloo[j]._img, aListIgloo[j]._x, aListIgloo[j]._y);
+					}
+					else if (aListIgloo[j]._img.src.indexOf("half.png") !== -1) {
+					
+						var oIglooImage = new Image();
+						oIglooImage.src = "resources/igloos/melted1.png";	
+						aListIgloo[j]._img = oIglooImage;
+						
+						/* Repositionnement de la nouvelle image */
+						aListIgloo[j]._x = aListIgloo[j]._x - 20;
+						aListIgloo[j]._y = aListIgloo[j]._y + 38;
+						
+						
+						ctx.drawImage(aListIgloo[j]._img, aListIgloo[j]._x, aListIgloo[j]._y);
+					}
+					else {
+						// TODO : Il n'y a plus de vies => GAME OVER
+					}
+				}
+			}
+			
+			/* Suppression de la comète de l'array aListComete */
 			aListComete.remove(i);
 		}
 		
