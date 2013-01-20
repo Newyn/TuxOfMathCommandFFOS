@@ -1,21 +1,56 @@
-/* Initialisation requestAnimationFrame */
-var requestAnimationFrame =
-    window.requestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.msRequestAnimationFrame;
+/**************************************************************************************************
+***************************************************************************************************
+Initialisation requestAnimationFrame
+***************************************************************************************************
+**************************************************************************************************/
 
-/* Création du canvas */
+var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+							window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+/**************************************************************************************************
+***************************************************************************************************
+Initialisation du canvas
+***************************************************************************************************
+**************************************************************************************************/
+
 var canvas = document.createElement("canvas");
-canvas.id = "game";
-canvas.width = 1000;
-canvas.height = 600;
-
-/* Création du contexte */
 var ctx = canvas.getContext("2d");
 
-/* Ajout du canvas au document HTML */
+canvas.id = "game";
+canvas.width = document.documentElement.clientWidth;
+canvas.height = document.documentElement.clientHeight;
+
 document.body.appendChild(canvas);
+
+/**************************************************************************************************
+***************************************************************************************************
+Variables globales
+***************************************************************************************************
+**************************************************************************************************/
+var oMenu = new Menu();
+
+var oGame = new Game();
+
+// Vitesse du jeu
+var GAME_SPEED = 0.5;
+
+// Position X des colonnes
+var COL_X1 = canvas.width / 10;
+var COL_X2 = canvas.width / 3.26;
+var COL_X3 = canvas.width / 1.94;
+var COL_X4 = canvas.width / 1.38;
+
+// Position Y des colonnes
+var COL_Y = canvas.height / 1.25;
+
+var GAME_ENDLINE_HEIGHT = canvas.height / 1.25 - 140;
+
+// Tableau pour stocker la position des colonnes
+var aListColonneX = [COL_X1, COL_X2, COL_X3, COL_X4];
+// Tableau pour stocker les igloos
+var aListIgloo = [];
+// Tableau pour stocker les comètes 
+var aListComete = [];
 
 /* Gestion du timer d'apparition des comètes */
 var currentTimestamp = Date.now();
@@ -27,34 +62,32 @@ var currentTimestamp2 = Date.now();
 var previousTimestamp2 = 0;
 var elapsedTime2 = 0;
 
-/* Tableau pour stocker les comètes */
-var aListComete = [];
-
-/* Tableau pour stocker les igloos */
-var aListIgloo = [];
-
-/* Définition des colonnes où apparaissent les comètes */
-var colonneX1 = 150;
-var colonneX2 = 350;
-var colonneX3 = 550;
-var colonneX4 = 750;
-
-/* Tableau pour stocker la position des colonnes */
-var aListColonneX = [colonneX1, colonneX2, colonneX3, colonneX4];
-
-var GAME_SPEED = 0.5;
-var GAME_ENDLINE_HEIGHT = 360;
-
 for (var i=0;i<4;i++) {
 
 	var oIglooImage = new Image();
 	oIglooImage.src = "resources/igloos/intact.png";
 	//oIglooImage.onload = function () {
-		var oIgloo = new Igloo(oIglooImage, aListColonneX[i] - 15, 500);
+		var oIgloo = new Igloo(oIglooImage, aListColonneX[i] - 15, COL_Y);
 		aListIgloo.push(oIgloo);
 	//}
 }
+/*var screenResize = function () {
 
+	canvas.width = document.documentElement.clientWidth;
+	canvas.height = document.documentElement.clientHeight;
+	
+	COL_X1 = canvas.width / 10;
+	COL_X2 = canvas.width / 3.26;
+	COL_X3 = canvas.width / 1.94;
+	COL_X4 = canvas.width / 1.38;
+	
+	aListColonneX = [COL_X1, COL_X2, COL_X3, COL_X4];
+	
+	for (var i=0;i<aListIgloo.length;i++) {
+		aListIgloo[i]._x = aListColonneX[i] - 15;
+		ctx.drawImage(aListIgloo[i]._img, aListIgloo[i]._x, aListIgloo[i]._y);
+	}
+}*/
 /* Fonction Step */
 var step = function () {
 
@@ -203,11 +236,43 @@ var addComete = function() {
 	
 	
 }
-/* Fonction main */
-var main = function () {
+
+var startMenu = function () {
+	
+	canvas.addEventListener('mousedown', mouseClickMenu, false);
+	window.addEventListener('resize', resizeCanvas, false);
+	
+	// Si on est pas dans une partie
+	if(oMenu != null) {
+	
+		now = Date.now();
+		delta = now - then;
+
+		// on lance le menu
+		oMenu.start();
+
+		requestAnimationFrame(startMenu);
+	} else {
+	
+		startGame();
+	}
+};
+
+var startGame = function () {
+
 	step();
-	requestAnimationFrame(main);
+	requestAnimationFrame(startGame);
 }
 
-main();
+/* Fonction main */
+/*var main = function () {
+	step();
+	requestAnimationFrame(main);
+}*/
+
+//main();
 //main(Date.now());
+var then = Date.now();
+var now = then;
+var delta = 0;
+startMenu();
