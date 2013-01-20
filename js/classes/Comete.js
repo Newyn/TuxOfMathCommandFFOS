@@ -1,14 +1,14 @@
 function Comete(img, x, y) {
-	this._img = img;
-	this._x = x;
-	this._y = y;
-	this._radius = 30;
-	this._startAngle = 0;
-	this._endAngle = 2 * Math.PI;
+	this.img = img;
+	this.x = x;
+	this.y = y;
+	this.radius = 30;
+	this.startAngle = 0;
+	this.endAngle = 2 * Math.PI;
 }
 
 Comete.prototype.descendre = function(speed) {
-	this._y = this._y + 1 * GAME_SPEED;
+	this.y = this.y + 1 * GAME_SPEED;
 }
 /*Object.defineProperty(MathCommand.prototype, "x",
 	{
