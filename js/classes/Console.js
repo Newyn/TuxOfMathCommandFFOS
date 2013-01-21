@@ -8,6 +8,10 @@ function Console() {
 Console.prototype.draw = function () {
 	ctx.drawImage(this.img, this.x, this.y);
 	this.drawKeypad();
+	
+	if (aListLednums.length < 3) {
+		this.drawLednum();
+	}
 }
 
 Console.prototype.drawKeypad = function() {
@@ -18,6 +22,24 @@ Console.prototype.drawKeypad = function() {
 		oKeypad.draw(i);
 		aListKeypad.push(oKeypad);
 	}
+	
+	if (aListLednums.length >= 3) {
+	
+		for (var i=aListLednums.length - 3; i<aListLednums.length; i++) {
+			ctx.drawImage(aListLednums[i].img, aListLednums[i].x, aListLednums[i].y);
+		}
+	}
+}
+
+Console.prototype.drawLednum = function() {
+	var oFirstLednum = new Lednum("resources/status/lednums/lednums0.png", oConsole.x + oConsole.img.width / 1.75, oConsole.y + oConsole.img.height / 17, 1);
+	aListLednums.push(oFirstLednum);
+	
+	var oSecondLednum = new Lednum("resources/status/lednums/lednums0.png", oConsole.x + oConsole.img.width / 2.4, oConsole.y + oConsole.img.height / 17, 2);
+	aListLednums.push(oSecondLednum);
+	
+	var oThirdLednum = new Lednum("resources/status/lednums/lednums0.png", oConsole.x + oConsole.img.width / 3.8, oConsole.y + oConsole.img.height / 17, 3);
+	aListLednums.push(oThirdLednum);
 }
 
 

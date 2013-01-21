@@ -46,6 +46,8 @@ var COL_Y = canvas.height / 1.25;
 
 var GAME_ENDLINE_HEIGHT = canvas.height / 1.25 - 140;
 
+var LEDNUM_POSITION = 1;
+
 // Tableau pour stocker la position des colonnes
 var aListColonneX = [COL_X1, COL_X2, COL_X3, COL_X4];
 // Tableau pour stocker les igloos
@@ -54,6 +56,7 @@ var aListIgloo = [];
 var aListComete = [];
 
 var aListKeypad = [];
+var aListLednums = [];
 
 // Gestion du timer d'apparition des comètes 
 var currentTimestamp = Date.now();
@@ -84,7 +87,7 @@ var step = function () {
 
 	oGame.drawConsole();
 	oGame.drawIgloo();
-	oGame.drawComete();
+	//oGame.drawComete();
 }
 
 /**************************************************************************************************
@@ -108,6 +111,7 @@ var mainMenu = function () {
 	} else {
 	
 		// Lancement de la partie
+		canvas.removeEventListener('mousedown', mouseClickMenu, false);
 		mainGame();
 	}
 };
