@@ -22,6 +22,12 @@ function Menu() {
 	this.thirdMenuItem = new MenuItem("resources/menu/aide.png", canvas.width / 2.3, canvas.height / 2.0, canvas.width / 5, canvas.height / 15);
 	this.fourthMenuItem = new MenuItem("resources/menu/plus-options.png", canvas.width / 2.3, canvas.height / 1.71, canvas.width / 5, canvas.height / 15);
 	this.fifthMenuItem = new MenuItem("resources/menu/quitter.png", canvas.width / 2.3, canvas.height / 1.49, canvas.width / 5, canvas.height / 15);
+
+	this.music = new Audio("resources/sounds/tuxi.ogg");
+	this.music.loop = true;
+    this.music.volume = 0.5;
+	this.music.load();
+	this.music.play();
 }
 
 /**************************************************************************************************
@@ -58,6 +64,7 @@ Evenèment onClick sur le menu
 Menu.prototype.click = function(x, y) {
 	
 	if ((x > this.firstMenuItem.x) && (x < this.firstMenuItem.x + this.firstMenuItem.width) && (y > this.firstMenuItem.y) && (y < this.firstMenuItem.y + this.firstMenuItem.height)) {
+		this.music.pause();
 		oGame.start();
 	}
 	else if ((x > this.secondMenuItem.x) && (x < this.secondMenuItem.x + this.secondMenuItem.width) && (y > this.secondMenuItem.y) && (y < this.secondMenuItem.y + this.secondMenuItem.height)) {
