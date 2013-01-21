@@ -11,6 +11,21 @@ var resizeMenu = function() {
 	
 }
 
+var mouseClickKeypad = function(e) {
+
+	if(e.offsetX || e.offsetY) {
+        x = e.offsetX;
+		y = e.offsetY;
+    }
+    else if(e.layerX || e.layerY){
+        x = e.layerX;
+		y = e.layerY;
+    } 
+	
+	for (var i=0; i<aListKeypad.length; i++) {
+		aListKeypad[i].click(x, y);
+	}
+}
 var mouseClickMenu = function(e) {
 
 	if(e.offsetX || e.offsetY) {

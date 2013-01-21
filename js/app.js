@@ -30,15 +30,16 @@ Variables globales
 
 var oMenu = new Menu();
 var oGame = new Game();
+var oConsole = new Console();
 
 // Vitesse du jeu
 var GAME_SPEED = 0.5;
 
 // Position X des colonnes
 var COL_X1 = canvas.width / 10;
-var COL_X2 = canvas.width / 3.26;
-var COL_X3 = canvas.width / 1.94;
-var COL_X4 = canvas.width / 1.38;
+var COL_X2 = canvas.width / 3.6;
+var COL_X3 = canvas.width / 1.53;
+var COL_X4 = canvas.width / 1.2;
 
 // Position Y des colonnes
 var COL_Y = canvas.height / 1.25;
@@ -51,6 +52,8 @@ var aListColonneX = [COL_X1, COL_X2, COL_X3, COL_X4];
 var aListIgloo = [];
 // Tableau pour stocker les comètes 
 var aListComete = [];
+
+var aListKeypad = [];
 
 // Gestion du timer d'apparition des comètes 
 var currentTimestamp = Date.now();
@@ -77,6 +80,9 @@ var step = function () {
     ctx.fillStyle = "rgb(0,0,0)";
     ctx.fillRect(0,0,canvas.width,canvas.height);
 	
+	aListKeypad = [];
+
+	oGame.drawConsole();
 	oGame.drawIgloo();
 	oGame.drawComete();
 }
@@ -114,6 +120,8 @@ Main de la partie
 
 var mainGame = function () {
 
+	canvas.addEventListener('mousedown', mouseClickKeypad, false);
+	
 	step();
 	requestAnimationFrame(mainGame);
 }
@@ -121,4 +129,10 @@ var mainGame = function () {
 //var then = Date.now();
 //var now = then;
 //var delta = 0;
-mainMenu();
+oGame.start();
+console.log(canvas.width);
+console.log(COL_X1);
+console.log(COL_X2);
+console.log(COL_X3);
+console.log(COL_X4);
+mainGame();
