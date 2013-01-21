@@ -129,10 +129,4 @@ var mainGame = function () {
 //var then = Date.now();
 //var now = then;
 //var delta = 0;
-oGame.start();
-console.log(canvas.width);
-console.log(COL_X1);
-console.log(COL_X2);
-console.log(COL_X3);
-console.log(COL_X4);
-mainGame();
+mainMenu();
