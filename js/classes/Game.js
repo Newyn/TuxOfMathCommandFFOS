@@ -16,6 +16,11 @@ Lancement et initialisation de la partie
 
 Game.prototype.start = function() {
 
+	ctx.shadowColor = "";
+	ctx.shadowOffsetX = 0;
+	ctx.shadowOffsetY = 0;
+	ctx.shadowBlur = 0;
+	
 	oMenu = null;
 	
 	for (var i=0;i<4;i++) {
@@ -66,7 +71,7 @@ Game.prototype.drawComete = function() {
 	elapsedTime += currentTimestamp - previousTimestamp;
 	
 	/* 5000 = 5 secondes */
-	if (elapsedTime >= 5000) {
+	if (elapsedTime >= 8000) {
 		
 		var oCometeImage = new Image();
 		oCometeImage.src = "resources/comets/comet0.png";
@@ -75,8 +80,11 @@ Game.prototype.drawComete = function() {
 		var oComete = new Comete(oCometeImage, aListColonneX[Math.floor(Math.random() * 4)], 0);
 		aListComete.push(oComete);
 		
-		ctx.drawImage(oComete.img, oComete.x, oComete.y);
-
+		ctx.drawImage(oComete.img, oComete.x, oComete.y, oComete.img.width / 1.5, oComete.img.height / 1.5);
+				
+		ctx.fillStyle = "rgb(255, 0, 0)";
+		ctx.fillText(oComete.eq2, oComete.x,  oComete.y + 50);
+		
 		elapsedTime = 0;
 	}
 	
@@ -121,7 +129,38 @@ Game.prototype.drawComete = function() {
 		
 		if (aListComete[i].y < GAME_ENDLINE_HEIGHT) {
 			aListComete[i].descendre(GAME_SPEED);
-			ctx.drawImage(aListComete[i].img, aListComete[i].x, aListComete[i].y);
+			ctx.fillStyle = "rgb(255, 0, 0)";
+			ctx.drawImage(aListComete[i].img, aListComete[i].x, aListComete[i].y, aListComete[i].img.width / 1.5, aListComete[i].img.height / 1.5);
+			for (var k = 0; k<aListComete[i].eq2.length; k++) {
+			
+				var oCometeNums = new Image();
+				
+				if (aListComete[i].eq2[k] == "+") {
+					oCometeNums.src = "resources/status/nums/add.png";
+				}
+				else if (aListComete[i].eq2[k] == "-") {
+					oCometeNums.src = "resources/status/nums/sub.png";
+				}
+				else if (aListComete[i].eq2[k] == "/") {
+					oCometeNums.src = "resources/status/nums/div.png";
+				}
+				else if (aListComete[i].eq2[k] == "*") {
+					oCometeNums.src = "resources/status/nums/mul.png";
+				}
+				else if (aListComete[i].eq2[k] == "=") {
+					oCometeNums.src = "resources/status/nums/equal.png";
+				}
+				else if (aListComete[i].eq2[k] == "?") {
+					oCometeNums.src = "resources/status/nums/int.png";
+				}
+				else {
+					oCometeNums.src = "resources/status/nums/"+aListComete[i].eq2[k]+".png";
+				}
+				
+				ctx.drawImage(oCometeNums, aListComete[i].x + k * 12, aListComete[i].y + 100, oCometeNums.width / 1.5, oCometeNums.height / 1.5);
+			}
+			
+			//ctx.fillText(aListComete[i].eq2, aListComete[i].x,  aListComete[i].y + 115);
 		}
 		else {
 		
@@ -179,6 +218,29 @@ Game.prototype.drawComete = function() {
 		}
 		
 		
+	}
+}
+
+/**************************************************************************************************
+***************************************************************************************************
+Destruction des comètes à partir de la console
+/**************************************************************************************************
+**************************************************************************************************/
+Game.prototype.calculComete = function() {
+
+	for (var i=0; i<aListComete.length;i++) {
+		
+		if (aListComete[i].eq.solution == valLednum) {
+		
+			ctx.beginPath();
+			ctx.strokeStyle='red';
+			ctx.lineWidth=4;
+			ctx.moveTo(oConsole.x,oConsole.y);
+			ctx.lineTo(aListComete[i].x,aListComete[i].y);
+			ctx.stroke(); 
+
+			aListComete.remove(i);
+		}
 	}
 }
 

@@ -1,15 +1,24 @@
-var resizeCanvas = function() {
-
-	canvas.width = document.documentElement.clientWidth;
-	canvas.height = document.documentElement.clientHeight;
-	
-	resizeMenu();
-}
-
 var resizeMenu = function() {
 
+	/*canvas.width = document.documentElement.clientWidth;
+	canvas.height = document.documentElement.clientHeight;
 	
+	var fNewRatioLargeur = canvas.width / fLargeurDeBase;
+	var fNewRatioHauteur = canvas.height / fHauteurDeBase;
+	
+	fRatioLargeur = fNewRatioLargeur;
+	fRatioHauteur = fNewRatioHauteur;
+	
+	for (var i=0; i<aListMenuItem.length; i++) {
+		aListMenuItem[i].x = aListMenuItem[i].x * (canvas.width / fLargeurDeBase);
+		aListMenuItem[i].y = aListMenuItem[i].y * (canvas.height / fHauteurDeBase);
+		//aListMenuItem[i].img.width = aListMenuItem[i].img.width	 * ((fRatioLargeur+fRatioHauteur)/2);
+		//aListMenuItem[i].img.height = aListMenuItem[i].img.height	 * ((fRatioLargeur+fRatioHauteur)/2);
+	}
+	
+	alert("stop");*/
 }
+
 
 var mouseClickKeypad = function(e) {
 
@@ -26,6 +35,7 @@ var mouseClickKeypad = function(e) {
 		aListKeypad[i].click(x, y);
 	}
 }
+
 var mouseClickMenu = function(e) {
 
 	if(e.offsetX || e.offsetY) {
@@ -40,20 +50,16 @@ var mouseClickMenu = function(e) {
 	oMenu.click(x, y);
 }
 
-/*var screenResize = function () {
+var handleKeyPressGame = function(e) {
 
-	canvas.width = document.documentElement.clientWidth;
-	canvas.height = document.documentElement.clientHeight;
+	// Firefox => charCode
+	// IE => keyCode
+	e = e.charCode || e.keyCode;
 	
-	COL_X1 = canvas.width / 10;
-	COL_X2 = canvas.width / 3.26;
-	COL_X3 = canvas.width / 1.94;
-	COL_X4 = canvas.width / 1.38;
-	
-	aListColonneX = [COL_X1, COL_X2, COL_X3, COL_X4];
-	
-	for (var i=0;i<aListIgloo.length;i++) {
-		aListIgloo[i]._x = aListColonneX[i] - 15;
-		ctx.drawImage(aListIgloo[i]._img, aListIgloo[i]._x, aListIgloo[i]._y);
+	// Touche "Entrée"
+	if (e == 13) {
+		oConsole.setValLednum();
+		oGame.calculComete();
+		oConsole.resetLednum();
 	}
-}*/
+}

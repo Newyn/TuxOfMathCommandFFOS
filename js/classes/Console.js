@@ -10,8 +10,31 @@ Console.prototype.draw = function () {
 	this.drawKeypad();
 	
 	if (aListLednums.length < 3) {
-		this.drawLednum();
+		this.initLednum();
 	}
+}
+
+Console.prototype.initLednum = function() {
+	var oFirstLednum = new Lednum("resources/status/lednums/lednums0.png", 0);
+	aListLednums.push(oFirstLednum);
+	
+	var oSecondLednum = new Lednum("resources/status/lednums/lednums0.png", 0);
+	aListLednums.push(oSecondLednum);
+	
+	var oThirdLednum = new Lednum("resources/status/lednums/lednums0.png", 0);
+	aListLednums.push(oThirdLednum);
+}
+
+Console.prototype.drawLednum = function () {
+	ctx.drawImage(aListLednums[0].img, oConsole.x + oConsole.img.width / 3.8, oConsole.y + oConsole.img.height / 17);
+	ctx.drawImage(aListLednums[1].img, oConsole.x + oConsole.img.width / 2.4, oConsole.y + oConsole.img.height / 17);
+	ctx.drawImage(aListLednums[2].img, oConsole.x + oConsole.img.width / 1.75, oConsole.y + oConsole.img.height / 17);
+	
+}
+
+Console.prototype.setValLednum = function () {
+	valLednum = "";
+	valLednum = aListLednums[0].val+""+aListLednums[1].val+""+aListLednums[2].val;
 }
 
 Console.prototype.drawKeypad = function() {
@@ -24,22 +47,18 @@ Console.prototype.drawKeypad = function() {
 	}
 	
 	if (aListLednums.length >= 3) {
-	
-		for (var i=aListLednums.length - 3; i<aListLednums.length; i++) {
-			ctx.drawImage(aListLednums[i].img, aListLednums[i].x, aListLednums[i].y);
-		}
+		this.drawLednum();
 	}
 }
 
-Console.prototype.drawLednum = function() {
-	var oFirstLednum = new Lednum("resources/status/lednums/lednums0.png", oConsole.x + oConsole.img.width / 1.75, oConsole.y + oConsole.img.height / 17, 1);
-	aListLednums.push(oFirstLednum);
-	
-	var oSecondLednum = new Lednum("resources/status/lednums/lednums0.png", oConsole.x + oConsole.img.width / 2.4, oConsole.y + oConsole.img.height / 17, 2);
-	aListLednums.push(oSecondLednum);
-	
-	var oThirdLednum = new Lednum("resources/status/lednums/lednums0.png", oConsole.x + oConsole.img.width / 3.8, oConsole.y + oConsole.img.height / 17, 3);
-	aListLednums.push(oThirdLednum);
-}
 
+
+Console.prototype.resetLednum = function() {
+
+	this.initLednum();
+	
+	aListLednums.remove(0,2);
+	
+	this.drawLednum();
+}
 

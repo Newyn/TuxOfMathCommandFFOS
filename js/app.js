@@ -28,12 +28,23 @@ Variables globales
 ***************************************************************************************************
 **************************************************************************************************/
 
+var fLargeurDeBase = 1360;
+var fHauteurDeBase = 620;
+
+var fRatioLargeur = (document.documentElement.clientWidth) / fLargeurDeBase;
+var fRatioHauteur = (document.documentElement.clientHeight) / fHauteurDeBase;
+
+var aListMenuItem = [];
+
 var oMenu = new Menu();
 var oGame = new Game();
 var oConsole = new Console();
 
+var background = new Image();
+background.src = "resources/backgrounds/1.jpg";
+	
 // Vitesse du jeu
-var GAME_SPEED = 0.5;
+var GAME_SPEED = 0.7;
 
 // Position X des colonnes
 var COL_X1 = canvas.width / 10;
@@ -46,8 +57,6 @@ var COL_Y = canvas.height / 1.25;
 
 var GAME_ENDLINE_HEIGHT = canvas.height / 1.25 - 140;
 
-var LEDNUM_POSITION = 1;
-
 // Tableau pour stocker la position des colonnes
 var aListColonneX = [COL_X1, COL_X2, COL_X3, COL_X4];
 // Tableau pour stocker les igloos
@@ -57,6 +66,9 @@ var aListComete = [];
 
 var aListKeypad = [];
 var aListLednums = [];
+
+//  VALEUR DES LEDNUMS
+var valLednum = "";
 
 // Gestion du timer d'apparition des comètes 
 var currentTimestamp = Date.now();
@@ -79,15 +91,14 @@ var step = function () {
 	// Réinitialisation de l'affichage 
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-	// Remplissage du canvas 
-    ctx.fillStyle = "rgb(0,0,0)";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-	
+	// Fond du canvas
+	ctx.drawImage(background, 0, 0, background.width, background.height, 0, 0, canvas.width, canvas.height);
+
 	aListKeypad = [];
 
 	oGame.drawConsole();
 	oGame.drawIgloo();
-	//oGame.drawComete();
+	oGame.drawComete();
 }
 
 /**************************************************************************************************
@@ -97,9 +108,9 @@ Main de l'écran du menu
 **************************************************************************************************/
 
 var mainMenu = function () {
-	
+
 	canvas.addEventListener('mousedown', mouseClickMenu, false);
-	window.addEventListener('resize', resizeCanvas, false);
+	window.addEventListener('resize', resizeMenu, false);
 	
 	// Si la partie n'est pas commencée
 	if(oMenu != null) {
@@ -125,6 +136,7 @@ Main de la partie
 var mainGame = function () {
 
 	canvas.addEventListener('mousedown', mouseClickKeypad, false);
+	window.addEventListener('keypress', handleKeyPressGame, true);
 	
 	step();
 	requestAnimationFrame(mainGame);

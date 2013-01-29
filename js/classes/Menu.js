@@ -23,6 +23,12 @@ function Menu() {
 	this.fourthMenuItem = new MenuItem("resources/menu/plus-options.png", canvas.width / 2.3, canvas.height / 1.71, canvas.width / 5, canvas.height / 15);
 	this.fifthMenuItem = new MenuItem("resources/menu/quitter.png", canvas.width / 2.3, canvas.height / 1.49, canvas.width / 5, canvas.height / 15);
 
+	aListMenuItem.push(this.firstMenuItem);
+	aListMenuItem.push(this.secondMenuItem);
+	aListMenuItem.push(this.thirdMenuItem);
+	aListMenuItem.push(this.fourthMenuItem);
+	aListMenuItem.push(this.fifthMenuItem);
+	
 	this.music = new Audio("resources/sounds/tuxi.ogg");
 	this.music.loop = true;
     this.music.volume = 0.5;
@@ -40,8 +46,14 @@ Menu.prototype.start = function() {
 	ctx.beginPath();
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	
+	ctx.shadowColor = "rgb(0, 0, 0)";
+	ctx.shadowOffsetX = 10;
+	ctx.shadowOffsetY = 10;
+	ctx.shadowBlur = 10;
+	
 	// Fond
 	ctx.drawImage(this.backgroundImage, 0, 0, this.backgroundImage.width, this.backgroundImage.height, 0, 0, canvas.width, canvas.height);
+
 	
 	// Title
 	ctx.drawImage(this.titleImage, 0, 0, this.titleImage.width, this.titleImage.height, canvas.width / 40 , canvas.height / 40, canvas.width / 7, canvas.height / 6);

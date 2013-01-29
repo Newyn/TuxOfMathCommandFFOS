@@ -1,7 +1,5 @@
-function Lednum(src, x, y, position) {
+function Lednum(src, val) {
 	this.img = new Image();
 	this.img.src = src;
-	this.x = x;
-	this.y = y;
-	this.position = position;
+	this.val = val;
 }

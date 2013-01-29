@@ -1,0 +1,15 @@
+{
+  "name": "Tux of Math Command",
+  "description": "Cette application est pour un public jeune et vise à s'entraîner en s'amusant à effectuer des opérations mathématiques, simples ou complexes",
+  "launch_path": "/",
+  "icons": {
+    "Tux": "resources/icons/icon.png"
+  },
+  "developer": {
+    "name": "Virgil Triquet - Lucas Pinto - Sylvain Ribous - Yassir Barchi"
+  },
+  "default_locale": "fr",
+  "orientation": ["paysage","landscape-secondary"]
+}
+
+
