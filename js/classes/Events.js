@@ -1,6 +1,7 @@
 var resizeMenu = function() {
 
-	/*canvas.width = document.documentElement.clientWidth;
+	/*console.log("RESIZE");
+	canvas.width = document.documentElement.clientWidth;
 	canvas.height = document.documentElement.clientHeight;
 	
 	var fNewRatioLargeur = canvas.width / fLargeurDeBase;
@@ -9,14 +10,24 @@ var resizeMenu = function() {
 	fRatioLargeur = fNewRatioLargeur;
 	fRatioHauteur = fNewRatioHauteur;
 	
+	if(fNewRatioLargeur < fNewRatioHauteur) {		
+		fNewRatioHauteur = fNewRatioLargeur;
+	}
+	else {
+		fNewRatioLargeur = fNewRatioHauteur;
+	}
+	
 	for (var i=0; i<aListMenuItem.length; i++) {
+		console.log("a");
 		aListMenuItem[i].x = aListMenuItem[i].x * (canvas.width / fLargeurDeBase);
 		aListMenuItem[i].y = aListMenuItem[i].y * (canvas.height / fHauteurDeBase);
 		//aListMenuItem[i].img.width = aListMenuItem[i].img.width	 * ((fRatioLargeur+fRatioHauteur)/2);
+		aListMenuItem[i].img.width = (aListMenuItem[i].img.width / ((fRatioLargeur+fRatioHauteur)/2)) * ((fNewRatioLargeur+fNewRatioHauteur)/2);
 		//aListMenuItem[i].img.height = aListMenuItem[i].img.height	 * ((fRatioLargeur+fRatioHauteur)/2);
+		aListMenuItem[i].img.height = (aListMenuItem[i].img.height / ((fRatioLargeur+fRatioHauteur)/2)) * ((fNewRatioLargeur+fNewRatioHauteur)/2);
 	}
 	
-	alert("stop");*/
+	//alert("stop");*/
 }
 
 
