@@ -3,10 +3,12 @@ function Console() {
 	this.img.src = "resources/tux/console_led.png";
 	this.x = canvas.width / 2.34;
 	this.y = canvas.height / 1.35;
+	this.width = this.img.width	 * ((fRatioLargeur+fRatioHauteur)/2);
+	this.height = this.img.height * ((fRatioLargeur+fRatioHauteur)/2);
 }
 
 Console.prototype.draw = function () {
-	ctx.drawImage(this.img, this.x, this.y);
+	ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 	this.drawKeypad();
 	
 	if (aListLednums.length < 3) {
@@ -26,9 +28,9 @@ Console.prototype.initLednum = function() {
 }
 
 Console.prototype.drawLednum = function () {
-	ctx.drawImage(aListLednums[0].img, oConsole.x + oConsole.img.width / 3.8, oConsole.y + oConsole.img.height / 17);
-	ctx.drawImage(aListLednums[1].img, oConsole.x + oConsole.img.width / 2.4, oConsole.y + oConsole.img.height / 17);
-	ctx.drawImage(aListLednums[2].img, oConsole.x + oConsole.img.width / 1.75, oConsole.y + oConsole.img.height / 17);
+	ctx.drawImage(aListLednums[0].img, oConsole.x + oConsole.width / 3.8, oConsole.y + oConsole.height / 17, aListLednums[0].width, aListLednums[0].height);
+	ctx.drawImage(aListLednums[1].img, oConsole.x + oConsole.width / 2.4, oConsole.y + oConsole.height / 17, aListLednums[1].width, aListLednums[1].height);
+	ctx.drawImage(aListLednums[2].img, oConsole.x + oConsole.width / 1.75, oConsole.y + oConsole.height / 17, aListLednums[2].width, aListLednums[2].height);
 	
 }
 

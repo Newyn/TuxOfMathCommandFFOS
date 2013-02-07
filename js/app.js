@@ -38,7 +38,7 @@ var background = new Image();
 background.src = "resources/backgrounds/1.jpg";
 	
 // Vitesse du jeu
-var GAME_SPEED = 0.7;
+var GAME_SPEED = 0.7 * ((fRatioLargeur+fRatioHauteur)/2);
 
 // Position X des colonnes
 var COL_X1 = canvas.width / 10;
@@ -49,7 +49,7 @@ var COL_X4 = canvas.width / 1.2;
 // Position Y des colonnes
 var COL_Y = canvas.height / 1.25;
 
-var GAME_ENDLINE_HEIGHT = canvas.height / 1.25 - 140;
+var GAME_ENDLINE_HEIGHT = (canvas.height / 1.25 - (140 * ((fRatioLargeur+fRatioHauteur)/2)) * ((fRatioLargeur+fRatioHauteur)/2));
 
 // Tableau pour stocker la position des colonnes
 var aListColonneX = [COL_X1, COL_X2, COL_X3, COL_X4];

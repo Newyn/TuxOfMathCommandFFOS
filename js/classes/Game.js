@@ -80,7 +80,7 @@ Game.prototype.drawComete = function() {
 		var oComete = new Comete(oCometeImage, aListColonneX[Math.floor(Math.random() * 4)], 0);
 		aListComete.push(oComete);
 		
-		ctx.drawImage(oComete.img, oComete.x, oComete.y, oComete.img.width / 1.5, oComete.img.height / 1.5);
+		ctx.drawImage(oComete.img, oComete.x, oComete.y, oComete.width / 1.5, oComete.height / 1.5);
 				
 		ctx.fillStyle = "rgb(255, 0, 0)";
 		ctx.fillText(oComete.eq2, oComete.x,  oComete.y + 50);
@@ -130,7 +130,7 @@ Game.prototype.drawComete = function() {
 		if (aListComete[i].y < GAME_ENDLINE_HEIGHT) {
 			aListComete[i].descendre(GAME_SPEED);
 			ctx.fillStyle = "rgb(255, 0, 0)";
-			ctx.drawImage(aListComete[i].img, aListComete[i].x, aListComete[i].y, aListComete[i].img.width / 1.5, aListComete[i].img.height / 1.5);
+			ctx.drawImage(aListComete[i].img, aListComete[i].x, aListComete[i].y, aListComete[i].width / 1.5, aListComete[i].height / 1.5);
 			for (var k = 0; k<aListComete[i].eq2.length; k++) {
 			
 				var oCometeNums = new Image();
@@ -157,7 +157,12 @@ Game.prototype.drawComete = function() {
 					oCometeNums.src = "resources/status/nums/"+aListComete[i].eq2[k]+".png";
 				}
 				
-				ctx.drawImage(oCometeNums, aListComete[i].x + k * 12, aListComete[i].y + 100, oCometeNums.width / 1.5, oCometeNums.height / 1.5);
+				oCometeNums.width = oCometeNums.width * ((fRatioLargeur+fRatioHauteur)/2);
+				oCometeNums.height = oCometeNums.height * ((fRatioLargeur+fRatioHauteur)/2);
+				
+				var tmp = (aListComete[i].x + k * (12 * ((fRatioLargeur+fRatioHauteur)/2)));
+				
+				ctx.drawImage(oCometeNums, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums.width / 1.5, oCometeNums.height / 1.5);
 			}
 			
 			//ctx.fillText(aListComete[i].eq2, aListComete[i].x,  aListComete[i].y + 115);
@@ -192,7 +197,7 @@ Game.prototype.drawComete = function() {
 						oIglooImage.src = "resources/igloos/half.png";	
 						aListIgloo[j].img = oIglooImage;
 						
-						ctx.drawImage(aListIgloo[j].img, aListIgloo[j].x, aListIgloo[j].y);
+						ctx.drawImage(aListIgloo[j].img, aListIgloo[j].x, aListIgloo[j].y, aListIgloo[j].width, aListIgloo[j].height);
 					}
 					else if (aListIgloo[j].img.src.indexOf("half.png") !== -1) {
 					
@@ -205,7 +210,7 @@ Game.prototype.drawComete = function() {
 						aListIgloo[j].y = aListIgloo[j].y + 38;
 						
 						
-						ctx.drawImage(aListIgloo[j].img, aListIgloo[j].x, aListIgloo[j].y);
+						ctx.drawImage(aListIgloo[j].img, aListIgloo[j].x, aListIgloo[j].y, aListIgloo[j].width, aListIgloo[j].height);
 					}
 					else {
 						// TODO : Il n'y a plus de vies => GAME OVER

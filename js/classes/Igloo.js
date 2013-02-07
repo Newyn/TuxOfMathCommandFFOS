@@ -7,6 +7,9 @@ function Igloo(img, x, y) {
 	this.img = img;
 	this.x = x;
 	this.y = y;
+	this.width = this.img.width	 * ((fRatioLargeur+fRatioHauteur)/2);
+	this.height = this.img.height * ((fRatioLargeur+fRatioHauteur)/2);
+
 	aListIgloo.push(this);
 }
 
@@ -16,5 +19,5 @@ Dessine l'igloo sur le Canvas
 /**************************************************************************************************
 **************************************************************************************************/
 Igloo.prototype.draw = function () {
-	ctx.drawImage(this.img, this.x, this.y);
+	ctx.drawImage(this.img, this.x, this.y, this.width , this.height);
  }
