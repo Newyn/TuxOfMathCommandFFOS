@@ -1,5 +1,5 @@
 /**************************************************************************************************
-Initialisation requestAnimationFrame
+Initialisation de l'objet requestAnimationFrame
 **************************************************************************************************/
 
 var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
@@ -9,20 +9,40 @@ var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAni
 Initialisation du canvas
 **************************************************************************************************/
 
-var canvas = document.createElement("canvas");
+var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
-canvas.id = "game";
-canvas.width = document.documentElement.clientWidth;
-canvas.height = document.documentElement.clientHeight;
+var itemPlay = document.getElementById("play");
+var itemHelp = document.getElementById("help");
+var itemOptions = document.getElementById("options");
+var itemExit = document.getElementById("exit");
 
-document.body.appendChild(canvas);
+itemPlay.addEventListener("click", function() {
+    alert("Play");
+});
+itemHelp.addEventListener("click", function() {
+    alert("Help");
+});
+itemOptions.addEventListener("click", function() {
+	alert("Options");
+});
+itemExit.addEventListener("click", function() {
+    alert("Exit");
+});
+
+//canvas.id = "game";
+//canvas.width = document.documentElement.clientWidth;
+//canvas.height = document.documentElement.clientHeight;
+
+//document.body.appendChild(canvas);
 
 /**************************************************************************************************
 Variables globales
 **************************************************************************************************/
 
+// Largeur de base du canvas
 var fLargeurDeBase = 1360;
+// Hauteur de base du canvas
 var fHauteurDeBase = 620;
 
 var fRatioLargeur = (document.documentElement.clientWidth) / fLargeurDeBase;
@@ -106,7 +126,6 @@ var mainMenu = function () {
 	if(oMenu != null) {
 
 		// Lancement du menu
-		oMenu.start();
 		requestAnimationFrame(mainMenu);
 		
 	} else {
@@ -133,4 +152,6 @@ var mainGame = function () {
 //var then = Date.now();
 //var now = then;
 //var delta = 0;
+
+
 mainMenu();

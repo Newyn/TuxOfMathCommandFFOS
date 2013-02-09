@@ -16,10 +16,31 @@
 		<script src="js/classes/Comete.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/classes/Igloo.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/classes/Utils.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/lib/stats.js" type="text/javascript" defer="defer"></script> 
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
 	</head>
 
-	<body style="margin: 0;">
+	<body style="overflow:hidden">
 		<script type="text/javascript" data-main="js/app.js" src="js/lib/require.js" defer="defer"></script>
+		<!--<div id="background" style="position:absolute;"></div>-->
+		<canvas id="canvas" style="position:absolute;width:100%;height:100%"></canvas>
+		<div id="topLeftLogo">
+			<img src="resources/title/title1.png" />
+		</div>
+		<div id="menu">
+		  <div class="list">
+			<div class="item"><img src="resources/menu/play-alone.png" id="play"/></div>
+			<div class="item" id="help"><img src="resources/menu/aide.png" id="help"/></div>
+			<div class="item" id="options"><img src="resources/menu/plus-options.png" id="options"/></div>
+			<div class="item" id="exit"><img src="resources/menu/quitter.png" id="exit"/></div>
+			<!--<div class="item">Jouer</div>
+			<div class="item">Didacticiel</div>
+			<div class="item">Options</div>
+			<div class="item">Quitter</div>-->
+		  </div>
+		</div>
+		<div id="bottomLeftLogo">
+			<img src="resources/tux/bigtux0.png" />
+		</div>
 	</body>
 </html>

@@ -1,4 +1,12 @@
-// Opérations
+/**************************************************************************************************
+Liste des opérations :
+= égalité
++ addition
+- soustraction
+* multiplication
+/ division
+**************************************************************************************************/
+
 var ops= [];
 ops[0] = '=';
 ops[1] = '+';
@@ -6,40 +14,37 @@ ops[2] = '-';
 ops[3] = '*';
 ops[4] = '/';
 
-// Status du jeu
+/**************************************************************************************************
+Statuts du jeu
+[TOFIX] = difficulté, score, etc...
+**************************************************************************************************/
+
 //var state = {
 //    level: 1,
 //    equations: null,
 //    score: 0
 //};
 
-// Constructeur d'une équation
-var Equation = function Equation(x, y) {
+/**************************************************************************************************
+Constructeur d'une équation
+**************************************************************************************************/
+
+function Equation(x, y) {
     this._x = x || 0;
     this._y = y || 0;
-    this.args= [];
-    this.ops= [];
-    this.exp ="";
-    this.solution="";
+    this.args = [];
+    this.ops = [];
+    this.exp = "";
+    this.solution = "";
 };
 
-// Fonctions d'une équation
-Equation.prototype = {
-  get x() {
-    return this._x;
-  },
-  get y() {
-    return this._y;
-  },
-  set x(x) {
-    this._x = x;
-  },
-  set y(y) {
-    this._y= y;
-  },
-  generate : function generate(nbrArgs){
-  	
-  	//Choix aléatoire des arguments et des opérations   	
+/**************************************************************************************************
+Génération d'une équation
+**************************************************************************************************/
+
+Equation.prototype.generate = function (nbrArgs) {
+
+	//Choix aléatoire des arguments et des opérations   	
   	for (var i = 0 ;i < nbrArgs; i++) {
 
   		//
@@ -106,14 +111,11 @@ Equation.prototype = {
   		newText  = this.ops[hiddenArgIndex-1]+'?'+this.ops[hiddenArgIndex];
   	}
   	
-  	console.log('hiddenArgIndex :'+ hiddenArgIndex, toChange, newText);
+	// LOGGER à décommenter pour le débug
+  	//console.log('hiddenArgIndex :'+ hiddenArgIndex, toChange, newText);
   	
   	// on remplace dans la chaine 
   	this.exp = this.exp.replace(toChange,newText);
+	
   	return this.exp;
-  },
-  collision: function collusion(peng) {
-  },
-  die: function die(timestamp) {
-  }
-};
+}
