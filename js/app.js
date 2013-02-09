@@ -1,40 +1,9 @@
 /**************************************************************************************************
-Initialisation de l'objet requestAnimationFrame
-**************************************************************************************************/
-
-var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-							window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-
-/**************************************************************************************************
 Initialisation du canvas
 **************************************************************************************************/
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-
-var itemPlay = document.getElementById("play");
-var itemHelp = document.getElementById("help");
-var itemOptions = document.getElementById("options");
-var itemExit = document.getElementById("exit");
-
-itemPlay.addEventListener("click", function() {
-    alert("Play");
-});
-itemHelp.addEventListener("click", function() {
-    alert("Help");
-});
-itemOptions.addEventListener("click", function() {
-	alert("Options");
-});
-itemExit.addEventListener("click", function() {
-    alert("Exit");
-});
-
-//canvas.id = "game";
-//canvas.width = document.documentElement.clientWidth;
-//canvas.height = document.documentElement.clientHeight;
-
-//document.body.appendChild(canvas);
 
 /**************************************************************************************************
 Variables globales
@@ -50,7 +19,6 @@ var fRatioHauteur = (document.documentElement.clientHeight) / fHauteurDeBase;
 
 var aListMenuItem = [];
 
-var oMenu = new Menu();
 var oGame = new Game();
 var oConsole = new Console();
 
@@ -95,6 +63,71 @@ var previousTimestamp2 = 0;
 var elapsedTime2 = 0;
 
 /**************************************************************************************************
+Initialisation de l'objet requestAnimationFrame
+**************************************************************************************************/
+
+var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+							window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+
+
+/**************************************************************************************************
+Initialisation du menu
+**************************************************************************************************/
+
+var music = new Audio("resources/sounds/tuxi.ogg");
+music.loop = true;
+music.volume = 0.5;
+music.load();
+music.play();
+	
+var itemPlay = document.getElementById("play");
+var itemHelp = document.getElementById("help");
+var itemOptions = document.getElementById("options");
+var itemExit = document.getElementById("exit");
+
+itemPlay.addEventListener("click", function() {
+	document.getElementById("topLeftLogo").style.display = "none";
+	document.getElementById("bottomLeftLogo").style.display = "none";
+	document.getElementById("menu").style.display = "none";
+	document.getElementById("canvas").style.background = 'url("resources/backgrounds/1.jpg") no-repeat center center fixed';
+	document.getElementById("canvas").style.backgroundSize = 'cover';
+    oGame.start();
+	//oGame.drawIgloo();
+	//mainGame();
+});
+itemHelp.addEventListener("click", function() {
+    alert("Help");
+});
+itemOptions.addEventListener("click", function() {
+	alert("Options");
+});
+itemExit.addEventListener("click", function() {
+    alert("Exit");
+});
+
+/**************************************************************************************************
+Initialisation des images utilisées dans le jeu
+**************************************************************************************************/
+
+// Igloos
+var imgIglooIntact = new Image();
+imgIglooIntact.src = "resources/igloos/intact.png";
+var imgIglooHalf = new Image();
+imgIglooIntact.src = "resources/igloos/half.png";
+var imgIglooMelted = new Image();
+imgIglooMelted.src = "resources/igloos/melted1.png";
+
+// Comètes
+var imgCometeZero = new Image();
+imgCometeZero.src = "resources/comets/comet0.png";
+var imgCometeOne = new Image();
+imgCometeOne.src = "resources/comets/comet1.png";
+var imgCometeTwo = new Image();
+imgCometeTwo.src = "resources/comets/comet2.png";
+
+
+/**************************************************************************************************
 Step
 **************************************************************************************************/
 
@@ -104,37 +137,14 @@ var step = function () {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	// Fond du canvas
-	ctx.drawImage(background, 0, 0, background.width, background.height, 0, 0, canvas.width, canvas.height);
+	//ctx.drawImage(background, 0, 0, background.width, background.height, 0, 0, canvas.width, canvas.height);
 
 	aListKeypad = [];
 
-	oGame.drawConsole();
-	oGame.drawIgloo();
-	oGame.drawComete();
+	//oGame.drawConsole();
+	//oGame.drawIgloo();
+	//oGame.drawComete();
 }
-
-/**************************************************************************************************
-Main de l'écran du menu
-**************************************************************************************************/
-
-var mainMenu = function () {
-
-	canvas.addEventListener('mousedown', mouseClickMenu, false);
-	window.addEventListener('resize', resizeMenu, false);
-	
-	// Si la partie n'est pas commencée
-	if(oMenu != null) {
-
-		// Lancement du menu
-		requestAnimationFrame(mainMenu);
-		
-	} else {
-	
-		// Lancement de la partie
-		canvas.removeEventListener('mousedown', mouseClickMenu, false);
-		mainGame();
-	}
-};
 
 /**************************************************************************************************
 Main de la partie
@@ -152,6 +162,3 @@ var mainGame = function () {
 //var then = Date.now();
 //var now = then;
 //var delta = 0;
-
-
-mainMenu();
