@@ -90,8 +90,8 @@ itemPlay.addEventListener("click", function() {
 	document.getElementById("topLeftLogo").style.display = "none";
 	document.getElementById("bottomLeftLogo").style.display = "none";
 	document.getElementById("menu").style.display = "none";
-	document.getElementById("canvas").style.background = 'url("resources/backgrounds/1.jpg") no-repeat center center fixed';
-	document.getElementById("canvas").style.backgroundSize = 'cover';
+	document.getElementById("background").style.backgroundImage = 'url("resources/backgrounds/1.jpg")';
+	document.getElementById("background").style.backgroundSize = '100% 100%';
     oGame.start();
 	//oGame.drawIgloo();
 	//mainGame();
