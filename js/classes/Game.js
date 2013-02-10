@@ -14,18 +14,14 @@ Lancement et initialisation de la partie
 
 Game.prototype.start = function() {
 
-	
 	ctx.shadowColor = "";
 	ctx.shadowOffsetX = 0;
 	ctx.shadowOffsetY = 0;
 	ctx.shadowBlur = 0;
-	
+
+
 	for (var i=0;i<4;i++) {
-		var oIglooImage = new Image();
-		oIglooImage.src = "resources/igloos/intact.png";
-		
-		var oIgloo = new Igloo(oIglooImage, aListColonneX[i] - 15, COL_Y);
-		
+		var oIgloo = new Igloo(imgIglooIntact, aListColonneX[i], COL_Y);
 	}
 	
 	

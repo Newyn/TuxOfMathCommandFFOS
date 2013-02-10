@@ -15,5 +15,5 @@ Dessine l'igloo sur le Canvas
 /**************************************************************************************************
 **************************************************************************************************/
 Igloo.prototype.draw = function () {
-	ctx.drawImage(this.img, this.x, this.y);
+	ctx.drawImage(this.img, this.x, this.y, canvas.width / 15, canvas.height / 10);
  }

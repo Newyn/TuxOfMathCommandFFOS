@@ -4,7 +4,8 @@ Initialisation du canvas
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-
+canvas.width = document.documentElement.clientWidth;
+canvas.height = document.documentElement.clientHeight;
 /**************************************************************************************************
 Variables globales
 **************************************************************************************************/
@@ -70,6 +71,22 @@ var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAni
 							window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
 
+/**************************************************************************************************
+Initialisation du JavaScript Performance Monitor
+
+FPS Frames rendered in the last second. The higher the number the better.
+MS Milliseconds needed to render a frame. The lower the number the better.
+**************************************************************************************************/
+
+var stats = new Stats();
+stats.setMode(1); // 0: fps, 1: ms
+
+// Align top-left
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.left = '0px';
+stats.domElement.style.top = '0px';
+
+document.body.appendChild( stats.domElement );
 
 /**************************************************************************************************
 Initialisation du menu
@@ -87,14 +104,25 @@ var itemOptions = document.getElementById("options");
 var itemExit = document.getElementById("exit");
 
 itemPlay.addEventListener("click", function() {
-	document.getElementById("topLeftLogo").style.display = "none";
-	document.getElementById("bottomLeftLogo").style.display = "none";
-	document.getElementById("menu").style.display = "none";
-	document.getElementById("background").style.backgroundImage = 'url("resources/backgrounds/1.jpg")';
-	document.getElementById("background").style.backgroundSize = '100% 100%';
-    oGame.start();
-	//oGame.drawIgloo();
-	//mainGame();
+document.getElementById("topLeftLogo").style.display = "none";
+document.getElementById("bottomLeftLogo").style.display = "none";
+document.getElementById("menu").style.display = "none";
+document.getElementById("background").style.backgroundImage = 'url("resources/backgrounds/1.jpg")';
+document.getElementById("background").style.backgroundSize = '100% 100%';
+
+oGame.start();
+	
+setInterval( function () {
+
+    stats.begin();
+	
+		step();
+		
+	stats.end();
+
+}, 1000 / 60 );
+	
+	
 });
 itemHelp.addEventListener("click", function() {
     alert("Help");
@@ -114,7 +142,7 @@ Initialisation des images utilisées dans le jeu
 var imgIglooIntact = new Image();
 imgIglooIntact.src = "resources/igloos/intact.png";
 var imgIglooHalf = new Image();
-imgIglooIntact.src = "resources/igloos/half.png";
+imgIglooHalf.src = "resources/igloos/half.png";
 var imgIglooMelted = new Image();
 imgIglooMelted.src = "resources/igloos/melted1.png";
 
@@ -132,7 +160,10 @@ Step
 **************************************************************************************************/
 
 var step = function () {
-
+	
+	canvas.addEventListener('mousedown', mouseClickKeypad, false);
+	window.addEventListener('keypress', handleKeyPressGame, true);
+	
 	// Réinitialisation de l'affichage 
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -142,21 +173,9 @@ var step = function () {
 	aListKeypad = [];
 
 	//oGame.drawConsole();
-	//oGame.drawIgloo();
+	oGame.drawIgloo();
 	//oGame.drawComete();
-}
-
-/**************************************************************************************************
-Main de la partie
-**************************************************************************************************/
-
-var mainGame = function () {
-
-	canvas.addEventListener('mousedown', mouseClickKeypad, false);
-	window.addEventListener('keypress', handleKeyPressGame, true);
-	
-	step();
-	requestAnimationFrame(mainGame);
+	requestAnimationFrame(step);
 }
 
 //var then = Date.now();
