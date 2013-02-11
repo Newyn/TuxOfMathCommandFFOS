@@ -3,6 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="Content-Style-Type" content="text/css">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
 		<title>Tux Of Math Command</title>
 		<link rel="stylesheet" type="text/css" href="css/app.css">
 		<script src="js/classes/Events.js" type="text/javascript" defer="defer"></script> 
@@ -17,30 +18,61 @@
 		<script src="js/classes/Igloo.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/classes/Utils.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/lib/stats.js" type="text/javascript" defer="defer"></script> 
-		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
+		<script type="text/javascript" data-main="js/app.js" src="js/lib/require.js" defer="defer"></script>
 	</head>
 
-	<body>
-		<script type="text/javascript" data-main="js/app.js" src="js/lib/require.js" defer="defer"></script>
+	<body>		
 		<div id="background" style="position:absolute; width:100%;height:100%"></div>
+		
 		<canvas id="canvas" style="position:absolute;"></canvas>
-		<div id="topLeftLogo">
-			<img src="resources/title/title1.png" />
-		</div>
-		<div id="menu">
-		  <div class="list">
-			<div class="item"><img src="resources/menu/play-alone.png" id="play"/></div>
-			<div class="item" id="help"><img src="resources/menu/aide.png" id="help"/></div>
-			<div class="item" id="options"><img src="resources/menu/plus-options.png" id="options"/></div>
-			<div class="item" id="exit"><img src="resources/menu/quitter.png" id="exit"/></div>
-			<!--<div class="item">Jouer</div>
-			<div class="item">Didacticiel</div>
-			<div class="item">Options</div>
-			<div class="item">Quitter</div>-->
-		  </div>
-		</div>
-		<div id="bottomLeftLogo">
-			<img src="resources/tux/bigtux0.png" />
-		</div>
+		
+		<!-- MENU -->
+			
+			<!-- Title -->
+			<div id="topLeftLogo">
+				<img src="resources/title/title1.png" />
+			</div>
+			
+			<!-- Menu -->
+			<div id="menu">
+				<div class="list">
+					<div class="item"><img src="resources/menu/play-alone.png" id="play"/></div>
+					<div class="item"><img src="resources/menu/aide.png" id="help"/></div>
+					<div class="item"><img src="resources/menu/plus-options.png" id="options"/></div>
+					<div class="item"><img src="resources/menu/quitter.png" id="exit"/></div>
+				</div>
+			</div>
+			
+			<!-- Big Tux -->
+			<div id="bottomLeftLogo">
+				<img src="resources/tux/bigtux0.png" />
+			</div>
+		
+		<!-- GAME (Play button) -->
+			
+			<!-- Igloo -->
+			<div id="igloo" align="center">
+				<span class="item"><img src="resources/igloos/intact.png" style="right: 30%;" id="igloo0"/></span>
+				<span class="item"><img src="resources/igloos/intact.png" style="right: 20%;" id="igloo1"/></span>
+				<span class="item"><img src="resources/igloos/intact.png" style="left: 20%;" id="igloo2"/></span>
+				<span class="item"><img src="resources/igloos/intact.png" style="left: 30%;" id="igloo3"/></span>
+			</div>
+		
+			<!-- Keypad -->
+			<div id="keypad" align="center">
+				<span class="nums"><img src="resources/status/keypad/keypads0.png" /></span>
+				<span class="nums"><img src="resources/status/keypad/keypads1.png" /></span>
+				<span class="nums"><img src="resources/status/keypad/keypads2.png" /></span>
+				<span class="nums"><img src="resources/status/keypad/keypads3.png" /></span>
+				<span class="nums"><img src="resources/status/keypad/keypads4.png" /></span>
+				<span class="nums"><img src="resources/status/keypad/keypads5.png" /></span>				
+				<span class="nums"><img src="resources/status/keypad/keypads6.png" /></span>
+				<span class="nums"><img src="resources/status/keypad/keypads7.png" /></span>
+				<span class="nums"><img src="resources/status/keypad/keypads8.png" /></span>
+				<span class="nums"><img src="resources/status/keypad/keypads9.png" /></span>
+			</div>
+
+		
+		
 	</body>
 </html>

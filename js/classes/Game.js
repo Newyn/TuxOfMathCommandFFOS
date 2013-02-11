@@ -1,5 +1,5 @@
 /**************************************************************************************************
-Constructeur de la partie
+Constructor the game
 **************************************************************************************************/
 
 function Game() {
@@ -7,69 +7,22 @@ function Game() {
 }
 
 /**************************************************************************************************
-***************************************************************************************************
-Lancement et initialisation de la partie
-/**************************************************************************************************
-**************************************************************************************************/
-
-Game.prototype.start = function() {
-
-	ctx.shadowColor = "";
-	ctx.shadowOffsetX = 0;
-	ctx.shadowOffsetY = 0;
-	ctx.shadowBlur = 0;
-
-
-	for (var i=0;i<4;i++) {
-		var oIgloo = new Igloo(imgIglooIntact, aListColonneX[i], COL_Y);
-	}
-	
-	
-}
-
-/**************************************************************************************************
-***************************************************************************************************
-Affichage des igloos
-/**************************************************************************************************
-**************************************************************************************************/
-
-Game.prototype.drawIgloo = function() {
-
-	for(var i=0; i<aListIgloo.length; i++) {
-		aListIgloo[i].draw();
-	}
-}
-
-/**************************************************************************************************
-***************************************************************************************************
-Affichage de la console
-/**************************************************************************************************
-**************************************************************************************************/
-
-Game.prototype.drawConsole = function() {
-	oConsole.draw();
-}
-
-/**************************************************************************************************
-***************************************************************************************************
 Affichage des comètes
-/**************************************************************************************************
 **************************************************************************************************/
 
 Game.prototype.drawComete = function() {
-	/* Mise à jour de l'intervalle d'apparition des comètes */
+
+	// Update interval appearance of comets
 	previousTimestamp = currentTimestamp;
 	currentTimestamp = Date.now();
 	elapsedTime += currentTimestamp - previousTimestamp;
 	
-	/* 5000 = 5 secondes */
+	// 1000 = 1 second 
+	// Currently = 8000 = 8 seconds
 	if (elapsedTime >= 8000) {
-		
-		var oCometeImage = new Image();
-		oCometeImage.src = "resources/comets/comet0.png";
-		
-		/* Création d'une nouvelle comète et ajout au tableau */
-		var oComete = new Comete(oCometeImage, aListColonneX[Math.floor(Math.random() * 4)], 0);
+	
+		// Creating and adding a new comet in the table
+		var oComete = new Comete(imgCometeZero, aListColonneX[Math.floor(Math.random() * 4)], 0);
 		aListComete.push(oComete);
 		
 		ctx.drawImage(oComete.img, oComete.x, oComete.y, oComete.width / 1.5, oComete.height / 1.5);
@@ -82,36 +35,30 @@ Game.prototype.drawComete = function() {
 	
 	for(var i=0;i<aListComete.length;i++) {
 		
-		/* Mise à jour de l'intervalle du mouvement des comètes descendantes */
+		// Update the range of motion of comets down
 		previousTimestamp2 = currentTimestamp2;
 		currentTimestamp2 = Date.now();
 		elapsedTime2 += currentTimestamp2 - previousTimestamp2;
 		
-		/* 100 = 0.1 secondes */
+		// 1000 = 1 second 
+		// Currently = 100 = 0.1 seconds
 		if (elapsedTime2 >= 100) {
 		
-			/* Principe de fonctionnement, pour chacune des comètes :
-				- Si comet0 alors comet1
-				- Si comet1 alors comet2
-				- Si comet2 alors comet0
-			   Et ainsi de suite ... cela permet d'avoir l'illusion de mouvement pour chacune des comètes
-			*/
+			// Workng principle for each comet :
+			//	- If so comet0 comet1
+			//	- If so comet1 comet2
+			//	- If so comet2 comet0
+			// And so on ... This allows for the illusion of movement for each comet
 			for(var j=0;j<aListComete.length;j++) {
 			
 				if (aListComete[j].img.src.indexOf("comet0.png") !== -1) {
-					var oCometeImage = new Image();
-					oCometeImage.src = "resources/comets/comet1.png";
-					aListComete[j].img = oCometeImage;
+					aListComete[j].img = imgCometeOne;
 				}
 				else if (aListComete[j].img.src.indexOf("comet1.png") !== -1) {
-					var oCometeImage = new Image();
-					oCometeImage.src = "resources/comets/comet2.png";
-					aListComete[j].img = oCometeImage;
+					aListComete[j].img = imgCometeTwo;
 				}
 				else {
-					var oCometeImage = new Image();
-					oCometeImage.src = "resources/comets/comet0.png";
-					aListComete[j].img = oCometeImage;
+					aListComete[j].img = imgCometeZero;
 				}
 			}
 			
@@ -160,44 +107,56 @@ Game.prototype.drawComete = function() {
 			//ctx.fillText(aListComete[i].eq2, aListComete[i].x,  aListComete[i].y + 115);
 		}
 		else {
-		
+			var tmpNb = 0;
+			
+			for (var j=0;j<aListColonneX.length;j++) {
+				if (aListColonneX[j] == aListComete[i].x) {					
+					tmpNb = j;
+				}
+			}
+			
+			if (document.getElementById("igloo"+tmpNb).src.indexOf("intact.png") !== -1) {	
+				document.getElementById("igloo"+tmpNb).src = "resources/igloos/half.png";
+			}
+			else if (document.getElementById("igloo"+tmpNb).src.indexOf("half.png") !== -1) {
+				document.getElementById("igloo"+tmpNb).src = "resources/igloos/melted1.png";
+			}
+			else {
+				// TODO : Il n'y a plus de vies => GAME OVER
+			}
+			
 			// TOFIX : Explosion de la comète
 			
-			/*var oCometeImage = new Image();
-			oCometeImage.src = "resources/comets/cometex0.png";
-			aListComete[i]._img = oCometeImage;*/
+			//var oCometeImage = new Image();
+			//oCometeImage.src = "resources/comets/cometex0.png";
+			//aListComete[i]._img = oCometeImage;
 			//ctx.drawImage(aListComete[i]._img, aListComete[i]._x, aListComete[i]._y);
 			//ctx.drawImage(oCometeImage, aListComete[i]._x, aListComete[i]._y);
 			
 			
-			for (var j=0;j<aListIgloo.length;j++) {
+			/*for (var j=0;j<aListIgloo.length;j++) {
 				
-				/* Réajustement de la position x des igloos avec celle des comètes */
+				// Readjustment of the position x igloos with that of comets
 				var oIglooX = aListIgloo[j].x + 15;
 				
-				/* Dès qu'on a trouvé l'igloo qui correspond à la comète */
+				// Once we found the igloo is the comet
 				if (oIglooX == aListComete[i].x) {
 					
-					/* Principe de fonctionnement, à chaque fois qu'une comète touche un igloo :
-						- Si igloo intact alors il devient half
-						- Si igloo half alors il devient melted1
-						- Si igloo melted1 alors GAME OVER
-					*/
+					//Working principle, whenever a comet igloo button:
+					// - If igloo intact then it becomes half
+					// - If half igloo then it becomes melted1
+					// - If igloo melted1 then GAME OVER
 					if (aListIgloo[j].img.src.indexOf("intact.png") !== -1) {
 					
-						var oIglooImage = new Image();
-						oIglooImage.src = "resources/igloos/half.png";	
-						aListIgloo[j].img = oIglooImage;
+						aListIgloo[j].img = imgIglooHalf;
 						
 						ctx.drawImage(aListIgloo[j].img, aListIgloo[j].x, aListIgloo[j].y, aListIgloo[j].width, aListIgloo[j].height);
 					}
 					else if (aListIgloo[j].img.src.indexOf("half.png") !== -1) {
-					
-						var oIglooImage = new Image();
-						oIglooImage.src = "resources/igloos/melted1.png";	
-						aListIgloo[j].img = oIglooImage;
+
+						aListIgloo[j].img = imgIglooMelted;
 						
-						/* Repositionnement de la nouvelle image */
+						// Repositionnement de la nouvelle image 
 						aListIgloo[j].x = aListIgloo[j].x - 20;
 						aListIgloo[j].y = aListIgloo[j].y + 38;
 						
@@ -208,9 +167,9 @@ Game.prototype.drawComete = function() {
 						// TODO : Il n'y a plus de vies => GAME OVER
 					}
 				}
-			}
+			}*/
 			
-			/* Suppression de la comète de l'array aListComete */
+			// Suppression de la comète de l'array aListComete 
 			aListComete.remove(i);
 		}
 		

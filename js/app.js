@@ -1,13 +1,38 @@
 /**************************************************************************************************
-Initialisation du canvas
+Initialization of JavaScript Performance Monitor
+
+FPS Frames rendered in the last second. The higher the number the better.
+MS Milliseconds needed to render a frame. The lower the number the better.
+**************************************************************************************************/
+
+var stats = new Stats();
+stats.setMode(1); // 0: fps, 1: ms
+
+// Align top-left
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.left = '0px';
+stats.domElement.style.top = '0px';
+
+document.body.appendChild( stats.domElement );
+
+/**************************************************************************************************
+Setup requestAnimationFrame
+**************************************************************************************************/
+
+var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+							window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+							
+/**************************************************************************************************
+Initialization of canvas
 **************************************************************************************************/
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = document.documentElement.clientWidth;
 canvas.height = document.documentElement.clientHeight;
+
 /**************************************************************************************************
-Variables globales
+Global variables
 **************************************************************************************************/
 
 // Largeur de base du canvas
@@ -30,18 +55,13 @@ background.src = "resources/backgrounds/1.jpg";
 var GAME_SPEED = 0.7 * ((fRatioLargeur+fRatioHauteur)/2);
 
 // Position X des colonnes
-var COL_X1 = canvas.width / 10;
-var COL_X2 = canvas.width / 3.6;
-var COL_X3 = canvas.width / 1.53;
-var COL_X4 = canvas.width / 1.2;
+var aListColonneX = [];
 
 // Position Y des colonnes
 var COL_Y = canvas.height / 1.25;
 
 var GAME_ENDLINE_HEIGHT = (canvas.height / 1.25 - (140 * ((fRatioLargeur+fRatioHauteur)/2)) * ((fRatioLargeur+fRatioHauteur)/2));
 
-// Tableau pour stocker la position des colonnes
-var aListColonneX = [COL_X1, COL_X2, COL_X3, COL_X4];
 // Tableau pour stocker les igloos
 var aListIgloo = [];
 // Tableau pour stocker les comètes 
@@ -64,72 +84,65 @@ var previousTimestamp2 = 0;
 var elapsedTime2 = 0;
 
 /**************************************************************************************************
-Initialisation de l'objet requestAnimationFrame
+Initialization of the menu
 **************************************************************************************************/
 
-var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-							window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-
-
-/**************************************************************************************************
-Initialisation du JavaScript Performance Monitor
-
-FPS Frames rendered in the last second. The higher the number the better.
-MS Milliseconds needed to render a frame. The lower the number the better.
-**************************************************************************************************/
-
-var stats = new Stats();
-stats.setMode(1); // 0: fps, 1: ms
-
-// Align top-left
-stats.domElement.style.position = 'absolute';
-stats.domElement.style.left = '0px';
-stats.domElement.style.top = '0px';
-
-document.body.appendChild( stats.domElement );
-
-/**************************************************************************************************
-Initialisation du menu
-**************************************************************************************************/
-
+// Music
 var music = new Audio("resources/sounds/tuxi.ogg");
 music.loop = true;
 music.volume = 0.5;
 music.load();
 music.play();
-	
+
+// Get menu item
 var itemPlay = document.getElementById("play");
 var itemHelp = document.getElementById("help");
 var itemOptions = document.getElementById("options");
 var itemExit = document.getElementById("exit");
 
+// Launch of the game
 itemPlay.addEventListener("click", function() {
-document.getElementById("topLeftLogo").style.display = "none";
-document.getElementById("bottomLeftLogo").style.display = "none";
-document.getElementById("menu").style.display = "none";
-document.getElementById("background").style.backgroundImage = 'url("resources/backgrounds/1.jpg")';
-document.getElementById("background").style.backgroundSize = '100% 100%';
 
-oGame.start();
+	// Hide menu
+	document.getElementById("topLeftLogo").style.display = "none";
+	document.getElementById("bottomLeftLogo").style.display = "none";
+	document.getElementById("menu").style.display = "none";
 	
-setInterval( function () {
+	// Setup the game
+	document.getElementById("background").style.backgroundImage = 'url("resources/backgrounds/1.jpg")';
+	document.getElementById("background").style.backgroundSize = '100% 100%';
+	document.getElementById("keypad").style.display = "block";
+	document.getElementById("igloo").style.display = "block";
 
-    stats.begin();
-	
-		step();
+	// X position of the columns where comets fall
+	aListColonneX[0] = document.getElementById("igloo0").x;
+	aListColonneX[1] = document.getElementById("igloo1").x;
+	aListColonneX[2] = document.getElementById("igloo2").x;
+	aListColonneX[3] = document.getElementById("igloo3").x;
+
+	setInterval( function () {
+
+		stats.begin();
 		
-	stats.end();
+			// Step
+			step();
+			
+		stats.end();
 
-}, 1000 / 60 );
-	
-	
+	}, 1000 / 60 );	
 });
+
+// Launch of the help
 itemHelp.addEventListener("click", function() {
     alert("Help");
 });
+
+// Launch of the options
 itemOptions.addEventListener("click", function() {
 	alert("Options");
 });
+
+// Exit the game
 itemExit.addEventListener("click", function() {
     alert("Exit");
 });
@@ -161,23 +174,14 @@ Step
 
 var step = function () {
 	
-	canvas.addEventListener('mousedown', mouseClickKeypad, false);
-	window.addEventListener('keypress', handleKeyPressGame, true);
+	//canvas.addEventListener('mousedown', mouseClickKeypad, false);
+	//window.addEventListener('keypress', handleKeyPressGame, true);
 	
-	// Réinitialisation de l'affichage 
+	// Resetting the display
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-	// Fond du canvas
-	//ctx.drawImage(background, 0, 0, background.width, background.height, 0, 0, canvas.width, canvas.height);
 
 	aListKeypad = [];
 
-	//oGame.drawConsole();
-	oGame.drawIgloo();
-	//oGame.drawComete();
-	requestAnimationFrame(step);
+	oGame.drawComete();
+	//requestAnimationFrame(step);
 }
-
-//var then = Date.now();
-//var now = then;
-//var delta = 0;
