@@ -112,8 +112,9 @@ Equation.prototype.generate = function (nbrArgs) {
   	}
   	
 	// LOGGER à décommenter pour le débug
-  	//console.log('hiddenArgIndex :'+ hiddenArgIndex, toChange, newText);
-  	
+  	console.log('hiddenArgIndex :'+ hiddenArgIndex, toChange, newText);
+  	console.log(this.solution);
+	
   	// on remplace dans la chaine 
   	this.exp = this.exp.replace(toChange,newText);
 	

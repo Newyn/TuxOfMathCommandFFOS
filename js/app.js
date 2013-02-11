@@ -28,6 +28,8 @@ Initialization of canvas
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
+
+// Set the size of the canvas relative to the width and height of the window of the client
 canvas.width = document.documentElement.clientWidth;
 canvas.height = document.documentElement.clientHeight;
 
@@ -43,35 +45,18 @@ var fHauteurDeBase = 620;
 var fRatioLargeur = (document.documentElement.clientWidth) / fLargeurDeBase;
 var fRatioHauteur = (document.documentElement.clientHeight) / fHauteurDeBase;
 
-var aListMenuItem = [];
-
 var oGame = new Game();
-var oConsole = new Console();
-
-var background = new Image();
-background.src = "resources/backgrounds/1.jpg";
 	
 // Vitesse du jeu
-var GAME_SPEED = 0.7 * ((fRatioLargeur+fRatioHauteur)/2);
+var GAME_SPEED = 0.2 * ((fRatioLargeur+fRatioHauteur)/2);
 
 // Position X des colonnes
 var aListColonneX = [];
 
-// Position Y des colonnes
-var COL_Y = canvas.height / 1.25;
-
 var GAME_ENDLINE_HEIGHT = (canvas.height / 1.25 - (140 * ((fRatioLargeur+fRatioHauteur)/2)) * ((fRatioLargeur+fRatioHauteur)/2));
 
-// Tableau pour stocker les igloos
-var aListIgloo = [];
 // Tableau pour stocker les comètes 
 var aListComete = [];
-
-var aListKeypad = [];
-var aListLednums = [];
-
-//  VALEUR DES LEDNUMS
-var valLednum = "";
 
 // Gestion du timer d'apparition des comètes 
 var currentTimestamp = Date.now();
@@ -100,52 +85,53 @@ var itemHelp = document.getElementById("help");
 var itemOptions = document.getElementById("options");
 var itemExit = document.getElementById("exit");
 
-// Launch of the game
-itemPlay.addEventListener("click", function() {
+// Set up event listener for menu item
+itemPlay.addEventListener("click", launchGame, false);
+itemHelp.addEventListener("click", launchHelp, false);
+itemOptions.addEventListener("click", launchOptions, false);
+itemExit.addEventListener("click", launchExit, false);
 
-	// Hide menu
-	document.getElementById("topLeftLogo").style.display = "none";
-	document.getElementById("bottomLeftLogo").style.display = "none";
-	document.getElementById("menu").style.display = "none";
-	
-	// Setup the game
-	document.getElementById("background").style.backgroundImage = 'url("resources/backgrounds/1.jpg")';
-	document.getElementById("background").style.backgroundSize = '100% 100%';
-	document.getElementById("keypad").style.display = "block";
-	document.getElementById("igloo").style.display = "block";
+/**************************************************************************************************
+Initialization of the game
+**************************************************************************************************/
 
-	// X position of the columns where comets fall
-	aListColonneX[0] = document.getElementById("igloo0").x;
-	aListColonneX[1] = document.getElementById("igloo1").x;
-	aListColonneX[2] = document.getElementById("igloo2").x;
-	aListColonneX[3] = document.getElementById("igloo3").x;
+// Get keypad item
+var keypad0 = document.getElementById("keypad0");
+var keypad1 = document.getElementById("keypad1");
+var keypad2 = document.getElementById("keypad2");
+var keypad3 = document.getElementById("keypad3");
+var keypad4 = document.getElementById("keypad4");
+var keypad5 = document.getElementById("keypad5");
+var keypad6 = document.getElementById("keypad6");
+var keypad7 = document.getElementById("keypad7");
+var keypad8 = document.getElementById("keypad8");
+var keypad9 = document.getElementById("keypad9");
+var keypadneg = document.getElementById("keypad-");
+var keypadenter = document.getElementById("keypad+");
 
-	setInterval( function () {
+// Set up event listener for keypad item
+keypad0.addEventListener("click", handleClickKeypad, false);
+keypad1.addEventListener("click", handleClickKeypad, false);
+keypad2.addEventListener("click", handleClickKeypad, false);
+keypad3.addEventListener("click", handleClickKeypad, false);
+keypad4.addEventListener("click", handleClickKeypad, false);
+keypad5.addEventListener("click", handleClickKeypad, false);
+keypad6.addEventListener("click", handleClickKeypad, false);
+keypad7.addEventListener("click", handleClickKeypad, false);
+keypad8.addEventListener("click", handleClickKeypad, false);
+keypad9.addEventListener("click", handleClickKeypad, false);
+keypadneg.addEventListener("click", handleClickKeypad, false);
+keypadenter.addEventListener("click", handleClickKeypad, false);
 
-		stats.begin();
-		
-			// Step
-			step();
-			
-		stats.end();
+// Get lednums item
+var lednum0 = document.getElementById("lednum2");
+var lednum1 = document.getElementById("lednum1");
+var lednum2 = document.getElementById("lednum0");
+var lednumneg = document.getElementById("lednumneg");
+var lednumActive = lednum0;
+var negativeSign = false;
 
-	}, 1000 / 60 );	
-});
-
-// Launch of the help
-itemHelp.addEventListener("click", function() {
-    alert("Help");
-});
-
-// Launch of the options
-itemOptions.addEventListener("click", function() {
-	alert("Options");
-});
-
-// Exit the game
-itemExit.addEventListener("click", function() {
-    alert("Exit");
-});
+window.addEventListener("keydown", handleKeyDown, false);
 
 /**************************************************************************************************
 Initialisation des images utilisées dans le jeu
@@ -174,13 +160,8 @@ Step
 
 var step = function () {
 	
-	//canvas.addEventListener('mousedown', mouseClickKeypad, false);
-	//window.addEventListener('keypress', handleKeyPressGame, true);
-	
 	// Resetting the display
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-	aListKeypad = [];
 
 	oGame.drawComete();
 	//requestAnimationFrame(step);

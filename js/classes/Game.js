@@ -7,6 +7,46 @@ function Game() {
 }
 
 /**************************************************************************************************
+Update lednums
+**************************************************************************************************/
+
+Game.prototype.updateLednums = function(key) {
+	
+	// Number
+	if ((key != "+") && (key != "-")) {
+		
+		var oldLednum0 = lednum0.src;
+		var oldLednum1 = lednum1.src;
+	
+		lednum0.src = "resources/status/lednums/lednums"+key+".png";
+		lednum1.src = oldLednum0;
+		lednum2.src = oldLednum1;
+	}
+	// Enter
+	else if (key == "+") {
+	
+		var val = subStringRight(lednum2.src, 12).charAt(7) +""+subStringRight(lednum1.src, 12).charAt(7)+""+subStringRight(lednum0.src, 12).charAt(7);
+
+		if (negativeSign== true) {
+			val = "-"+val;
+		}
+	
+		this.calculComete(val);
+		
+		lednum0.src = "resources/status/lednums/lednums0.png";
+		lednum1.src = "resources/status/lednums/lednums0.png";
+		lednum2.src = "resources/status/lednums/lednums0.png";
+		lednumneg.style.visibility = "hidden";
+		negativeSign = false;
+	}
+	// Negative sign
+	else if (key == "-") {
+		lednumneg.style.visibility = "visible";
+		negativeSign = true;
+	}
+}
+
+/**************************************************************************************************
 Affichage des comètes
 **************************************************************************************************/
 
@@ -182,18 +222,21 @@ Game.prototype.drawComete = function() {
 Destruction des comètes à partir de la console
 /**************************************************************************************************
 **************************************************************************************************/
-Game.prototype.calculComete = function() {
-
+Game.prototype.calculComete = function(val) {
+	
+	var aLednumsCoords = [];
+	aLednumsCoords = getPosition("lednums");
+	
 	for (var i=0; i<aListComete.length;i++) {
 		
-		if (aListComete[i].eq.solution == valLednum) {
+		if (aListComete[i].eq.solution == val) {
 		
 			ctx.beginPath();
 			ctx.strokeStyle='red';
 			ctx.lineWidth=4;
-			ctx.moveTo(oConsole.x,oConsole.y);
+			ctx.moveTo(canvas.width / 2, aLednumsCoords[1]);
 			ctx.lineTo(aListComete[i].x,aListComete[i].y);
-			ctx.stroke(); 
+			ctx.stroke();
 
 			aListComete.remove(i);
 		}

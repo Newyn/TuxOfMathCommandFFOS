@@ -72,6 +72,7 @@ Igloos
 	max-width: 7%;
 	position: relative;
 }
+
 /**************************************************************************************************
 Keypad
 **************************************************************************************************/
@@ -83,11 +84,48 @@ Keypad
 	max-width: 100%;
 	display: none;
 }
-#keypad .nums {
+#keypad .item {
 	text-align: center;
 }
 
-#keypad .nums img {
+#keypad .item img {
 	max-width: 3%;
 	cursor: pointer;
+}
+
+/**************************************************************************************************
+Console
+**************************************************************************************************/
+
+#console {
+	position: absolute;
+	bottom: 7%;
+	width: 100%;
+	max-width: 100%;
+	display: none;
+}
+
+#console img {
+	max-width: 15%;
+}
+
+/**************************************************************************************************
+Lednums
+**************************************************************************************************/
+
+#lednums {
+	position: absolute;
+	width: 100%;
+	max-width: 100%;
+	bottom: 57%;
+}
+
+#lednums .item img {
+	max-width: 2%;
+}
+#lednums .item img#lednumneg {
+	position: relative; 
+	margin-bottom: 1%; 
+	max-width: 1%;
+	visibility: hidden;
 }
