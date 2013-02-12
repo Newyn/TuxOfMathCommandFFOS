@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
 		<title>Tux Of Math Command</title>
 		<link rel="stylesheet" type="text/css" href="css/app.css">
+		
 		<script src="js/classes/Events.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/classes/Menu.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/classes/MenuItem.js" type="text/javascript" defer="defer"></script> 
@@ -18,7 +19,7 @@
 		<script src="js/classes/Igloo.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/classes/Utils.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/lib/stats.js" type="text/javascript" defer="defer"></script> 
-		<script type="text/javascript" data-main="js/app.js" src="js/lib/require.js" defer="defer"></script>
+		<script src="js/app.js" type="text/javascript" defer="defer"></script> 
 	</head>
 
 	<body>		
@@ -49,6 +50,23 @@
 			</div>
 		
 		<!-- GAME (Play button) -->
+			
+			<!-- Pause screen -->
+			<div id="pause">
+				<div id="pauseTitle">pause</div>
+				<div id="resumeButton">Reprendre</div>
+				<div id="leaveButton">Quitter</div>
+			</div>
+					
+			<!-- Exit button -->
+			<div id="exitButton">
+				<img src="resources/status/buttons/exit.png" />
+			</div>
+			
+			<!-- Pause button -->
+			<div id="pauseButton">
+				<img src="resources/status/buttons/pause.png" />
+			</div>
 			
 			<!-- Igloo -->
 			<div id="igloo" align="center">

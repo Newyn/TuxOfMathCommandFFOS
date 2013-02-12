@@ -4,6 +4,8 @@ Constructor the game
 
 function Game() {
 	this.speed = 0.5;
+	this.pause = false;
+	this.active = false;
 }
 
 /**************************************************************************************************
@@ -243,3 +245,10 @@ Game.prototype.calculComete = function(val) {
 	}
 }
 
+/**************************************************************************************************
+Delete all comets
+**************************************************************************************************/
+Game.prototype.deleteAllComets = function() {
+
+	aListComete = [];
+}

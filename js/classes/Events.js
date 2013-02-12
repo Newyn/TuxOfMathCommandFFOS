@@ -14,6 +14,41 @@ var mouseClickKeypad = function(e) {
 	}
 }
 
+var handleClickPause = function() {
+
+	oGame.pause = true;
+	document.getElementById("pause").style.display = "block";
+}
+
+var handleClickResume = function() {
+
+	oGame.pause = false;
+	document.getElementById("pause").style.display = "none";
+}
+
+var handleClickExit = function() {
+	
+	oGame.active = false;	
+	oGame.deleteAllComets();
+	
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	
+	// Set up menu
+	document.getElementById("topLeftLogo").style.display = "block";
+	document.getElementById("bottomLeftLogo").style.display = "block";
+	document.getElementById("menu").style.display = "table";
+	document.getElementById("background").style.backgroundImage = 'url("resources/title/menu_bkg.jpg")';
+	document.getElementById("background").style.backgroundSize = '100% 100%';
+	
+	// Hide the game
+	document.getElementById("keypad").style.display = "none";
+	document.getElementById("igloo").style.display = "none";
+	document.getElementById("console").style.display = "none";
+	document.getElementById("exitButton").style.display = "none";
+	document.getElementById("pauseButton").style.display = "none";
+	document.getElementById("pause").style.display = "none";
+}
+
 var handleClickKeypad = function() {
 
 	var key = this.id.charAt(6);
@@ -22,44 +57,46 @@ var handleClickKeypad = function() {
 
 var handleKeyDown = function(e) {
 
+	console.log(e.keyCode);
+	
 	// 0
-	if (e.keyCode == 96) {
+	if ((e.keyCode == 48) || (e.keyCode == 96)) {
 		oGame.updateLednums(0);
 	}
 	// 1
-	else if (e.keyCode == 97) {
+	else if ((e.keyCode == 49) || (e.keyCode == 97)) {
 		oGame.updateLednums(1);
 	}
 	// 2
-	else if (e.keyCode == 98) {
+	else if ((e.keyCode == 50) || (e.keyCode == 98)) {
 		oGame.updateLednums(2);
 	}
 	// 3
-	else if (e.keyCode == 99) {
+	else if ((e.keyCode == 51) || (e.keyCode == 99)) {
 		oGame.updateLednums(3);
 	}
 	// 4
-	else if (e.keyCode == 100) {
+	else if ((e.keyCode == 52) || (e.keyCode == 100)) {
 		oGame.updateLednums(4);
 	}
 	// 5
-	else if (e.keyCode == 101) {
+	else if ((e.keyCode == 53) || (e.keyCode == 101)) {
 		oGame.updateLednums(5);
 	}
 	// 6
-	else if (e.keyCode == 102) {
+	else if ((e.keyCode == 54) || (e.keyCode == 102)) {
 		oGame.updateLednums(6);
 	}
 	// 7
-	else if (e.keyCode == 103) {
+	else if ((e.keyCode == 55) || (e.keyCode == 103)) {
 		oGame.updateLednums(7);
 	}
 	// 8
-	else if (e.keyCode == 104) {
+	else if ((e.keyCode == 56) || (e.keyCode == 104)) {
 		oGame.updateLednums(8);
 	}
 	// 9
-	else if (e.keyCode == 105) {
+	else if ((e.keyCode == 57) || (e.keyCode == 105)) {
 		oGame.updateLednums(9);
 	}
 	// Negative sign
@@ -85,13 +122,17 @@ var launchGame = function() {
 	document.getElementById("keypad").style.display = "block";
 	document.getElementById("igloo").style.display = "block";
 	document.getElementById("console").style.display = "block";
+	document.getElementById("exitButton").style.display = "block";
+	document.getElementById("pauseButton").style.display = "block";
 	
 	// X position of the columns where comets fall
 	aListColonneX[0] = document.getElementById("igloo0").x;
 	aListColonneX[1] = document.getElementById("igloo1").x;
 	aListColonneX[2] = document.getElementById("igloo2").x;
 	aListColonneX[3] = document.getElementById("igloo3").x;
-
+	
+	oGame.active = true;
+	
 	setInterval( function () {
 
 		stats.begin();

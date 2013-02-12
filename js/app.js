@@ -94,6 +94,11 @@ itemExit.addEventListener("click", launchExit, false);
 /**************************************************************************************************
 Initialization of the game
 **************************************************************************************************/
+// Get buttons
+var pauseButton = document.getElementById("pauseButton");
+var exitButton = document.getElementById("exitButton");
+var resumeButton = document.getElementById("resumeButton");
+var leaveButton = document.getElementById("leaveButton");
 
 // Get keypad item
 var keypad0 = document.getElementById("keypad0");
@@ -108,6 +113,12 @@ var keypad8 = document.getElementById("keypad8");
 var keypad9 = document.getElementById("keypad9");
 var keypadneg = document.getElementById("keypad-");
 var keypadenter = document.getElementById("keypad+");
+
+// Set up event listener for buttons
+pauseButton.addEventListener("click", handleClickPause, false);
+exitButton.addEventListener("click", handleClickExit, false);
+resumeButton.addEventListener("click", handleClickResume, false);
+leaveButton.addEventListener("click", handleClickExit, false);
 
 // Set up event listener for keypad item
 keypad0.addEventListener("click", handleClickKeypad, false);
@@ -160,9 +171,11 @@ Step
 
 var step = function () {
 	
-	// Resetting the display
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	if ((oGame.pause == false) && (oGame.active == true)) {
+		// Resetting the display
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-	oGame.drawComete();
-	//requestAnimationFrame(step);
+		oGame.drawComete();
+		//requestAnimationFrame(step);
+	}
 }
