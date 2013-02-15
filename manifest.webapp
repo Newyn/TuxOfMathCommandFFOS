@@ -1,14 +1,17 @@
 {
   "name": "Tux of Math Command",
-  "description": "Cette application est pour un public jeune et vise à s'entraîner en s'amusant à effectuer des opérations mathématiques, simples ou complexes",
-  "launch_path": "/",
+  "description": "A video game developed to teach mathematics to children",
+  "launch_path": "/TuxOfMathCommandFFOS/index.html",
   "icons": {
-    "Tux": "resources/icons/icon.png"
+    "32": "/TuxOfMathCommandFFOS/img/icon_32.png", // TODO
+    "60": "/TuxOfMathCommandFFOS/img/icon_60.png", // TODO
+    "120": "/TuxOfMathCommandFFOS/img/icon_120.png", // TODO
+    "256": "/TuxOfMathCommandFFOS/img/icon_256.png" // TODO
   },
   "developer": {
-    "name": "Virgil Triquet - Lucas Pinto - Sylvain Ribous - Yassir Barchi"
+    "name": "Virgil Triquet - Lucas Pinto - Sylvain Ribous - Yassir Barchi",
+	"url": "https://github.com/vtriquet/TuxOfMathCommandFFOS"
   },
-  "default_locale": "fr",
   "orientation": ["paysage","landscape-secondary"]
 }
 
