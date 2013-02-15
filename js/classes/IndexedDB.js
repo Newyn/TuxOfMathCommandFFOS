@@ -1,5 +1,5 @@
 // window.indexedDB
-window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 
 var db;
 
@@ -12,14 +12,77 @@ if (!window.indexedDB) {
     alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
 }
 
-var request = window.indexedDB.open("TuxTest");
+function errorOpen(event) {
+    window.alert("Erreur ouverture !");
+}
 
-request.onerror = function(event) {
-  alert("Why didn't you allow my web app to use IndexedDB?!");
-};
-request.onsuccess = function(event) {
-  db = event.target.result;
-};
-request.onupgradeneeded = function(event) { 
-   // Update object stores and indices .... 
-};
+function saveScore(score, wave) {
+
+    var request = indexedDB.open("TuxTest", 2);
+	
+    request.onerror = function(event) {
+	  alert("Why didn't you allow my web app to use IndexedDB?!");
+	};
+	
+	request.onupgradeneeded = function(event) { 
+	   var db = event.target.result;
+	   var store = db.createObjectStore("save",
+			{keyPath: "score"});
+	};
+
+    request.onsuccess = function(event) {
+	
+		var db = event.target.result;
+			
+		var store = db.transaction(["save"], "readwrite").objectStore("save");
+		var data = {score:score, wave:wave};
+		
+		console.log("Attempting to write", data);
+		
+		var req = store.put(data);
+		
+        req.onerror = function onerror(event) {
+          console.log("Writing failed", event);
+        };
+        req.onsuccess = function onsuccess() {
+          console.log("Write succeeded");
+        };
+		
+	};
+}
+
+function readAllScores(){
+
+    var request = indexedDB.open("TuxTest", 2);
+	
+    request.onerror = function(event) {
+	  alert("Why didn't you allow my web app to use IndexedDB?!");
+	};
+	
+	request.onupgradeneeded = function(event) { 
+	   var db = event.target.result;
+	   var store = db.createObjectStore("save",
+			{keyPath: "score"});
+	};
+
+    request.onsuccess = function(event) {
+	
+		var db = event.target.result; 
+		
+		var store = db.transaction(["save"], "readonly").objectStore("save");
+
+		store.openCursor().onsuccess = function (event) {
+
+		var cursor = event.target.result;
+			if (cursor) {
+
+				var tmp = store.get(cursor.key);
+
+				tmp.onsuccess = function (e) {
+					console.log(tmp.result);
+					cursor.continue();
+				}
+			}
+		}
+	}
+}
