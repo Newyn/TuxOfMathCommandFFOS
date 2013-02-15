@@ -69,14 +69,6 @@ Menu
 }
 
 /**************************************************************************************************
-Comets
-**************************************************************************************************/
-.equation {
-	font-family: bitsumishiregular;
-	color: red;
-	position: absolute;
-}
-/**************************************************************************************************
 Igloos
 **************************************************************************************************/
 #igloo {
@@ -158,12 +150,15 @@ Score
 #score {
 	position: absolute;
 	width: 100%;
-	bottom: 0;
-	right: 0;
-	color: red;
-	font-size: 36px;
-	display: none;
+	max-width: 100%;
+	text-align: center;
+	color: #00FF00;
+	
+}
+#score span {
+	/*display: none;*/
 	font-family: bitsumishiregular;
+	font-size: 1.2em;
 }
 /*#score div img {
 	position: absolute;

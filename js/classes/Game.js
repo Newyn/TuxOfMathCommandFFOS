@@ -6,6 +6,7 @@ function Game() {
 	this.speed = 5.0;
 	this.pause = false;
 	this.active = false;
+	this.currentScore = 0;
 }
 
 /**************************************************************************************************
@@ -265,10 +266,24 @@ Game.prototype.calculComete = function(val) {
 			ctx.stroke();
 
 			aListComete.remove(i);
+			
+			this.majScore();
 		}
 	}
 }
 
+Game.prototype.majScore = function() {
+
+	this.currentScore += 10;
+	
+	var tmpScore = ""+this.currentScore+"";
+	
+	while (tmpScore.length != 8) {
+		tmpScore = "0"+tmpScore;
+	}
+	
+	document.getElementById("score").innerHTML = "<span>"+tmpScore+"</span>";
+}
 /**************************************************************************************************
 Delete all comets
 **************************************************************************************************/
