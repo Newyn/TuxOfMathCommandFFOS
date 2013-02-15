@@ -48,7 +48,7 @@ var fRatioHauteur = (document.documentElement.clientHeight) / fHauteurDeBase;
 var oGame = new Game();
 	
 // Vitesse du jeu
-var GAME_SPEED = 0.6 * ((fRatioLargeur+fRatioHauteur)/2);
+var GAME_SPEED = 0.2 * ((fRatioLargeur+fRatioHauteur)/2);
 
 // Position X des colonnes
 var aListColonneX = [];

@@ -110,40 +110,44 @@ Game.prototype.drawComete = function() {
 		
 		if (aListComete[i].y < GAME_ENDLINE_HEIGHT) {
 			aListComete[i].descendre(GAME_SPEED);
-			ctx.fillStyle = "rgb(255, 0, 0)";
+			ctx.fillStyle = "white";
 			ctx.drawImage(aListComete[i].img, aListComete[i].x, aListComete[i].y, aListComete[i].width / 1.5, aListComete[i].height / 1.5);
+			
+			var str = "";
+			
 			for (var k = 0; k<aListComete[i].eq2.length; k++) {
 			
-				var oCometeNums = new Image();
-				
 				if (aListComete[i].eq2[k] == "+") {
-					oCometeNums.src = "resources/status/nums/add.png";
+					str = str+"+";
 				}
 				else if (aListComete[i].eq2[k] == "-") {
-					oCometeNums.src = "resources/status/nums/sub.png";
+					str = str+"-";
 				}
 				else if (aListComete[i].eq2[k] == "/") {
-					oCometeNums.src = "resources/status/nums/div.png";
+					str = str+"/";
 				}
 				else if (aListComete[i].eq2[k] == "*") {
-					oCometeNums.src = "resources/status/nums/mul.png";
+					str = str+"*";
 				}
 				else if (aListComete[i].eq2[k] == "=") {
-					oCometeNums.src = "resources/status/nums/equal.png";
+					str = str+"=";
 				}
 				else if (aListComete[i].eq2[k] == "?") {
-					oCometeNums.src = "resources/status/nums/int.png";
+					str = str+"?";
 				}
 				else {
-					oCometeNums.src = "resources/status/nums/"+aListComete[i].eq2[k]+".png";
+					str = str+""+aListComete[i].eq2[k];
 				}
 				
-				oCometeNums.width = oCometeNums.width * ((fRatioLargeur+fRatioHauteur)/2);
-				oCometeNums.height = oCometeNums.height * ((fRatioLargeur+fRatioHauteur)/2);
+				//oCometeNums.width = oCometeNums.width * ((fRatioLargeur+fRatioHauteur)/2);
+				//oCometeNums.height = oCometeNums.height * ((fRatioLargeur+fRatioHauteur)/2);
 				
-				var tmp = (aListComete[i].x + k * (12 * ((fRatioLargeur+fRatioHauteur)/2)));
+				//var tmp = (aListComete[i].x + k * (12 * ((fRatioLargeur+fRatioHauteur)/2)));
 				
-				ctx.drawImage(oCometeNums, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums.width / 1.5, oCometeNums.height / 1.5);
+				//ctx.drawImage(oCometeNums, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums.width / 1.5, oCometeNums.height / 1.5);*/
+				ctx.font = 'normal 1em bitsumishiregular';
+				ctx.fillText(str, aListComete[i].x, aListComete[i].y + (115 * ((fRatioLargeur+fRatioHauteur)/2)));
+				//docume
 			}
 			
 			//ctx.fillText(aListComete[i].eq2, aListComete[i].x,  aListComete[i].y + 115);

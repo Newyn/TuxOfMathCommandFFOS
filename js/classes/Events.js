@@ -47,6 +47,7 @@ var handleClickExit = function() {
 	document.getElementById("exitButton").style.display = "none";
 	document.getElementById("pauseButton").style.display = "none";
 	document.getElementById("pause").style.display = "none";
+	document.getElementById("score").style.display = "none";
 }
 
 var handleClickKeypad = function() {
@@ -124,6 +125,7 @@ var launchGame = function() {
 	document.getElementById("console").style.display = "block";
 	document.getElementById("exitButton").style.display = "block";
 	document.getElementById("pauseButton").style.display = "block";
+	document.getElementById("score").style.display = "block";
 	
 	// X position of the columns where comets fall
 	aListColonneX[0] = document.getElementById("igloo0").x;
