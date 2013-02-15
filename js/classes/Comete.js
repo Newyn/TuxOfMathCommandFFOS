@@ -12,5 +12,5 @@ function Comete(img, x, y) {
 }
 
 Comete.prototype.descendre = function(speed) {
-	this.y = this.y * 10;
+	this.y = this.y + 1.0 * GAME_SPEED;
 }
