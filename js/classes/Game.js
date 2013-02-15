@@ -117,40 +117,60 @@ Game.prototype.drawComete = function() {
 			
 			for (var k = 0; k<aListComete[i].eq2.length; k++) {
 			
+				var tmp = (aListComete[i].x + k * (12 * ((fRatioLargeur+fRatioHauteur)/2)));
+				
 				if (aListComete[i].eq2[k] == "+") {
-					str = str+"+";
+					ctx.drawImage(oCometeNumsAdd, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNumsAdd.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNumsAdd.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
 				}
 				else if (aListComete[i].eq2[k] == "-") {
-					str = str+"-";
+					ctx.drawImage(oCometeNumsSub, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNumsSub.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNumsSub.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
 				}
 				else if (aListComete[i].eq2[k] == "/") {
-					str = str+"/";
+					ctx.drawImage(oCometeNumsDiv, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNumsDiv.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNumsDiv.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
 				}
 				else if (aListComete[i].eq2[k] == "*") {
-					str = str+"*";
+					ctx.drawImage(oCometeNumsMul, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNumsMul.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNumsMul.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
 				}
 				else if (aListComete[i].eq2[k] == "=") {
-					str = str+"=";
+					ctx.drawImage(oCometeNumsEqual, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNumsEqual.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNumsEqual.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
 				}
 				else if (aListComete[i].eq2[k] == "?") {
-					str = str+"?";
+					ctx.drawImage(oCometeNumsInt, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNumsInt.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNumsInt.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
 				}
-				else {
-					str = str+""+aListComete[i].eq2[k];
+				else if (aListComete[i].eq2[k] == "0") {
+					ctx.drawImage(oCometeNums0, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums0.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums0.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
 				}
-				
-				//oCometeNums.width = oCometeNums.width * ((fRatioLargeur+fRatioHauteur)/2);
-				//oCometeNums.height = oCometeNums.height * ((fRatioLargeur+fRatioHauteur)/2);
-				
-				//var tmp = (aListComete[i].x + k * (12 * ((fRatioLargeur+fRatioHauteur)/2)));
-				
-				//ctx.drawImage(oCometeNums, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums.width / 1.5, oCometeNums.height / 1.5);*/
-				ctx.font = 'normal 1em bitsumishiregular';
-				ctx.fillText(str, aListComete[i].x, aListComete[i].y + (115 * ((fRatioLargeur+fRatioHauteur)/2)));
-				//docume
+				else if (aListComete[i].eq2[k] == "1") {
+					ctx.drawImage(oCometeNums1, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums1.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums1.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListComete[i].eq2[k] == "2") {
+					ctx.drawImage(oCometeNums2, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums2.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums2.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListComete[i].eq2[k] == "3") {
+					ctx.drawImage(oCometeNums3, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums3.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums3.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListComete[i].eq2[k] == "4") {
+					ctx.drawImage(oCometeNums4, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums4.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums4.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListComete[i].eq2[k] == "5") {
+					ctx.drawImage(oCometeNums5, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums5.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums5.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListComete[i].eq2[k] == "6") {
+					ctx.drawImage(oCometeNums6, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums6.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums6.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListComete[i].eq2[k] == "7") {
+					ctx.drawImage(oCometeNums7, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums7.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums7.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListComete[i].eq2[k] == "8") {
+					ctx.drawImage(oCometeNums8, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums8.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums8.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListComete[i].eq2[k] == "9") {
+					ctx.drawImage(oCometeNums9, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums9.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums9.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+	
 			}
 			
-			//ctx.fillText(aListComete[i].eq2, aListComete[i].x,  aListComete[i].y + 115);
+
 		}
 		else {
 			var tmpNb = 0;

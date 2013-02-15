@@ -164,6 +164,38 @@ imgCometeOne.src = "resources/comets/comet1.png";
 var imgCometeTwo = new Image();
 imgCometeTwo.src = "resources/comets/comet2.png";
 
+var oCometeNumsAdd = new Image();
+oCometeNumsAdd.src = "resources/status/nums/add.png";
+var oCometeNumsSub = new Image();
+oCometeNumsSub.src = "resources/status/nums/sub.png";
+var oCometeNumsDiv = new Image();
+oCometeNumsDiv.src = "resources/status/nums/div.png";
+var oCometeNumsMul = new Image();
+oCometeNumsMul.src = "resources/status/nums/mul.png";
+var oCometeNumsEqual = new Image();
+oCometeNumsEqual.src = "resources/status/nums/equal.png";
+var oCometeNumsInt = new Image();
+oCometeNumsInt.src = "resources/status/nums/int.png";
+var oCometeNums0 = new Image();
+oCometeNums0.src = "resources/status/nums/0.png";
+var oCometeNums1 = new Image();
+oCometeNums1.src = "resources/status/nums/1.png";
+var oCometeNums2 = new Image();
+oCometeNums2.src = "resources/status/nums/2.png";
+var oCometeNums3 = new Image();
+oCometeNums3.src = "resources/status/nums/3.png";
+var oCometeNums4 = new Image();
+oCometeNums4.src = "resources/status/nums/4.png";
+var oCometeNums5 = new Image();
+oCometeNums5.src = "resources/status/nums/5.png";
+var oCometeNums6 = new Image();
+oCometeNums6.src = "resources/status/nums/6.png";
+var oCometeNums7 = new Image();
+oCometeNums7.src = "resources/status/nums/7.png";
+var oCometeNums8 = new Image();
+oCometeNums8.src = "resources/status/nums/8.png";
+var oCometeNums9 = new Image();
+oCometeNums9.src = "resources/status/nums/9.png";
 
 /**************************************************************************************************
 Step
