@@ -3,7 +3,7 @@ Constructor the game
 **************************************************************************************************/
 
 function Game() {
-	this.speed = 0.5;
+	this.speed = 5.0;
 	this.pause = false;
 	this.active = false;
 }
