@@ -7,6 +7,7 @@ function Game() {
 	this.pause = false;
 	this.active = false;
 	this.activeWave = 1;
+	this.activeBackground = 1;
 	this.cometsSpawned = 0;
 	this.currentScore = 0;
 }
@@ -242,6 +243,21 @@ Game.prototype.drawComete = function() {
 			
 			// Suppression de la comète de l'array aListComete 
 			aListComete.remove(i);
+			
+			if ((this.cometsSpawned == wave[this.activeWave]) && (aListComete.length == 0)){
+				this.activeWave = this.activeWave + 1;
+				this.cometsSpawned = 0;
+				document.getElementById("wave").innerHTML = "<span>Wave "+this.activeWave+"</span>";
+				
+				var randomBackground = this.activeBackground;
+				
+				while (randomBackground == this.activeBackground) {
+					randomBackground = Math.floor(Math.random()*7);
+				}
+				
+				document.getElementById("background").style.backgroundImage = "url(resources/backgrounds/"+randomBackground+".jpg)";
+				document.getElementById("background").style.backgroundSize = '100% 100%';
+			}
 		}
 		
 		
@@ -274,9 +290,19 @@ Game.prototype.calculComete = function(val) {
 			this.majScore();
 			
 			if (this.cometsSpawned == wave[this.activeWave]) {
+			
 				this.activeWave = this.activeWave + 1;
 				this.cometsSpawned = 0;
 				document.getElementById("wave").innerHTML = "<span>Wave "+this.activeWave+"</span>";
+				
+				var randomBackground = this.activeBackground;
+				
+				while (randomBackground == this.activeBackground) {
+					randomBackground = Math.floor(Math.random()*7);
+				}
+				
+				document.getElementById("background").style.backgroundImage = "url(resources/backgrounds/"+randomBackground+".jpg)";
+				document.getElementById("background").style.backgroundSize = '100% 100%';
 			}
 		}
 	}
