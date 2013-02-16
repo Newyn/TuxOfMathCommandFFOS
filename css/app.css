@@ -160,6 +160,25 @@ Score
 	font-family: bitsumishiregular;
 	font-size: 1.2em;
 }
+
+/**************************************************************************************************
+Wave
+**************************************************************************************************/
+
+#wave {
+	position: absolute;
+	width: 100%;
+	max-width: 100%;
+	text-align: center;
+	color: yellow;
+	right: 10%;
+	
+}
+#wave span {
+	/*display: none;*/
+	font-family: bitsumishiregular;
+	font-size: 1.2em;
+}
 /*#score div img {
 	position: absolute;
 	max-width: 7%;

@@ -6,6 +6,8 @@ function Game() {
 	this.speed = 5.0;
 	this.pause = false;
 	this.active = false;
+	this.activeWave = 1;
+	this.cometsSpawned = 0;
 	this.currentScore = 0;
 }
 
@@ -62,7 +64,7 @@ Game.prototype.drawComete = function() {
 	
 	// 1000 = 1 second 
 	// Currently = 8000 = 8 seconds
-	if (elapsedTime >= 8000) {
+	if ((elapsedTime >= 8000) && (this.cometsSpawned < wave[this.activeWave])){
 	
 		// Creating and adding a new comet in the table
 		var oComete = new Comete(imgCometeZero, aListColonneX[Math.floor(Math.random() * 4)], 0);
@@ -74,6 +76,8 @@ Game.prototype.drawComete = function() {
 		ctx.fillText(oComete.eq2, oComete.x,  oComete.y + 50);
 		
 		elapsedTime = 0;
+		
+		this.cometsSpawned = this.cometsSpawned + 1;
 	}
 	
 	for(var i=0;i<aListComete.length;i++) {
@@ -266,8 +270,14 @@ Game.prototype.calculComete = function(val) {
 			ctx.stroke();
 
 			aListComete.remove(i);
-			
+						
 			this.majScore();
+			
+			if (this.cometsSpawned == wave[this.activeWave]) {
+				this.activeWave = this.activeWave + 1;
+				this.cometsSpawned = 0;
+				document.getElementById("wave").innerHTML = "<span>Wave "+this.activeWave+"</span>";
+			}
 		}
 	}
 }

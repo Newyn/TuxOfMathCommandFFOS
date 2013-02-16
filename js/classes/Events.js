@@ -58,8 +58,6 @@ var handleClickKeypad = function() {
 
 var handleKeyDown = function(e) {
 
-	console.log(e.keyCode);
-	
 	// 0
 	if ((e.keyCode == 48) || (e.keyCode == 96)) {
 		oGame.updateLednums(0);
@@ -134,6 +132,8 @@ var launchGame = function() {
 	aListColonneX[3] = document.getElementById("igloo3").x;
 	
 	oGame.active = true;
+	oGame.currentScore = 0;
+	document.getElementById("score").innerHTML = "<span>00000000</span>";
 	
 	setInterval( function () {
 

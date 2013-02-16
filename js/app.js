@@ -156,7 +156,7 @@ imgIglooHalf.src = "resources/igloos/half.png";
 var imgIglooMelted = new Image();
 imgIglooMelted.src = "resources/igloos/melted1.png";
 
-// Comètes
+// Comets
 var imgCometeZero = new Image();
 imgCometeZero.src = "resources/comets/comet0.png";
 var imgCometeOne = new Image();
