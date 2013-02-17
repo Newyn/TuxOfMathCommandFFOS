@@ -397,10 +397,16 @@ Game.prototype.calculComete = function(val) {
 	var aLednumsCoords = [];
 	aLednumsCoords = getPosition("lednums");
 	
+	var verifComet = false;
+
+	soundLaser.play();
+	
 	for (var i=0; i<aListComete.length;i++) {
 		
 		if (aListComete[i].eq.solution == val) {
-		
+			
+			verifComet = true;
+			
 			ctx.beginPath();
 			ctx.strokeStyle='red';
 			ctx.lineWidth=4;
@@ -409,13 +415,19 @@ Game.prototype.calculComete = function(val) {
 			ctx.stroke();
 
 			aListComete.remove(i);
-						
+			
+			soundSizzling.play();
+			
 			this.majScore();
 			
 			if (this.cometsSpawned == wave[this.activeWave]) {
 				this.goToNextWave();
 			}
 		}
+	}
+	
+	if (verifComet == false) {
+		soundBuzz.play();
 	}
 }
 

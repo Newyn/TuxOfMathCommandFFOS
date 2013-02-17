@@ -27,15 +27,16 @@ var handleClickPause = function() {
 var handleClickResume = function() {
 	oGame.resume();
 }
+
 var handleClickRestart = function() {
 	oGame.restart();
 }
+
 var handleClickExit = function() {
 	oGame.stop();
 }
 
 var handleClickKeypad = function() {
-
 	var key = this.id.charAt(6);
 	oGame.updateLednums(key);
 }

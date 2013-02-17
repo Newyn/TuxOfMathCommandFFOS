@@ -96,6 +96,18 @@ musicGame.loop = true;
 musicGame.volume = 0.5;
 musicGame.load();
 
+var soundLaser = new Audio("resources/sounds/laser.wav");
+soundLaser.volume = 0.7;
+soundLaser.load();
+
+var soundSizzling = new Audio("resources/sounds/sizzling.wav");
+soundSizzling.volume = 0.7;
+soundSizzling.load();
+
+var soundBuzz = new Audio("resources/sounds/buzz.ogg");
+soundBuzz.volume = 0.7;
+soundBuzz.load();
+
 // Get buttons
 var pauseButton = document.getElementById("pauseButton");
 var exitButton = document.getElementById("exitButton");
