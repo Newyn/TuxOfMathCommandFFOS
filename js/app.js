@@ -49,7 +49,7 @@ var oGame = new Game();
 var oTimer = new Timer();
 
 // Vitesse du jeu
-var GAME_SPEED = 0.2 * ((fRatioLargeur+fRatioHauteur)/2);
+var GAME_SPEED = 0.4 * ((fRatioLargeur+fRatioHauteur)/2);
 
 // Position X des colonnes
 var aListColonneX = [];
@@ -121,6 +121,8 @@ pauseButton.addEventListener("click", handleClickPause, false);
 exitButton.addEventListener("click", handleClickExit, false);
 resumeButton.addEventListener("click", handleClickResume, false);
 leaveButton.addEventListener("click", handleClickExit, false);
+leaveButtonOver.addEventListener("click", handleClickExit, false);
+restartButton.addEventListener("click", handleClickRestart, false);
 
 // Set up event listener for keypad item
 keypad0.addEventListener("click", handleClickKeypad, false);

@@ -10,6 +10,7 @@ function Game() {
 	this.activeBackground = 1;
 	this.cometsSpawned = 0;
 	this.currentScore = 0;
+	this.activeColumn = [true, true, true, true];
 }
 
 Game.prototype.start = function() {
@@ -32,6 +33,7 @@ Game.prototype.start = function() {
 	document.getElementById("pauseButton").style.display = "block";
 	document.getElementById("score").style.display = "block";
 	document.getElementById("wave").style.display = "block";
+	document.getElementById("gameOver").style.display = "none";
 	
 	// X position of the columns where comets fall
 	aListColonneX[0] = document.getElementById("igloo0").x;
@@ -78,7 +80,7 @@ Game.prototype.stop = function() {
 	document.getElementById("pause").style.display = "none";
 	document.getElementById("score").style.display = "none";
 	document.getElementById("wave").style.display = "none";
-	
+	document.getElementById("gameOver").style.display = "none";
 }
 
 Game.prototype.pause = function() {
@@ -98,6 +100,45 @@ Game.prototype.resume = function() {
 	oGame.isPaused = false;
 	oTimer.start();
 	musicGame.play();
+}
+
+Game.prototype.restart = function() {
+	
+	this.deleteAllComets();
+	
+	document.getElementById("gameOver").style.display = "none";
+	document.getElementById("background").style.backgroundImage = 'url("resources/backgrounds/1.jpg")';
+	document.getElementById("background").style.backgroundSize = '100% 100%';
+	document.getElementById("igloo0").src = "resources/igloos/intact.png";
+	document.getElementById("igloo1").src = "resources/igloos/intact.png";
+	document.getElementById("igloo2").src = "resources/igloos/intact.png";
+	document.getElementById("igloo3").src = "resources/igloos/intact.png";
+	
+	this.isPaused = false;
+	this.active = true;
+	this.activeWave = 1;
+	this.activeBackground = 1;
+	this.cometsSpawned = 0;
+	this.currentScore = 0;
+	this.activeColumn = [true, true, true, true];
+	
+	musicGame.play();
+	oTimer.reset();
+	oTimer.start();
+	
+	document.getElementById("score").innerHTML = "<span>00000000</span>";
+	document.getElementById("wave").innerHTML = "<span>Wave 1</span>";
+	
+}
+
+Game.prototype.end = function() {
+
+	// Game over screen overlay displayed
+	document.getElementById("gameOver").style.display = "block";
+	
+	oGame.isPaused = true;
+	oTimer.pause();
+	musicGame.pause();
 }
 
 /**************************************************************************************************
@@ -148,10 +189,16 @@ Game.prototype.drawComete = function() {
 	
 	
 	// A comet spawn every 7 seconds
-	if ((oTimer.secondsElapsed == 7) && (oTimer.cSecondsElapsed == 0) && (this.cometsSpawned < wave[this.activeWave])){
+	if ((oTimer.secondsElapsed == 2) && (oTimer.cSecondsElapsed == 0) && (this.cometsSpawned < wave[this.activeWave])){
 	
+		var randomColumn = Math.floor(Math.random() * 4);
+		
+		while (this.activeColumn[randomColumn] == false ){
+			randomColumn = Math.floor(Math.random() * 4);
+		}
+		
 		// Creating and adding a new comet in the table
-		var oComete = new Comete(imgCometeZero, aListColonneX[Math.floor(Math.random() * 4)], 0);
+		var oComete = new Comete(imgCometeZero, aListColonneX[randomColumn], 0);
 		aListComete.push(oComete);
 		
 		ctx.drawImage(oComete.img, oComete.x, oComete.y, oComete.width / 1.5, oComete.height / 1.5);
@@ -274,6 +321,7 @@ Game.prototype.drawComete = function() {
 			}
 			else if (document.getElementById("igloo"+tmpNb).src.indexOf("half.png") !== -1) {
 				document.getElementById("igloo"+tmpNb).src = "resources/igloos/melted1.png";
+				this.activeColumn[tmpNb] = false;
 			}
 			else {
 				// TODO : Il n'y a plus de vies => GAME OVER
@@ -325,6 +373,10 @@ Game.prototype.drawComete = function() {
 			
 			// Suppression de la comète de l'array aListComete 
 			aListComete.remove(i);
+			
+			if ((this.activeColumn[0] == false) && (this.activeColumn[1] == false) && (this.activeColumn[2] == false) && (this.activeColumn[3] == false)) {
+				this.end();
+			}
 			
 			if ((this.cometsSpawned == wave[this.activeWave]) && (aListComete.length == 0)){
 				this.goToNextWave();

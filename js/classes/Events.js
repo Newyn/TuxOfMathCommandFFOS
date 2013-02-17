@@ -27,7 +27,9 @@ var handleClickPause = function() {
 var handleClickResume = function() {
 	oGame.resume();
 }
-
+var handleClickRestart = function() {
+	oGame.restart();
+}
 var handleClickExit = function() {
 	oGame.stop();
 }
