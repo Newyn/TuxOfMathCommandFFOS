@@ -4,12 +4,100 @@ Constructor the game
 
 function Game() {
 	this.speed = 5.0;
-	this.pause = false;
+	this.isPaused = false;
 	this.active = false;
 	this.activeWave = 1;
 	this.activeBackground = 1;
 	this.cometsSpawned = 0;
 	this.currentScore = 0;
+}
+
+Game.prototype.start = function() {
+
+	window.addEventListener("blur", handleBlur);
+	window.addEventListener("keydown", handleKeyDown, false);
+	
+	// Hide menu
+	document.getElementById("topLeftLogo").style.display = "none";
+	document.getElementById("bottomLeftLogo").style.display = "none";
+	document.getElementById("menu").style.display = "none";
+	
+	// Setup the game
+	document.getElementById("background").style.backgroundImage = 'url("resources/backgrounds/1.jpg")';
+	document.getElementById("background").style.backgroundSize = '100% 100%';
+	document.getElementById("keypad").style.display = "block";
+	document.getElementById("igloo").style.display = "block";
+	document.getElementById("console").style.display = "block";
+	document.getElementById("exitButton").style.display = "block";
+	document.getElementById("pauseButton").style.display = "block";
+	document.getElementById("score").style.display = "block";
+	document.getElementById("wave").style.display = "block";
+	
+	// X position of the columns where comets fall
+	aListColonneX[0] = document.getElementById("igloo0").x;
+	aListColonneX[1] = document.getElementById("igloo1").x;
+	aListColonneX[2] = document.getElementById("igloo2").x;
+	aListColonneX[3] = document.getElementById("igloo3").x;
+	
+	this.active = true;
+	this.currentScore = 0;
+	
+	musicMenu.pause();
+	musicGame.play();
+	oTimer.start();
+
+	document.getElementById("score").innerHTML = "<span>00000000</span>";
+}
+
+Game.prototype.stop = function() {
+	
+	window.removeEventListener("blur", handleBlur);
+	window.removeEventListener("keydown", handleKeyDown, false);
+	
+	oGame.active = false;	
+	oGame.deleteAllComets();
+	
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	
+	musicGame.pause();
+	musicMenu.play();
+	
+	// Set up menu
+	document.getElementById("topLeftLogo").style.display = "block";
+	document.getElementById("bottomLeftLogo").style.display = "block";
+	document.getElementById("menu").style.display = "table";
+	document.getElementById("background").style.backgroundImage = 'url("resources/title/menu_bkg.jpg")';
+	document.getElementById("background").style.backgroundSize = '100% 100%';
+	
+	// Hide the game
+	document.getElementById("keypad").style.display = "none";
+	document.getElementById("igloo").style.display = "none";
+	document.getElementById("console").style.display = "none";
+	document.getElementById("exitButton").style.display = "none";
+	document.getElementById("pauseButton").style.display = "none";
+	document.getElementById("pause").style.display = "none";
+	document.getElementById("score").style.display = "none";
+	document.getElementById("wave").style.display = "none";
+	
+}
+
+Game.prototype.pause = function() {
+
+	document.getElementById("pause").style.display = "block";
+	
+	oGame.isPaused = true;
+	oTimer.pause();
+	musicGame.pause();
+}
+
+Game.prototype.resume = function() {
+
+	// Pause screen overlay undisplayed
+	document.getElementById("pause").style.display = "none";
+	
+	oGame.isPaused = false;
+	oTimer.start();
+	musicGame.play();
 }
 
 /**************************************************************************************************

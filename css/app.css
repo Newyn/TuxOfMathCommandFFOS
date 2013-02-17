@@ -153,10 +153,9 @@ Score
 	max-width: 100%;
 	text-align: center;
 	color: #00FF00;
-	
+	display: none;
 }
 #score span {
-	/*display: none;*/
 	font-family: bitsumishiregular;
 	font-size: 1.2em;
 }
@@ -172,10 +171,10 @@ Wave
 	text-align: center;
 	color: yellow;
 	right: 10%;
+	display: none;
 	
 }
 #wave span {
-	/*display: none;*/
 	font-family: bitsumishiregular;
 	font-size: 1.2em;
 }

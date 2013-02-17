@@ -13,9 +13,9 @@ stats.domElement.style.position = 'absolute';
 stats.domElement.style.left = '0px';
 stats.domElement.style.top = '0px';
 
-document.body.appendChild( stats.domElement );
+document.body.appendChild(stats.domElement);
 
-/**************************************************************************************************
+/*************************************************************************************************
 Setup requestAnimationFrame
 **************************************************************************************************/
 
@@ -69,11 +69,11 @@ Initialization of the menu
 **************************************************************************************************/
 
 // Music
-var music = new Audio("resources/sounds/tuxi.ogg");
-music.loop = true;
-music.volume = 0.5;
-music.load();
-music.play();
+var musicMenu = new Audio("resources/sounds/tuxi.ogg");
+musicMenu.loop = true;
+musicMenu.volume = 0.5;
+musicMenu.load();
+musicMenu.play();
 
 // Get menu item
 var itemPlay = document.getElementById("play");
@@ -90,6 +90,12 @@ itemExit.addEventListener("click", launchExit, false);
 /**************************************************************************************************
 Initialization of the game
 **************************************************************************************************/
+
+var musicGame = new Audio("resources/sounds/03_gravity.ogg");
+musicGame.loop = true;
+musicGame.volume = 0.5;
+musicGame.load();
+
 // Get buttons
 var pauseButton = document.getElementById("pauseButton");
 var exitButton = document.getElementById("exitButton");
@@ -137,9 +143,6 @@ var lednum2 = document.getElementById("lednum0");
 var lednumneg = document.getElementById("lednumneg");
 var lednumActive = lednum0;
 var negativeSign = false;
-
-window.addEventListener("keydown", handleKeyDown, false);
-window.addEventListener("blur", handleBlur);
 
 /**************************************************************************************************
 Initialisation des images utilisées dans le jeu
@@ -200,7 +203,7 @@ Step
 
 var step = function () {
 	
-	if ((oGame.pause == false) && (oGame.active == true)) {
+	if ((oGame.isPaused == false) && (oGame.active == true)) {
 		// Resetting the display
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
