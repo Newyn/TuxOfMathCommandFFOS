@@ -57,15 +57,10 @@ Affichage des comètes
 **************************************************************************************************/
 
 Game.prototype.drawComete = function() {
-
-	// Update interval appearance of comets
-	previousTimestamp = currentTimestamp;
-	currentTimestamp = Date.now();
-	elapsedTime += currentTimestamp - previousTimestamp;
 	
-	// 1000 = 1 second 
-	// Currently = 8000 = 8 seconds
-	if ((elapsedTime >= 8000) && (this.cometsSpawned < wave[this.activeWave])){
+	
+	// 5 seconds
+	if ((oTimer.secondsElapsed == 7) && (oTimer.cSecondsElapsed == 0) && (this.cometsSpawned < wave[this.activeWave])){
 	
 		// Creating and adding a new comet in the table
 		var oComete = new Comete(imgCometeZero, aListColonneX[Math.floor(Math.random() * 4)], 0);
@@ -75,10 +70,10 @@ Game.prototype.drawComete = function() {
 				
 		ctx.fillStyle = "rgb(255, 0, 0)";
 		ctx.fillText(oComete.eq2, oComete.x,  oComete.y + 50);
-		
-		elapsedTime = 0;
-		
+
 		this.cometsSpawned = this.cometsSpawned + 1;
+		
+		oTimer.reset();
 	}
 	
 	for(var i=0;i<aListComete.length;i++) {
@@ -245,18 +240,7 @@ Game.prototype.drawComete = function() {
 			aListComete.remove(i);
 			
 			if ((this.cometsSpawned == wave[this.activeWave]) && (aListComete.length == 0)){
-				this.activeWave = this.activeWave + 1;
-				this.cometsSpawned = 0;
-				document.getElementById("wave").innerHTML = "<span>Wave "+this.activeWave+"</span>";
-				
-				var randomBackground = this.activeBackground;
-				
-				while (randomBackground == this.activeBackground) {
-					randomBackground = Math.floor(Math.random()*7);
-				}
-				
-				document.getElementById("background").style.backgroundImage = "url(resources/backgrounds/"+randomBackground+".jpg)";
-				document.getElementById("background").style.backgroundSize = '100% 100%';
+				this.goToNextWave();
 			}
 		}
 		
@@ -290,22 +274,29 @@ Game.prototype.calculComete = function(val) {
 			this.majScore();
 			
 			if (this.cometsSpawned == wave[this.activeWave]) {
-			
-				this.activeWave = this.activeWave + 1;
-				this.cometsSpawned = 0;
-				document.getElementById("wave").innerHTML = "<span>Wave "+this.activeWave+"</span>";
-				
-				var randomBackground = this.activeBackground;
-				
-				while (randomBackground == this.activeBackground) {
-					randomBackground = Math.floor(Math.random()*7);
-				}
-				
-				document.getElementById("background").style.backgroundImage = "url(resources/backgrounds/"+randomBackground+".jpg)";
-				document.getElementById("background").style.backgroundSize = '100% 100%';
+				this.goToNextWave();
 			}
 		}
 	}
+}
+
+Game.prototype.goToNextWave = function() {
+
+	this.activeWave = this.activeWave + 1;
+	this.cometsSpawned = 0;
+	
+	document.getElementById("wave").innerHTML = "<span>Wave "+this.activeWave+"</span>";
+				
+	var randomBackground = this.activeBackground;
+				
+	while (randomBackground == this.activeBackground) {
+		randomBackground = Math.floor(Math.random()*7);
+	}
+				
+	document.getElementById("background").style.backgroundImage = "url(resources/backgrounds/"+randomBackground+".jpg)";
+	document.getElementById("background").style.backgroundSize = '100% 100%';
+	
+	oTimer.reset();
 }
 
 Game.prototype.majScore = function() {

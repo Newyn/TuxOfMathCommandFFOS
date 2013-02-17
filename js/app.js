@@ -46,7 +46,8 @@ var fRatioLargeur = (document.documentElement.clientWidth) / fLargeurDeBase;
 var fRatioHauteur = (document.documentElement.clientHeight) / fHauteurDeBase;
 
 var oGame = new Game();
-	
+var oTimer = new Timer();
+
 // Vitesse du jeu
 var GAME_SPEED = 0.2 * ((fRatioLargeur+fRatioHauteur)/2);
 

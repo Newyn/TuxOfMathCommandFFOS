@@ -133,6 +133,8 @@ var launchGame = function() {
 	
 	oGame.active = true;
 	oGame.currentScore = 0;
+	oTimer.start();
+	
 	document.getElementById("score").innerHTML = "<span>00000000</span>";
 	
 	setInterval( function () {
