@@ -59,15 +59,10 @@ var GAME_ENDLINE_HEIGHT = (canvas.height / 1.25 - (140 * ((fRatioLargeur+fRatioH
 // Tableau pour stocker les comètes 
 var aListComete = [];
 
-// Gestion du timer d'apparition des comètes 
+// Gestion du timer du mouvement des comètes
 var currentTimestamp = Date.now();
 var previousTimestamp = 0;
 var elapsedTime = 0;
-
-// Gestion du timer du mouvement des comètes
-var currentTimestamp2 = Date.now();
-var previousTimestamp2 = 0;
-var elapsedTime2 = 0;
 
 /**************************************************************************************************
 Initialization of the menu

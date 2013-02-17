@@ -59,7 +59,7 @@ Affichage des comètes
 Game.prototype.drawComete = function() {
 	
 	
-	// 5 seconds
+	// A comet spawn every 7 seconds
 	if ((oTimer.secondsElapsed == 7) && (oTimer.cSecondsElapsed == 0) && (this.cometsSpawned < wave[this.activeWave])){
 	
 		// Creating and adding a new comet in the table
@@ -79,13 +79,13 @@ Game.prototype.drawComete = function() {
 	for(var i=0;i<aListComete.length;i++) {
 		
 		// Update the range of motion of comets down
-		previousTimestamp2 = currentTimestamp2;
-		currentTimestamp2 = Date.now();
-		elapsedTime2 += currentTimestamp2 - previousTimestamp2;
+		previousTimestamp = currentTimestamp;
+		currentTimestamp = Date.now();
+		elapsedTime += currentTimestamp - previousTimestamp;
 		
 		// 1000 = 1 second 
 		// Currently = 100 = 0.1 seconds
-		if (elapsedTime2 >= 100) {
+		if (elapsedTime >= 100) {
 		
 			// Workng principle for each comet :
 			//	- If so comet0 comet1
@@ -105,11 +105,12 @@ Game.prototype.drawComete = function() {
 				}
 			}
 			
-			elapsedTime2 = 0;	
+			elapsedTime = 0;		
 		}
 		
 		
 		if (aListComete[i].y < GAME_ENDLINE_HEIGHT) {
+		
 			aListComete[i].descendre(GAME_SPEED);
 			ctx.fillStyle = "white";
 			ctx.drawImage(aListComete[i].img, aListComete[i].x, aListComete[i].y, aListComete[i].width / 1.5, aListComete[i].height / 1.5);
@@ -170,8 +171,6 @@ Game.prototype.drawComete = function() {
 				}
 	
 			}
-			
-
 		}
 		else {
 			var tmpNb = 0;
