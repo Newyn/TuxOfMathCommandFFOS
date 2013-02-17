@@ -14,6 +14,13 @@ var mouseClickKeypad = function(e) {
 	}
 }
 
+var handleBlur = function() {
+	if (oGame.pause == false) {
+		oGame.pause = true;
+		document.getElementById("pause").style.display = "block";
+	}
+}
+
 var handleClickPause = function() {
 
 	oGame.pause = true;

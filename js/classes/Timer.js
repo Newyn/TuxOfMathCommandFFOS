@@ -31,6 +31,4 @@ Timer.prototype.update = function() {
 		this.cSecondsElapsed = 0;
 		this.secondsElapsed++;
 	}
-	
-	console.log(this.secondsElapsed+" "+this.cSecondsElapsed);
 }

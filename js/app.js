@@ -139,6 +139,7 @@ var lednumActive = lednum0;
 var negativeSign = false;
 
 window.addEventListener("keydown", handleKeyDown, false);
+window.addEventListener("blur", handleBlur);
 
 /**************************************************************************************************
 Initialisation des images utilisées dans le jeu
