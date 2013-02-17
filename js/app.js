@@ -108,6 +108,10 @@ var soundBuzz = new Audio("resources/sounds/buzz.ogg");
 soundBuzz.volume = 0.7;
 soundBuzz.load();
 
+var soundExplosion = new Audio("resources/sounds/explosion.wav");
+soundExplosion.volume = 0.7;
+soundExplosion.load();
+
 // Get buttons
 var pauseButton = document.getElementById("pauseButton");
 var exitButton = document.getElementById("exitButton");

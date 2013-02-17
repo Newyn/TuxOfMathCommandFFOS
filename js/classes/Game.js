@@ -189,7 +189,7 @@ Game.prototype.drawComete = function() {
 	
 	
 	// A comet spawn every 7 seconds
-	if ((oTimer.secondsElapsed == 2) && (oTimer.cSecondsElapsed == 0) && (this.cometsSpawned < wave[this.activeWave])){
+	if ((oTimer.secondsElapsed == 7) && (oTimer.cSecondsElapsed == 0) && (this.cometsSpawned < wave[this.activeWave])){
 	
 		var randomColumn = Math.floor(Math.random() * 4);
 		
@@ -308,6 +308,8 @@ Game.prototype.drawComete = function() {
 			}
 		}
 		else {
+			soundExplosion.play();
+			
 			var tmpNb = 0;
 			
 			for (var j=0;j<aListColonneX.length;j++) {
