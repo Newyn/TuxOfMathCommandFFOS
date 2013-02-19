@@ -79,13 +79,13 @@ musicMenu.play();
 var itemPlay = document.getElementById("play");
 var itemHelp = document.getElementById("help");
 var itemOptions = document.getElementById("options");
-var itemExit = document.getElementById("exit");
+var itemScores = document.getElementById("scores");
 
 // Set up event listener for menu item
 itemPlay.addEventListener("click", launchGame, false);
 itemHelp.addEventListener("click", launchHelp, false);
 itemOptions.addEventListener("click", launchOptions, false);
-itemExit.addEventListener("click", launchExit, false);
+itemScores.addEventListener("click", launchScores, false);
 
 /**************************************************************************************************
 Initialization of the game

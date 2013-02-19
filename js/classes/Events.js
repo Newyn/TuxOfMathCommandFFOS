@@ -107,4 +107,4 @@ var launchGame = function() {
 
 var launchHelp = function() {alert("Help")};
 var launchOptions = function() {alert("Options")};
-var launchExit = function() {alert("Exit")};
+var launchScores = function() {alert("Scores")};
