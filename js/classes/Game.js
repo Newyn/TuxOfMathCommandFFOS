@@ -189,7 +189,7 @@ Game.prototype.drawComete = function() {
 	
 	
 	// A comet spawn every 7 seconds
-	if ((oTimer.secondsElapsed == 7) && (oTimer.cSecondsElapsed == 0) && (this.cometsSpawned < wave[this.activeWave])){
+	if ((oTimer.secondsElapsed == 7) && (oTimer.cSecondsElapsed == 0) && (this.cometsSpawned < wavesTab[this.activeWave-1].nbrEq)){
 	
 		var randomColumn = Math.floor(Math.random() * 4);
 		
@@ -198,7 +198,8 @@ Game.prototype.drawComete = function() {
 		}
 		
 		// Creating and adding a new comet in the table
-		var oComete = new Comete(imgCometeZero, aListColonneX[randomColumn], 0);
+		console.log ();
+		var oComete = new Comete(imgCometeZero, aListColonneX[randomColumn], 0, wavesTab[this.activeWave-1]);
 		aListComete.push(oComete);
 		
 		ctx.drawImage(oComete.img, oComete.x, oComete.y, oComete.width / 1.5, oComete.height / 1.5);
@@ -206,7 +207,7 @@ Game.prototype.drawComete = function() {
 		ctx.fillStyle = "rgb(255, 0, 0)";
 		ctx.fillText(oComete.eq2, oComete.x,  oComete.y + 50);
 
-		this.cometsSpawned = this.cometsSpawned + 1;
+		// this.cometsSpawned = this.cometsSpawned + 1;
 		
 		oTimer.reset();
 	}
@@ -380,7 +381,7 @@ Game.prototype.drawComete = function() {
 				this.end();
 			}
 			
-			if ((this.cometsSpawned == wave[this.activeWave]) && (aListComete.length == 0)){
+			if ((this.cometsSpawned == wavesTab[this.activeWave-1].nbrEq) && (aListComete.length == 0)){
 				this.goToNextWave();
 			}
 		}
@@ -422,7 +423,9 @@ Game.prototype.calculComete = function(val) {
 			
 			this.majScore();
 			
-			if (this.cometsSpawned == wave[this.activeWave]) {
+			this.cometsSpawned = this.cometsSpawned + 1;
+
+			if (this.cometsSpawned == wavesTab[this.activeWave-1].nbrEq) {
 				this.goToNextWave();
 			}
 		}
