@@ -5,15 +5,15 @@ FPS Frames rendered in the last second. The higher the number the better.
 MS Milliseconds needed to render a frame. The lower the number the better.
 **************************************************************************************************/
 
-var stats = new Stats();
-stats.setMode(1); // 0: fps, 1: ms
+//var stats = new Stats();
+//stats.setMode(1); // 0: fps, 1: ms
 
 // Align top-left
-stats.domElement.style.position = 'absolute';
-stats.domElement.style.left = '0px';
-stats.domElement.style.top = '0px';
+//stats.domElement.style.position = 'absolute';
+//stats.domElement.style.left = '0px';
+//stats.domElement.style.top = '0px';
 
-document.body.appendChild(stats.domElement);
+//document.body.appendChild(stats.domElement);
 
 /*************************************************************************************************
 Setup requestAnimationFrame

@@ -154,10 +154,13 @@ Score
 	text-align: center;
 	color: #00FF00;
 	display: none;
+	top: 2%;
 }
 #score span {
-	font-family: bitsumishiregular;
-	font-size: 1.2em;
+	float: right;
+    font-family: bitsumishiregular;
+    font-size: 1.7em;
+    margin-right: 10%;
 }
 
 /**************************************************************************************************
@@ -165,18 +168,19 @@ Wave
 **************************************************************************************************/
 
 #wave {
-	position: absolute;
-	width: 100%;
-	max-width: 100%;
-	text-align: center;
 	color: yellow;
-	right: 10%;
+    margin-left: 10px;
+    max-width: 100%;
+    position: absolute;
+    text-align: left;
+    width: 100%;
 	display: none;
+	top: 2%;
 	
 }
 #wave span {
 	font-family: bitsumishiregular;
-	font-size: 1.2em;
+	font-size: 1.7em;
 }
 /*#score div img {
 	position: absolute;

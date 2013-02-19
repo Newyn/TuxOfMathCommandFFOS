@@ -97,12 +97,12 @@ var launchGame = function() {
 
 	oGame.start();
 	
-	setInterval( function () {
-		stats.begin();
+	//setInterval( function () {
+	//	stats.begin();
 			// Step
 			step();
-		stats.end();
-	}, 1000 / 60 );	
+	//	stats.end();
+	//}, 1000 / 60 );	
 }
 
 var launchHelp = function() {alert("Help")};
