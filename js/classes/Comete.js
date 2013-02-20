@@ -14,3 +14,7 @@ function Comete(img, x, y, wave) {
 Comete.prototype.descendre = function(speed) {
 	this.y = this.y + 1.0 * GAME_SPEED;
 }
+
+Comete.prototype.goRight = function(speed) {
+	this.x = this.x + 5.0 * GAME_SPEED;
+}

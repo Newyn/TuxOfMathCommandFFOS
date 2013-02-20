@@ -8,6 +8,7 @@ function Timer() {
 Timer.prototype.start = function() {
 	this.interval = setInterval(function(){
 							  oTimer.update();
+							  oTimerBonusComets.update();
 						   },100);
 };
 

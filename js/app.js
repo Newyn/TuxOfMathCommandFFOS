@@ -47,7 +47,7 @@ var fRatioHauteur = (document.documentElement.clientHeight) / fHauteurDeBase;
 
 var oGame = new Game();
 var oTimer = new Timer();
-
+var oTimerBonusComets = new Timer();
 // Vitesse du jeu
 var GAME_SPEED = 0.4 * ((fRatioLargeur+fRatioHauteur)/2);
 
@@ -58,12 +58,17 @@ var GAME_ENDLINE_HEIGHT = (canvas.height / 1.25 - (140 * ((fRatioLargeur+fRatioH
 
 // Tableau pour stocker les comètes 
 var aListComete = [];
-
+var aListYellowComets = [];
+var aListRedComets = [];
 // Gestion du timer du mouvement des comètes
 var currentTimestamp = Date.now();
 var previousTimestamp = 0;
 var elapsedTime = 0;
 
+var currentTimestampY = Date.now();
+var previousTimestampY = 0;
+var elapsedTimeY = 0;
+		
 /**************************************************************************************************
 Initialization of the menu
 **************************************************************************************************/
@@ -184,6 +189,15 @@ imgCometeOne.src = "resources/comets/comet1.png";
 var imgCometeTwo = new Image();
 imgCometeTwo.src = "resources/comets/comet2.png";
 
+// Yellow comets
+var imgYellowCometZero = new Image();
+imgYellowCometZero.src = "resources/comets/right_powerup_comet0.png";
+var imgYellowCometOne = new Image();
+imgYellowCometOne.src = "resources/comets/right_powerup_comet1.png";
+var imgYellowCometTwo = new Image();
+imgYellowCometTwo.src = "resources/comets/right_powerup_comet2.png";
+
+
 var oCometeNumsAdd = new Image();
 oCometeNumsAdd.src = "resources/status/nums/add.png";
 var oCometeNumsSub = new Image();
@@ -228,6 +242,7 @@ var step = function () {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		oGame.drawComete();
+		oGame.drawYellowComets();
 		requestAnimationFrame(step);
 	}
 	else {
