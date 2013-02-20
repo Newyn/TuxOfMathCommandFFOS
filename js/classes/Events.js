@@ -32,8 +32,17 @@ var handleClickRestart = function() {
 	oGame.restart();
 }
 
-var handleClickExit = function() {
+var handleClickExitMenu = function() {
+	document.getElementById("menu").style.display = "table";
+	document.getElementById("tabScore").style.display = "none";
+	document.getElementById("tabHelp").style.display = "none";
+	document.getElementById("exitButton").style.display = "none";
+}
+
+var handleClickExitGame = function() {
 	oGame.stop();
+	exitButton.addEventListener("click", handleClickExitMenu, false);
+	exitButton.removeEventListener("click", handleClickExitGame, false);
 }
 
 var handleClickKeypad = function() {
@@ -95,6 +104,9 @@ var handleKeyDown = function(e) {
 
 var launchGame = function() {
 
+	exitButton.removeEventListener("click", handleClickExitMenu, false);
+	exitButton.addEventListener("click", handleClickExitGame, false);
+	
 	oGame.start();
 	
 	//setInterval( function () {
@@ -107,4 +119,12 @@ var launchGame = function() {
 
 var launchHelp = function() {alert("Help")};
 var launchOptions = function() {alert("Options")};
-var launchScores = function() {alert("Scores")};
+
+var launchScores = function() {
+	
+	readAllScores();
+	document.getElementById("tabScore").style.display = "block";
+	document.getElementById("exitButton").style.display = "block";
+	
+	document.getElementById("menu").style.display = "none";
+};

@@ -67,6 +67,9 @@ function readAllScores(){
 
     request.onsuccess = function(event) {
 	
+		var scores = [];
+		document.getElementById("listTabScore").innerHTML = "";
+		
 		var db = event.target.result; 
 		
 		var store = db.transaction(["save"], "readonly").objectStore("save");
@@ -74,15 +77,30 @@ function readAllScores(){
 		store.openCursor().onsuccess = function (event) {
 
 		var cursor = event.target.result;
+			
+		
+			
 			if (cursor) {
 
 				var tmp = store.get(cursor.key);
 
 				tmp.onsuccess = function (e) {
+					scores.push(tmp.result.score+" - Wave "+tmp.result.wave);
 					console.log(tmp.result);
 					cursor.continue();
 				}
+				
+				
+			}
+			else {
+				scores.reverse();
+					
+				for(var i=0;i<scores.length;i++) {		
+					document.getElementById("listTabScore").innerHTML += "<li>"+scores[i]+"</li>";
+				}
 			}
 		}
+		
+		
 	}
 }

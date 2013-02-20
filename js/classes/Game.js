@@ -133,6 +133,8 @@ Game.prototype.restart = function() {
 
 Game.prototype.end = function() {
 
+	this.saveScore();
+	
 	// Game over screen overlay displayed
 	document.getElementById("gameOver").style.display = "block";
 	
@@ -473,4 +475,11 @@ Delete all comets
 Game.prototype.deleteAllComets = function() {
 
 	aListComete = [];
+}
+
+/**************************************************************************************************
+Save the score
+**************************************************************************************************/
+Game.prototype.saveScore = function() {
+	saveScore(this.currentScore, this.activeWave);
 }

@@ -118,6 +118,8 @@ var exitButton = document.getElementById("exitButton");
 var resumeButton = document.getElementById("resumeButton");
 var leaveButton = document.getElementById("leaveButton");
 
+
+
 // Get keypad item
 var keypad0 = document.getElementById("keypad0");
 var keypad1 = document.getElementById("keypad1");
@@ -133,11 +135,11 @@ var keypadneg = document.getElementById("keypad-");
 var keypadenter = document.getElementById("keypad+");
 
 // Set up event listener for buttons
+exitButton.addEventListener("click", handleClickExitMenu, false);
 pauseButton.addEventListener("click", handleClickPause, false);
-exitButton.addEventListener("click", handleClickExit, false);
 resumeButton.addEventListener("click", handleClickResume, false);
-leaveButton.addEventListener("click", handleClickExit, false);
-leaveButtonOver.addEventListener("click", handleClickExit, false);
+leaveButton.addEventListener("click", handleClickExitGame, false);
+leaveButtonOver.addEventListener("click", handleClickExitGame, false);
 restartButton.addEventListener("click", handleClickRestart, false);
 
 // Set up event listener for keypad item

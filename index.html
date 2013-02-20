@@ -12,13 +12,14 @@
 		<script src="js/classes/Timer.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/classes/Events.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/classes/Game.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/classes/IndexedDB.js" type="text/javascript" defer="defer"></script> 
+		<script src="js/app.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/classes/Equation.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/classes/Comete.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/classes/Utils.js" type="text/javascript" defer="defer"></script> 
-		<script src="js/classes/IndexedDB.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/classes/Wave.js" type="text/javascript" defer="defer"></script> 
 		<script src="js/lib/stats.js" type="text/javascript" defer="defer"></script> 
-		<script src="js/app.js" type="text/javascript" defer="defer"></script> 
+		
 	</head>
 
 	<body>		
@@ -42,6 +43,14 @@
 					<div class="item"><img src="resources/menu/aide.png" id="help"/></div>
 				</div>
 			</div>
+			
+			<div id="tabScore">
+				<span id="titleTabScore" >scores</span>
+				<ol id="listTabScore"></ol>	
+			</div>
+			
+			<div id="tabOptions"></div>
+			<div id="tabHelp"></div>
 			
 			<!-- Big Tux -->
 			<div id="bottomLeftLogo">
