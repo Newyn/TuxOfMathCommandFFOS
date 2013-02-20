@@ -255,21 +255,36 @@ Pause & Game over screen
 
 #pauseTitle, #gameOverTitle {
 	font-size: 60px;
-	font-family: Calibri;
+	font-family: ndikadesrevg;
 	font-variant: small-caps;
 	color: white;
 	margin: 0;
 	padding: 0;
 	text-align: center;
-	top: 5%;
+	top: 15%;
 	position: relative;
 	text-decoration: underline;
 }
 
-#resumeButton, #restartButton, #leaveButton, #leaveButtonOver {
-	font-size: 18px;
-	font-family: Calibri;
+#resumeButton, #leaveButton {
+	font-size: 32px;
+	font-family: ndikadesrevg;
+	font-weight: bold;
 	font-variant: small-caps;
+	color: #D8D8D8;
+	cursor: pointer;
+	margin: 1%;
+	text-align: center;
+	top: 25%;
+	position: relative;
+}
+
+#restartButton, #leaveButtonOver {
+	font-size: 32px;
+	font-family: ndikadesrevg;
+	font-weight: bold;
+	font-variant: small-caps;
+	color: #00FF00;
 	cursor: pointer;
 	margin: 1%;
 	text-align: center;
