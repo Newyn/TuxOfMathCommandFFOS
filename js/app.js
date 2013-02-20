@@ -226,6 +226,9 @@ var step = function () {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		oGame.drawComete();
-		//requestAnimationFrame(step);
+		requestAnimationFrame(step);
+	}
+	else {
+		requestAnimationFrame(step);
 	}
 }
