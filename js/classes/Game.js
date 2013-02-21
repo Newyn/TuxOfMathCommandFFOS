@@ -363,7 +363,7 @@ Draw yellow comets
 **************************************************************************************************/
 Game.prototype.drawYellowComets = function() {
 	
-	if ((oTimerBonusComets.secondsElapsed == 5) && (oTimerBonusComets.cSecondsElapsed == 0)) {
+	if ((oTimerBonusComets.secondsElapsed == 45) && (oTimerBonusComets.cSecondsElapsed == 0)) {
 		
 		if (aListYellowComets.length == 0) {
 			var oComete = new Comet(imgYellowCometZero, 0, 150, wavesTab[this.activeWave-1]);
@@ -467,6 +467,10 @@ Game.prototype.drawYellowComets = function() {
 				}
 			}
 		}
+		else {
+			oTimerBonusComets.reset();
+			aListYellowComets = [];
+		}
 	}
 }
 
@@ -506,7 +510,7 @@ Game.prototype.destroyComet = function(val) {
 			
 			soundSizzling.play();
 			
-			this.updateScore();
+			this.updateScore(10);
 			
 			this.cometsSpawned = this.cometsSpawned + 1;
 
@@ -514,6 +518,18 @@ Game.prototype.destroyComet = function(val) {
 				this.goToNextWave();
 			}
 		}
+	}
+	
+	if (aListYellowComets.length > 0) {
+	
+		if (aListYellowComets[0].eq.solution == val) {
+		
+			this.updateScore(10 * aListComete.length + 250);
+			
+			this.destroyAllComets();
+			oTimerBonusComets.reset();
+		}
+		
 	}
 	
 	if (verifComet == false) {
@@ -550,15 +566,16 @@ Destroys all comets present on the screen
 **************************************************************************************************/
 Game.prototype.destroyAllComets = function() {
 	aListComete = [];
+	aListYellowComets = [];
 }
 
 
 /**************************************************************************************************
 Updates the score
 **************************************************************************************************/
-Game.prototype.updateScore = function() {
+Game.prototype.updateScore = function(update) {
 
-	this.currentScore += 10;
+	this.currentScore += update;
 	
 	var tmpScore = ""+this.currentScore+"";
 	

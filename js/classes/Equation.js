@@ -13,8 +13,8 @@ function Equation(x, y) {
 /**************************************************************************************************
 Generates an equation according to :
     - operators allowed "waveOps", 
-	- number of arguments "nbrArgs",
-	- maximum value that can reach the numbers "max",
+    - number of arguments "nbrArgs",
+    - maximum value that can reach the numbers "max",
 **************************************************************************************************/
 Equation.prototype.generate = function (waveOps, nbrArgs, max)  {
 
