@@ -1,31 +1,45 @@
+/**************************************************************************************************
+Constructor the Timer class
+**************************************************************************************************/
 function Timer() {
-	this.cSecondsElapsed = 0;
-	this.secondsElapsed = 0;
-	this.interval = null;
+	this.cSecondsElapsed = 0; // Tenths of seconds elapsed since the timer starts
+	this.secondsElapsed = 0; // Seconds elapsed since the timer starts
+	this.interval = null; // Interval
 }
 
-// Start
+/**************************************************************************************************
+Starts the timer
+**************************************************************************************************/
 Timer.prototype.start = function() {
 	this.interval = setInterval(function(){
 							  oTimer.update();
 							  oTimerBonusComets.update();
 						   },100);
-};
+}
 
-// Pause
+/**************************************************************************************************
+Pauses the timer
+**************************************************************************************************/
 Timer.prototype.pause = function() {
+
+	// Stop the execution of the interval
 	clearInterval(this.interval);
 	this.interval = null;
-};
+}
 
-// Reset
+/**************************************************************************************************
+Resets the timer
+**************************************************************************************************/
 Timer.prototype.reset = function() {
 	this.cSecondsElapsed = 0;
 	this.secondsElapsed = 0;
-};
+}
 
-// Update
+/**************************************************************************************************
+Updates the timer
+**************************************************************************************************/
 Timer.prototype.update = function() {
+
 	this.cSecondsElapsed++;
 	
 	if (this.cSecondsElapsed > 9) {

@@ -1,55 +1,6 @@
-var mouseClickKeypad = function(e) {
-
-	if(e.offsetX || e.offsetY) {
-        x = e.offsetX;
-		y = e.offsetY;
-    }
-    else if(e.layerX || e.layerY){
-        x = e.layerX;
-		y = e.layerY;
-    } 
-	
-	for (var i=0; i<aListKeypad.length; i++) {
-		aListKeypad[i].click(x, y);
-	}
-}
-
-var handleBlur = function() {
-	if (oGame.isPaused == false) {
-		oGame.pause();
-	}
-}
-
-var handleClickPause = function() {
-	oGame.pause();
-}
-
-var handleClickResume = function() {
-	oGame.resume();
-}
-
-var handleClickRestart = function() {
-	oGame.restart();
-}
-
-var handleClickExitMenu = function() {
-	document.getElementById("menu").style.display = "table";
-	document.getElementById("tabScore").style.display = "none";
-	document.getElementById("tabHelp").style.display = "none";
-	document.getElementById("exitButton").style.display = "none";
-}
-
-var handleClickExitGame = function() {
-	oGame.stop();
-	exitButton.addEventListener("click", handleClickExitMenu, false);
-	exitButton.removeEventListener("click", handleClickExitGame, false);
-}
-
-var handleClickKeypad = function() {
-	var key = this.id.charAt(6);
-	oGame.updateLednums(key);
-}
-
+/**************************************************************************************************
+Handles keyboard events for writing on the console screen.
+**************************************************************************************************/
 var handleKeyDown = function(e) {
 
 	// 0
@@ -102,6 +53,68 @@ var handleKeyDown = function(e) {
 	}
 }
 
+/**************************************************************************************************
+Handles the event to pause the game when the player is no longer on the application.
+**************************************************************************************************/
+var handleBlur = function() {
+	if (oGame.isPaused == false) {
+		oGame.pause();
+	}
+}
+
+/**************************************************************************************************
+Handles the click on the keypad console.
+**************************************************************************************************/
+var handleClickKeypad = function() {
+	var key = this.id.charAt(6);
+	oGame.updateLednums(key);
+}
+
+/**************************************************************************************************
+Handles the click on the pause button.
+**************************************************************************************************/
+var handleClickPause = function() {
+	oGame.pause();
+}
+
+/**************************************************************************************************
+Handles the click on the resume button - Only available when the game is paused.
+**************************************************************************************************/
+var handleClickResume = function() {
+	oGame.resume();
+}
+
+/**************************************************************************************************
+Handles the click on the restart button - Only available when the game is finished.
+**************************************************************************************************/
+var handleClickRestart = function() {
+	oGame.restart();
+}
+
+/**************************************************************************************************
+Handles the click on the exit button. - Only available in the menu.
+This allows the player to exit a menu tab (example : leave the score tab).
+**************************************************************************************************/
+var handleClickExitMenu = function() {
+	document.getElementById("menu").style.display = "table";
+	document.getElementById("tabScore").style.display = "none";
+	document.getElementById("tabHelp").style.display = "none";
+	document.getElementById("exitButton").style.display = "none";
+}
+
+/**************************************************************************************************
+Handles the click on the exit button. - Only available in the game
+This allows the player to exit the game and go back to the menu.
+**************************************************************************************************/
+var handleClickExitGame = function() {
+	oGame.stop();
+	exitButton.addEventListener("click", handleClickExitMenu, false);
+	exitButton.removeEventListener("click", handleClickExitGame, false);
+}
+
+/**************************************************************************************************
+Lauch the game
+**************************************************************************************************/
 var launchGame = function() {
 
 	exitButton.removeEventListener("click", handleClickExitMenu, false);
@@ -109,22 +122,44 @@ var launchGame = function() {
 	
 	oGame.start();
 	
-	//setInterval( function () {
-	//	stats.begin();
-			// Step
+	/*
+	
+	UNCOMMENT FOR MONITORING THE PERFORMANCE
+	
+	setInterval( function () {
+		stats.begin();
+			 Step
 			step();
-	//	stats.end();
-	//}, 1000 / 60 );	
+		stats.end();
+	}, 1000 / 60 );	
+	
+	
+	*/
+	step();
 }
 
-var launchHelp = function() {alert("Help")};
-var launchOptions = function() {alert("Options")};
+/**************************************************************************************************
+Lauch the help
+**************************************************************************************************/
+var launchHelp = function() {
+	alert("Help");
+}
 
-var launchScores = function() {
+/**************************************************************************************************
+Shows options tab
+**************************************************************************************************/
+var showOptions = function() {
+	alert("Options");
+}
+
+/**************************************************************************************************
+Shows scores tab
+**************************************************************************************************/
+var showScores = function() {
 	
 	readAllScores();
+	
 	document.getElementById("tabScore").style.display = "block";
 	document.getElementById("exitButton").style.display = "block";
-	
 	document.getElementById("menu").style.display = "none";
-};
+}

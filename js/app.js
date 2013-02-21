@@ -89,8 +89,8 @@ var itemScores = document.getElementById("scores");
 // Set up event listener for menu item
 itemPlay.addEventListener("click", launchGame, false);
 itemHelp.addEventListener("click", launchHelp, false);
-itemOptions.addEventListener("click", launchOptions, false);
-itemScores.addEventListener("click", launchScores, false);
+itemOptions.addEventListener("click", showOptions, false);
+itemScores.addEventListener("click", showScores, false);
 
 /**************************************************************************************************
 Initialization of the game

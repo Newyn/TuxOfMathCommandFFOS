@@ -1,7 +1,6 @@
 /**************************************************************************************************
-Constructor the game
+Constructor the Game class
 **************************************************************************************************/
-
 function Game() {
 	this.speed = 5.0;
 	this.isPaused = false;
@@ -13,6 +12,9 @@ function Game() {
 	this.activeColumn = [true, true, true, true];
 }
 
+/**************************************************************************************************
+Start the game
+**************************************************************************************************/
 Game.prototype.start = function() {
 
 	window.addEventListener("blur", handleBlur);
@@ -52,13 +54,16 @@ Game.prototype.start = function() {
 	document.getElementById("score").innerHTML = "<span>00000000</span>";
 }
 
+/**************************************************************************************************
+Stop and leave the game
+**************************************************************************************************/
 Game.prototype.stop = function() {
 	
 	window.removeEventListener("blur", handleBlur);
 	window.removeEventListener("keydown", handleKeyDown, false);
 	
 	oGame.active = false;	
-	oGame.deleteAllComets();
+	oGame.destroyAllComets();
 	
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	
@@ -84,8 +89,12 @@ Game.prototype.stop = function() {
 	document.getElementById("gameOver").style.display = "none";
 }
 
+/**************************************************************************************************
+Pause the game
+**************************************************************************************************/
 Game.prototype.pause = function() {
 
+	// Pause screen overlay displayed
 	document.getElementById("pause").style.display = "block";
 	
 	oGame.isPaused = true;
@@ -93,6 +102,9 @@ Game.prototype.pause = function() {
 	musicGame.pause();
 }
 
+/**************************************************************************************************
+Resume the game (after a pause event)
+**************************************************************************************************/
 Game.prototype.resume = function() {
 
 	// Pause screen overlay undisplayed
@@ -103,9 +115,12 @@ Game.prototype.resume = function() {
 	musicGame.play();
 }
 
+/**************************************************************************************************
+Restart the game (after a game over or a win event)
+**************************************************************************************************/
 Game.prototype.restart = function() {
 	
-	this.deleteAllComets();
+	this.destroyAllComets();
 	
 	document.getElementById("gameOver").style.display = "none";
 	document.getElementById("background").style.backgroundImage = 'url("resources/backgrounds/1.jpg")';
@@ -132,6 +147,9 @@ Game.prototype.restart = function() {
 	
 }
 
+/**************************************************************************************************
+End the game - Call on "GAME OVER"
+**************************************************************************************************/
 Game.prototype.end = function() {
 
 	this.saveScore();
@@ -145,9 +163,8 @@ Game.prototype.end = function() {
 }
 
 /**************************************************************************************************
-Update lednums
+Update the lednums
 **************************************************************************************************/
-
 Game.prototype.updateLednums = function(key) {
 	
 	// Number
@@ -169,7 +186,7 @@ Game.prototype.updateLednums = function(key) {
 			val = "-"+val;
 		}
 	
-		this.calculComete(val);
+		this.destroyComet(val);
 		
 		lednum0.src = "resources/status/lednums/lednums0.png";
 		lednum1.src = "resources/status/lednums/lednums0.png";
@@ -187,7 +204,6 @@ Game.prototype.updateLednums = function(key) {
 /**************************************************************************************************
 Affichage des comètes
 **************************************************************************************************/
-
 Game.prototype.drawComete = function() {
 	
 	// A comet spawn every 7 seconds
@@ -199,8 +215,8 @@ Game.prototype.drawComete = function() {
 			randomColumn = Math.floor(Math.random() * 4);
 		}
 		
-		// Creating and adding a new comet in the table
-		var oComete = new Comete(imgCometeZero, aListColonneX[randomColumn], 0, wavesTab[this.activeWave-1]);
+		// Create and add a new comet in the array aListComet
+		var oComete = new Comet(imgCometeZero, aListColonneX[randomColumn], 0, wavesTab[this.activeWave-1]);
 		aListComete.push(oComete);
 		
 		ctx.drawImage(oComete.img, oComete.x, oComete.y, oComete.width / 1.5, oComete.height / 1.5);
@@ -245,10 +261,9 @@ Game.prototype.drawComete = function() {
 			elapsedTime = 0;		
 		}
 		
-		
 		if (aListComete[i].y < GAME_ENDLINE_HEIGHT) {
 		
-			aListComete[i].descendre(GAME_SPEED);
+			aListComete[i].down(GAME_SPEED);
 			ctx.fillStyle = "white";
 			ctx.drawImage(aListComete[i].img, aListComete[i].x, aListComete[i].y, aListComete[i].width / 1.5, aListComete[i].height / 1.5);
 			
@@ -306,7 +321,6 @@ Game.prototype.drawComete = function() {
 				else if (aListComete[i].eq2[k] == "9") {
 					ctx.drawImage(oCometeNums9, tmp, aListComete[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums9.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums9.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
 				}
-	
 			}
 		}
 		else {
@@ -327,67 +341,20 @@ Game.prototype.drawComete = function() {
 				document.getElementById("igloo"+tmpNb).src = "resources/igloos/melted1.png";
 				this.activeColumn[tmpNb] = false;
 			}
-			else {
-				// TODO : Il n'y a plus de vies => GAME OVER
-			}
-			
-			// TOFIX : Explosion de la comète
-			
-			//var oCometeImage = new Image();
-			//oCometeImage.src = "resources/comets/cometex0.png";
-			//aListComete[i]._img = oCometeImage;
-			//ctx.drawImage(aListComete[i]._img, aListComete[i]._x, aListComete[i]._y);
-			//ctx.drawImage(oCometeImage, aListComete[i]._x, aListComete[i]._y);
-			
-			
-			/*for (var j=0;j<aListIgloo.length;j++) {
-				
-				// Readjustment of the position x igloos with that of comets
-				var oIglooX = aListIgloo[j].x + 15;
-				
-				// Once we found the igloo is the comet
-				if (oIglooX == aListComete[i].x) {
-					
-					//Working principle, whenever a comet igloo button:
-					// - If igloo intact then it becomes half
-					// - If half igloo then it becomes melted1
-					// - If igloo melted1 then GAME OVER
-					if (aListIgloo[j].img.src.indexOf("intact.png") !== -1) {
-					
-						aListIgloo[j].img = imgIglooHalf;
-						
-						ctx.drawImage(aListIgloo[j].img, aListIgloo[j].x, aListIgloo[j].y, aListIgloo[j].width, aListIgloo[j].height);
-					}
-					else if (aListIgloo[j].img.src.indexOf("half.png") !== -1) {
 
-						aListIgloo[j].img = imgIglooMelted;
-						
-						// Repositionnement de la nouvelle image 
-						aListIgloo[j].x = aListIgloo[j].x - 20;
-						aListIgloo[j].y = aListIgloo[j].y + 38;
-						
-						
-						ctx.drawImage(aListIgloo[j].img, aListIgloo[j].x, aListIgloo[j].y, aListIgloo[j].width, aListIgloo[j].height);
-					}
-					else {
-						// TODO : Il n'y a plus de vies => GAME OVER
-					}
-				}
-			}*/
-			
-			// Suppression de la comète de l'array aListComete 
+			// Delete comet from the array aListComet
 			aListComete.remove(i);
 			
+			// All igloos destroyed => Game over
 			if ((this.activeColumn[0] == false) && (this.activeColumn[1] == false) && (this.activeColumn[2] == false) && (this.activeColumn[3] == false)) {
 				this.end();
 			}
 			
+			// All comets destroyed => Go to the next wave 
 			if ((this.cometsSpawned == wavesTab[this.activeWave-1].nbrEq) && (aListComete.length == 0)){
 				this.goToNextWave();
 			}
 		}
-		
-		
 	}
 }
 
@@ -399,7 +366,7 @@ Game.prototype.drawYellowComets = function() {
 	if ((oTimerBonusComets.secondsElapsed == 5) && (oTimerBonusComets.cSecondsElapsed == 0)) {
 		
 		if (aListYellowComets.length == 0) {
-			var oComete = new Comete(imgYellowCometZero, 0, 150, wavesTab[this.activeWave-1]);
+			var oComete = new Comet(imgYellowCometZero, 0, 150, wavesTab[this.activeWave-1]);
 			aListYellowComets.push(oComete);
 			
 			ctx.drawImage(oComete.img, oComete.x, oComete.y, oComete.width / 1.5, oComete.height / 1.5);
@@ -440,7 +407,7 @@ Game.prototype.drawYellowComets = function() {
 		
 		if (aListYellowComets[i].y < canvas.width) {
 		
-			aListYellowComets[i].goRight(GAME_SPEED);
+			aListYellowComets[i].right(GAME_SPEED);
 			ctx.fillStyle = "white";
 			ctx.drawImage(aListYellowComets[i].img, aListYellowComets[i].x, aListYellowComets[i].y, aListYellowComets[i].width / 1.5, aListYellowComets[i].height / 1.5);
 			
@@ -511,11 +478,9 @@ Game.prototype.drawRedComets = function() {
 }
 
 /**************************************************************************************************
-***************************************************************************************************
-Destruction des comètes à partir de la console
-/**************************************************************************************************
+Destroys all the comets whose they equation has solution the parameter val
 **************************************************************************************************/
-Game.prototype.calculComete = function(val) {
+Game.prototype.destroyComet = function(val) {
 	
 	var aLednumsCoords = [];
 	aLednumsCoords = getPosition("lednums");
@@ -541,7 +506,7 @@ Game.prototype.calculComete = function(val) {
 			
 			soundSizzling.play();
 			
-			this.majScore();
+			this.updateScore();
 			
 			this.cometsSpawned = this.cometsSpawned + 1;
 
@@ -556,6 +521,10 @@ Game.prototype.calculComete = function(val) {
 	}
 }
 
+
+/**************************************************************************************************
+Goes to the next wave and updates the interface
+**************************************************************************************************/
 Game.prototype.goToNextWave = function() {
 
 	this.activeWave = this.activeWave + 1;
@@ -575,7 +544,19 @@ Game.prototype.goToNextWave = function() {
 	oTimer.reset();
 }
 
-Game.prototype.majScore = function() {
+
+/**************************************************************************************************
+Destroys all comets present on the screen
+**************************************************************************************************/
+Game.prototype.destroyAllComets = function() {
+	aListComete = [];
+}
+
+
+/**************************************************************************************************
+Updates the score
+**************************************************************************************************/
+Game.prototype.updateScore = function() {
 
 	this.currentScore += 10;
 	
@@ -587,16 +568,9 @@ Game.prototype.majScore = function() {
 	
 	document.getElementById("score").innerHTML = "<span>"+tmpScore+"</span>";
 }
-/**************************************************************************************************
-Delete all comets
-**************************************************************************************************/
-Game.prototype.deleteAllComets = function() {
-
-	aListComete = [];
-}
 
 /**************************************************************************************************
-Save the score
+Saves the score
 **************************************************************************************************/
 Game.prototype.saveScore = function() {
 	saveScore(this.currentScore, this.activeWave);

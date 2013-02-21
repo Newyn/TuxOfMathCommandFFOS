@@ -1,7 +1,6 @@
 /**************************************************************************************************
-Constructeur d'une équation
+Constructor of the Equation class
 **************************************************************************************************/
-
 function Equation(x, y) {
     this._x = x || 0;
     this._y = y || 0;
@@ -12,84 +11,88 @@ function Equation(x, y) {
 };
 
 /**************************************************************************************************
-Génération d'une équation en fonction du niveau
+Generates an equation according to :
+    - operators allowed "waveOps", 
+	- number of arguments "nbrArgs",
+	- maximum value that can reach the numbers "max",
 **************************************************************************************************/
+Equation.prototype.generate = function (waveOps, nbrArgs, max)  {
 
-Equation.prototype.generate = function (waveOps, nbrArgs, max) 
-{
-
-  //Choix aléatoire des arguments et des opérations     
     for (var i = 0 ;i < nbrArgs; i++) {
 
-      //
-      var random = Math.floor((Math.random()*max)+1);
+		// Random selection of arguments and operations
+		var random = Math.floor((Math.random()*max)+1);
 
-      //cas particulier d'une division
-      //Si l'op précedente est une division on modifie l'argument précédent
-      if (this.ops[i-1] && this.ops[i-1] == '/')
-      {
-        this.args[i-1] = Math.floor((Math.random()*max)+1)*random;
-      }
+		// Specific case of a division
+		// If the previous operation is a division we modify the previous argument
+		if (this.ops[i-1] && this.ops[i-1] == '/') {
+			this.args[i-1] = Math.floor((Math.random()*max)+1)*random;
+		}
 
-      this.args.push(random);
+		this.args.push(random);
 
-      //ajouter une opération     
-      if (i < nbrArgs-1)
-      {
-        var op = waveOps[Math.floor((Math.random()*waveOps.length)+1)-1];
-      // Si l'op précédente est une division on l'évite
-        if (this.ops[i-1] && this.ops[i-1] == '/')
-        {
-            op = waveOps[Math.floor((Math.random()*waveOps.length-1)+1)-1];
-        }
-        this.ops.push(op);
-      }
+		// Add an operation 
+		if (i < nbrArgs-1) {
+		
+			var op = waveOps[Math.floor((Math.random()*waveOps.length)+1)-1];
+			
+			// If the previous operation is a division, it is avoided
+			if (this.ops[i-1] && this.ops[i-1] == '/') {
+				op = waveOps[Math.floor((Math.random()*waveOps.length-1)+1)-1];
+			}
+			
+			this.ops.push(op);
+		}
     }
 
-    // création de l'équation pour le calcul du résultat
+    // Creation of the equation for the calculation of the result
     for (var i = 0 ;i < nbrArgs; i++) {
-      this.exp += this.args[i];
-      if (i < nbrArgs-1){
-        this.exp += this.ops[i];
-      }         
+	
+		this.exp += this.args[i];
+		
+		if (i < nbrArgs-1) {
+			this.exp += this.ops[i];
+		}
     }
 
-    // calculer le résultat
+    // Calculate the result
     this.args.push(eval(this.exp));
     this.ops.push('=');
     this.exp += '=' + eval(this.exp);
 
-    // Index de l'élément à cacher
+    // Index of the item to hide
     var hiddenArgIndex = Math.floor((Math.random()*this.args.length)+1);
     hiddenArgIndex -= 1;
 
-    // définition de la solution
+    // Definition of the solution
     this.solution = this.args[hiddenArgIndex];
     
-    var toChange; // argument à cacher
-    var newText; // le ?
+    var toChange; // argument to hide
+    var newText; // the '?'
 
-    // si index 0 on remplce : arg+op par ?+op
-    if (hiddenArgIndex == 0){
-      toChange = this.args[hiddenArgIndex]+this.ops[hiddenArgIndex];
-      newText  = '?'+this.ops[hiddenArgIndex];
+    // If index == 0, "arg+op" is replaced by "?+op"
+    if (hiddenArgIndex == 0) {
+		toChange = this.args[hiddenArgIndex]+this.ops[hiddenArgIndex];
+		newText  = '?'+this.ops[hiddenArgIndex];
     }
-    // si index est celui du résultat on remplce : =arg par =?
+	
+    // If index is those of the result, "=arg" is replaced by "=?"
     else if (hiddenArgIndex == this.ops.length){
-      toChange = this.ops[hiddenArgIndex-1]+this.args[hiddenArgIndex];
-      newText  = this.ops[hiddenArgIndex-1]+'?';
+		toChange = this.ops[hiddenArgIndex-1]+this.args[hiddenArgIndex];
+		newText  = this.ops[hiddenArgIndex-1]+'?';
     }
-    //sinon on remplace : op+arg+op par op+?+op
-    else{
+	
+    // Else "op+arg+op" is replaced by "op+?+op"
+    else {
       toChange = this.ops[hiddenArgIndex-1]+this.args[hiddenArgIndex]+this.ops[hiddenArgIndex];
       newText  = this.ops[hiddenArgIndex-1]+'?'+this.ops[hiddenArgIndex];
     }
     
-  // LOGGER à décommenter pour le débug
-    //console.log('hiddenArgIndex :'+ hiddenArgIndex, toChange, newText);
-    //console.log(this.solution);
+	// LOGGER à décommenter pour le débug
+    // console.log('hiddenArgIndex :'+ hiddenArgIndex, toChange, newText);
+    // console.log(this.solution);
   
-    // on remplace dans la chaine 
+    // Replaces in the chain
     this.exp = this.exp.replace(toChange,newText);
   
     return this.exp;
