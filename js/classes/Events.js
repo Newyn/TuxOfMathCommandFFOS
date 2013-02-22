@@ -98,6 +98,10 @@ Handles the click on the exit button. - Only available in the menu.
 This allows the player to exit a menu tab (example : leave the score tab).
 **************************************************************************************************/
 var handleClickExitMenu = function() {
+	
+	document.getElementById("background").style.backgroundImage = "url(resources/title/menu_bkg.jpg)";
+	document.getElementById("background").style.backgroundSize = '100% 100%';
+	
 	document.getElementById("menu").style.display = "table";
 	document.getElementById("tabScore").style.display = "none";
 	document.getElementById("tabHelp").style.display = "none";
@@ -144,14 +148,16 @@ var launchGame = function() {
 Launches the help
 **************************************************************************************************/
 var launchHelp = function() {
-	alert("Help");
+	showTab();
+	
 }
 
 /**************************************************************************************************
 Shows options tab
 **************************************************************************************************/
 var showOptions = function() {
-	alert("Options");
+
+	showTab();
 }
 
 /**************************************************************************************************
@@ -159,9 +165,17 @@ Shows scores tab
 **************************************************************************************************/
 var showScores = function() {
 	
-	readAllScores();
+	showTab();
 	
+	readAllScores();
 	document.getElementById("tabScore").style.display = "block";
+}
+
+var showTab = function() {
+
+	document.getElementById("background").style.backgroundImage = "url(resources/backgrounds/5.jpg)";
+	document.getElementById("background").style.backgroundSize = '100% 100%';
+	
 	document.getElementById("exitButton").style.display = "block";
 	document.getElementById("menu").style.display = "none";
 }
