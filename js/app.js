@@ -45,35 +45,53 @@ var fHauteurDeBase = 620;
 var fRatioLargeur = (document.documentElement.clientWidth) / fLargeurDeBase;
 var fRatioHauteur = (document.documentElement.clientHeight) / fHauteurDeBase;
 
+// Game object
 var oGame = new Game();
-var oTimer = new Timer();
-var oTimerBonusYellowComets = new Timer();
-var oTimerBonusRedComets = new Timer();
+
+// Array to store comets object (not yellow and red)
+var aListComete = [];
+
+// Comet object for the yellow comet
+var oYellowComet = 0;
+
+// Comet object for the red comet
+var oRedComet = 0;
+
+// Array of X position of the columns where comets appear
+var aListColonneX = [];
 
 // Vitesse du jeu
 var GAME_SPEED = 0.4 * ((fRatioLargeur+fRatioHauteur)/2);
 
-// Position X des colonnes
-var aListColonneX = [];
-
 var GAME_ENDLINE_HEIGHT = (canvas.height / 1.25 - (140 * ((fRatioLargeur+fRatioHauteur)/2)) * ((fRatioLargeur+fRatioHauteur)/2));
 
-// Tableau pour stocker les comètes 
-var aListComete = [];
-var aListYellowComets = [];
-var aListRedComets = [];
-// Gestion du timer du mouvement des comètes
+/**************************************************************************************************
+Timer and timestamps
+**************************************************************************************************/
+
+// Timer that handles the appearance of comets
+var oTimer = new Timer();
+
+// Timer that handles the appearance of the yellow comets
+var oTimerBonusYellowComets = new Timer();
+
+// Timer that handles the appearance of red comets
+var oTimerBonusRedComets = new Timer();
+
+// Timestamp that handles the movement of comets
 var currentTimestamp = Date.now();
 var previousTimestamp = 0;
 var elapsedTime = 0;
 
-var currentTimestampY = Date.now();
-var previousTimestampY = 0;
-var elapsedTimeY = 0;
+// Timestamp that handles the movement of the yellow comets
+var currentTimestampYellow = Date.now();
+var previousTimestampYellow = 0;
+var elapsedTimeYellow = 0;
 
-var currentTimestampR = Date.now();
-var previousTimestampR = 0;
-var elapsedTimeR = 0;
+// Timestamp that handles the movement of the red comets
+var currentTimestampRed = Date.now();
+var previousTimestampRed = 0;
+var elapsedTimeRed = 0;
 
 /**************************************************************************************************
 Initialization of the menu
@@ -128,8 +146,6 @@ var pauseButton = document.getElementById("pauseButton");
 var exitButton = document.getElementById("exitButton");
 var resumeButton = document.getElementById("resumeButton");
 var leaveButton = document.getElementById("leaveButton");
-
-
 
 // Get keypad item
 var keypad0 = document.getElementById("keypad0");
