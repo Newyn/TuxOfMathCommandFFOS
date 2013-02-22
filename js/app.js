@@ -107,12 +107,16 @@ var itemPlay = document.getElementById("play");
 var itemHelp = document.getElementById("help");
 var itemOptions = document.getElementById("options");
 var itemScores = document.getElementById("scores");
+var eltItemOptionsSound = document.getElementById("itemOptionsSound");
+var eltItemOptionsReset = document.getElementById("itemOptionsReset");
 
 // Set up event listener for menu item
 itemPlay.addEventListener("click", launchGame, false);
 itemHelp.addEventListener("click", launchHelp, false);
 itemOptions.addEventListener("click", showOptions, false);
 itemScores.addEventListener("click", showScores, false);
+eltItemOptionsSound.addEventListener("click", updateOptionsSound, false);
+eltItemOptionsReset.addEventListener("click", resetGame, false);
 
 /**************************************************************************************************
 Initialization of the game
@@ -190,6 +194,7 @@ var lednumActive = lednum0;
 var negativeSign = false;
 
 var eltTux = document.getElementById("tuxChar");
+
 
 /**************************************************************************************************
 Initialisation des images utilisées dans le jeu

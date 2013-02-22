@@ -334,3 +334,36 @@ Pause & Game over screen
 	top: 15%;
     position: relative;
 }
+
+/***/
+#tabOptions {
+	position: absolute;
+    color: white;
+    height: 100%;
+    width: 100%;
+	font-family: andikadesrevg;
+	display: none;
+}
+
+#tabOptions #titleTabOptions {
+	color: yellow;
+	left: 45%;
+	top: 15%;
+    position: relative;
+	font-variant: small-caps;
+	font-size: 3.8em;
+	text-decoration: underline;
+}
+
+#tabOptions ol {
+	margin-top: 2%;
+	color: #00FF00;
+	left: 44%;
+	top: 15%;
+    position: relative;
+	list-style-type: none;
+}
+
+#tabOptions ol li {
+	margin-bottom: 2%;
+}

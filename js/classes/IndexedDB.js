@@ -85,6 +85,7 @@ function readAllScores(){
 				var tmp = store.get(cursor.key);
 
 				tmp.onsuccess = function (e) {
+
 					scores.push(tmp.result.score+" - Wave "+tmp.result.wave);
 					console.log(tmp.result);
 					cursor.continue();
