@@ -22,5 +22,5 @@ Comet.prototype.down = function(speed) {
 Sends right the comet
 **************************************************************************************************/
 Comet.prototype.right = function(speed) {
-	this.x = this.x + 10.0 * GAME_SPEED;
+	this.x = this.x + 10.0 * speed;
 }

@@ -17,6 +17,8 @@ MS Milliseconds needed to render a frame. The lower the number the better.
 
 /*************************************************************************************************
 Setup requestAnimationFrame
+
+Uses to perform an animation.
 **************************************************************************************************/
 
 var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
@@ -39,6 +41,7 @@ Global variables
 
 // Largeur de base du canvas
 var fLargeurDeBase = 1360;
+
 // Hauteur de base du canvas
 var fHauteurDeBase = 620;
 
@@ -59,11 +62,6 @@ var oRedComet = 0;
 
 // Array of X position of the columns where comets appear
 var aListColonneX = [];
-
-// Vitesse du jeu
-var GAME_SPEED = 0.4 * ((fRatioLargeur+fRatioHauteur)/2);
-
-var GAME_ENDLINE_HEIGHT = (canvas.height / 1.25 - (140 * ((fRatioLargeur+fRatioHauteur)/2)) * ((fRatioLargeur+fRatioHauteur)/2));
 
 /**************************************************************************************************
 Timer and timestamps

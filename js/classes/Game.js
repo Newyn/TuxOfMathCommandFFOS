@@ -2,7 +2,8 @@
 Constructor the Game class
 **************************************************************************************************/
 function Game() {
-	this.speed = 5.0;
+	this.speed = 0.4 * ((fRatioLargeur+fRatioHauteur)/2);
+	this.endlineHeight = canvas.height / 1.25 - (140 * ((fRatioLargeur+fRatioHauteur)/2)) * ((fRatioLargeur+fRatioHauteur)/2);
 	this.isPaused = false;
 	this.active = false;
 	this.activeWave = 1;
@@ -264,9 +265,9 @@ Game.prototype.drawComete = function() {
 			elapsedTime = 0;		
 		}
 		
-		if (aListComete[i].y < GAME_ENDLINE_HEIGHT) {
+		if (aListComete[i].y < this.endlineHeight) {
 		
-			aListComete[i].down(GAME_SPEED);
+			aListComete[i].down(this.speed);
 			ctx.fillStyle = "white";
 			ctx.drawImage(aListComete[i].img, aListComete[i].x, aListComete[i].y, aListComete[i].width / 1.5, aListComete[i].height / 1.5);
 			
@@ -418,7 +419,7 @@ Game.prototype.drawYellowComets = function() {
 		
 		if (oYellowComet.x < canvas.width) {
 		
-			oYellowComet.right(GAME_SPEED);
+			oYellowComet.right(this.speed);
 			ctx.fillStyle = "white";
 			ctx.drawImage(oYellowComet.img, oYellowComet.x, oYellowComet.y, oYellowComet.width / 1.5, oYellowComet.height / 1.5);
 			
@@ -532,9 +533,9 @@ Game.prototype.drawRedComets = function() {
 			elapsedTimeRed = 0;		
 		}
 		
-		if (oRedComet.y < GAME_ENDLINE_HEIGHT) {
+		if (oRedComet.y < this.endlineHeight) {
 		
-			oRedComet.down(GAME_SPEED * 2.0);
+			oRedComet.down(this.speed * 2.0);
 			ctx.fillStyle = "white";
 			ctx.drawImage(oRedComet.img, oRedComet.x, oRedComet.y, oRedComet.width / 1.5, oRedComet.height / 1.5);
 			
