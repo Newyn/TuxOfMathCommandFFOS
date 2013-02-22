@@ -51,6 +51,8 @@ var handleKeyDown = function(e) {
 	else if (e.keyCode == 13) {
 		oGame.updateLednums("+");
 	}
+
+	oGame.animateTux(e.keyCode);
 }
 
 /**************************************************************************************************

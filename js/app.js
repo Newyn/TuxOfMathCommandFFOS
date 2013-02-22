@@ -189,6 +189,8 @@ var lednumneg = document.getElementById("lednumneg");
 var lednumActive = lednum0;
 var negativeSign = false;
 
+var eltTux = document.getElementById("tuxChar");
+
 /**************************************************************************************************
 Initialisation des images utilisées dans le jeu
 **************************************************************************************************/

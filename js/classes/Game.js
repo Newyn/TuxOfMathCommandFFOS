@@ -778,3 +778,43 @@ Saves the score
 Game.prototype.saveScore = function() {
 	saveScore(this.currentScore, this.activeWave);
 }
+
+/**************************************************************************************************
+Changes the image of Tux
+**************************************************************************************************/
+Game.prototype.animateTux = function(key) {
+	
+	if (key != 13) {
+		if ((eltTux.src.indexOf("sit.png") !== -1) || (eltTux.src.indexOf("drat.png") !== -1) || (eltTux.src.indexOf("kiss2.png") !== -1) || (eltTux.src.indexOf("yay2.png") !== -1) || (eltTux.src.indexOf("yipe.png") !== -1)){
+			eltTux.src = "resources/tux/tux-console1.png";
+		}
+		else if (eltTux.src.indexOf("console1.png") !== -1) {
+			eltTux.src = "resources/tux/tux-console2.png";
+		}
+		else if (eltTux.src.indexOf("console2.png") !== -1) {
+			eltTux.src = "resources/tux/tux-console3.png";
+		}
+		else if (eltTux.src.indexOf("console3.png") !== -1) {
+			eltTux.src = "resources/tux/tux-console4.png";
+		}
+		else if (eltTux.src.indexOf("console4.png") !== -1) {
+			eltTux.src = "resources/tux/tux-console1.png";
+		}
+	}
+	else {
+		var randomPosition = Math.floor(Math.random() * 5);
+		
+		if (randomPosition == 1) {
+			eltTux.src = "resources/tux/tux-drat.png";
+		}
+		else if (randomPosition == 2) {
+			eltTux.src = "resources/tux/tux-kiss2.png";
+		}
+		else if (randomPosition == 3) {
+			eltTux.src = "resources/tux/tux-yay2.png";
+		}
+		else {
+			eltTux.src = "resources/tux/tux-yipe.png";
+		}
+	}
+}
