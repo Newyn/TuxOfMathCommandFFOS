@@ -348,6 +348,8 @@ Game.prototype.drawComete = function() {
 			// Delete comet from the array aListComet
 			aListComete.remove(i);
 			
+			this.updateScore(-25);
+			
 			// All igloos destroyed => Game over
 			if ((this.activeColumn[0] == false) && (this.activeColumn[1] == false) && (this.activeColumn[2] == false) && (this.activeColumn[3] == false)) {
 				this.end();
@@ -650,7 +652,7 @@ Game.prototype.destroyComet = function(val) {
 	
 		if (aListYellowComets[0].eq.solution == val) {
 		
-			this.updateScore(10 * aListComete.length + 250);
+			this.updateScore(10 * aListComete.length + 75);
 			
 			this.destroyAllComets();
 			oTimerBonusYellowComets.reset();
@@ -662,7 +664,7 @@ Game.prototype.destroyComet = function(val) {
 	
 		if (aListRedComets[0].eq.solution == val) {
 		
-			this.updateScore(10 * aListComete.length + 250);
+			this.updateScore(10 * aListComete.length + 75);
 			
 			this.healIgloo();
 			oTimerBonusRedComets.reset();
@@ -761,13 +763,19 @@ Game.prototype.updateScore = function(update) {
 
 	this.currentScore += update;
 	
-	var tmpScore = ""+this.currentScore+"";
-	
-	while (tmpScore.length != 8) {
-		tmpScore = "0"+tmpScore;
+	if (this.currentScore > 0) {
+		var tmpScore = ""+this.currentScore+"";
+		
+		while (tmpScore.length != 8) {
+			tmpScore = "0"+tmpScore;
+		}
+		
+		document.getElementById("score").innerHTML = "<span>"+tmpScore+"</span>";
 	}
-	
-	document.getElementById("score").innerHTML = "<span>"+tmpScore+"</span>";
+	else {
+		this.currentScore = 0;
+		document.getElementById("score").innerHTML = "<span>00000000</span>";
+	}
 }
 
 /**************************************************************************************************
