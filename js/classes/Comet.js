@@ -15,12 +15,12 @@ function Comet(img, x, y, wave) {
 Sends down the comet
 **************************************************************************************************/
 Comet.prototype.down = function(speed) {
-	this.y = this.y + 1.0 * GAME_SPEED;
+	this.y = this.y + 1.0 * speed;
 }
 
 /**************************************************************************************************
 Sends right the comet
 **************************************************************************************************/
 Comet.prototype.right = function(speed) {
-	this.x = this.x + 5.0 * GAME_SPEED;
+	this.x = this.x + 10.0 * GAME_SPEED;
 }

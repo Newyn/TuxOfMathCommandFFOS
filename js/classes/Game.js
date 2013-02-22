@@ -48,9 +48,12 @@ Game.prototype.start = function() {
 	
 	musicMenu.pause();
 	musicGame.play();
+	
+	// Timer
 	oTimer.start();
-	oTimerBonusComets.start();
-
+	//oTimerBonusYellowComets.start();
+	//oTimerBonusRedComets.start();
+	
 	document.getElementById("score").innerHTML = "<span>00000000</span>";
 }
 
@@ -205,12 +208,12 @@ Game.prototype.updateLednums = function(key) {
 Affichage des comètes
 **************************************************************************************************/
 Game.prototype.drawComete = function() {
-	
+
 	// A comet spawn every 7 seconds
 	if ((oTimer.secondsElapsed == 7) && (oTimer.cSecondsElapsed == 0) && (this.cometsSpawned < wavesTab[this.activeWave-1].nbrEq)){
-	
+
 		var randomColumn = Math.floor(Math.random() * 4);
-		
+
 		while (this.activeColumn[randomColumn] == false ){
 			randomColumn = Math.floor(Math.random() * 4);
 		}
@@ -363,10 +366,19 @@ Draw yellow comets
 **************************************************************************************************/
 Game.prototype.drawYellowComets = function() {
 	
-	if ((oTimerBonusComets.secondsElapsed == 45) && (oTimerBonusComets.cSecondsElapsed == 0)) {
+	if ((oTimerBonusYellowComets.secondsElapsed == 45) && (oTimerBonusYellowComets.cSecondsElapsed == 0)) {
 		
 		if (aListYellowComets.length == 0) {
-			var oComete = new Comet(imgYellowCometZero, 0, 150, wavesTab[this.activeWave-1]);
+			
+			var randomHeight = Math.floor(Math.random() * canvas.height);
+			var minHeight = canvas.height / 10;
+			var maxHeight = canvas.height / 1.2;
+			
+			while ((randomHeight < minHeight) || (randomHeight > maxHeight)) {
+				randomHeight = Math.floor(Math.random() * canvas.height);
+			}
+			
+			var oComete = new Comet(imgYellowCometZero, 0, randomHeight, wavesTab[this.activeWave-1]);
 			aListYellowComets.push(oComete);
 			
 			ctx.drawImage(oComete.img, oComete.x, oComete.y, oComete.width / 1.5, oComete.height / 1.5);
@@ -405,7 +417,7 @@ Game.prototype.drawYellowComets = function() {
 			elapsedTimeY = 0;		
 		}
 		
-		if (aListYellowComets[i].y < canvas.width) {
+		if (aListYellowComets[i].x < canvas.width) {
 		
 			aListYellowComets[i].right(GAME_SPEED);
 			ctx.fillStyle = "white";
@@ -468,7 +480,8 @@ Game.prototype.drawYellowComets = function() {
 			}
 		}
 		else {
-			oTimerBonusComets.reset();
+			console.log("reset");
+			oTimerBonusYellowComets.reset();
 			aListYellowComets = [];
 		}
 	}
@@ -479,6 +492,119 @@ Draw red comets
 **************************************************************************************************/
 Game.prototype.drawRedComets = function() {
 
+	if ((oTimerBonusRedComets.secondsElapsed == 90) && (oTimerBonusRedComets.cSecondsElapsed == 0)) {
+		
+		if (aListRedComets.length == 0) {
+		
+			var randomColumn = Math.floor(Math.random() * 4);
+			
+			var oComete = new Comet(imgRedCometZero, aListColonneX[randomColumn], 0, wavesTab[this.activeWave-1]);
+			
+			aListRedComets.push(oComete);
+			
+			ctx.drawImage(oComete.img, oComete.x,  oComete.y, oComete.width / 1.5, oComete.height / 1.5);
+			
+			ctx.fillStyle = "rgb(255, 0, 0)";
+			ctx.fillText(oComete.eq2, oComete.x,  oComete.y);
+		}
+	}
+	
+	for(var i=0;i<aListRedComets.length;i++) {
+	
+		previousTimestampR = currentTimestampR;
+		currentTimestampR = Date.now();
+		elapsedTimeR += currentTimestampR - previousTimestampR;
+		
+		if (elapsedTimeR >= 100) {
+		
+			// Workng principle for each comet :
+			//	- If so comet0 comet1
+			//	- If so comet1 comet2
+			//	- If so comet2 comet0
+			// And so on ... This allows for the illusion of movement for each comet
+			for(var j=0;j<aListRedComets.length;j++) {
+			
+				if (aListRedComets[j].img.src.indexOf("comet0.png") !== -1) {
+					aListRedComets[j].img = imgRedCometOne;
+				}
+				else if (aListRedComets[j].img.src.indexOf("comet1.png") !== -1) {
+					aListRedComets[j].img = imgRedCometTwo;
+				}
+				else {
+					aListRedComets[j].img = imgRedCometZero;
+				}
+			}
+			
+			elapsedTimeR = 0;		
+		}
+		
+		if (aListRedComets[i].y < GAME_ENDLINE_HEIGHT) {
+		
+			aListRedComets[i].down(GAME_SPEED * 2.0);
+			ctx.fillStyle = "white";
+			ctx.drawImage(aListRedComets[i].img, aListRedComets[i].x, aListRedComets[i].y, aListRedComets[i].width / 1.5, aListRedComets[i].height / 1.5);
+			
+			var str = "";
+			
+			for (var k = 0; k<aListRedComets[i].eq2.length; k++) {
+			
+				var tmp = (aListRedComets[i].x + k * (12 * ((fRatioLargeur+fRatioHauteur)/2)));
+				
+				if (aListRedComets[i].eq2[k] == "+") {
+					ctx.drawImage(oCometeNumsAdd, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNumsAdd.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNumsAdd.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListRedComets[i].eq2[k] == "-") {
+					ctx.drawImage(oCometeNumsSub, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNumsSub.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNumsSub.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListRedComets[i].eq2[k] == "/") {
+					ctx.drawImage(oCometeNumsDiv, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNumsDiv.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNumsDiv.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListRedComets[i].eq2[k] == "*") {
+					ctx.drawImage(oCometeNumsMul, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNumsMul.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNumsMul.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListRedComets[i].eq2[k] == "=") {
+					ctx.drawImage(oCometeNumsEqual, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNumsEqual.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNumsEqual.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListRedComets[i].eq2[k] == "?") {
+					ctx.drawImage(oCometeNumsInt, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNumsInt.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNumsInt.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListRedComets[i].eq2[k] == "0") {
+					ctx.drawImage(oCometeNums0, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums0.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums0.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListRedComets[i].eq2[k] == "1") {
+					ctx.drawImage(oCometeNums1, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums1.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums1.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListRedComets[i].eq2[k] == "2") {
+					ctx.drawImage(oCometeNums2, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums2.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums2.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListRedComets[i].eq2[k] == "3") {
+					ctx.drawImage(oCometeNums3, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums3.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums3.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListRedComets[i].eq2[k] == "4") {
+					ctx.drawImage(oCometeNums4, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums4.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums4.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListRedComets[i].eq2[k] == "5") {
+					ctx.drawImage(oCometeNums5, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums5.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums5.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListRedComets[i].eq2[k] == "6") {
+					ctx.drawImage(oCometeNums6, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums6.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums6.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListRedComets[i].eq2[k] == "7") {
+					ctx.drawImage(oCometeNums7, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums7.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums7.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListRedComets[i].eq2[k] == "8") {
+					ctx.drawImage(oCometeNums8, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums8.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums8.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+				else if (aListRedComets[i].eq2[k] == "9") {
+					ctx.drawImage(oCometeNums9, tmp, aListRedComets[i].y + (100 * ((fRatioLargeur+fRatioHauteur)/2)), oCometeNums9.width / 1.5 * ((fRatioLargeur+fRatioHauteur)/2), oCometeNums9.height / 1.5 * ((fRatioLargeur+fRatioHauteur)/2));
+				}
+			}
+		}
+		else {
+			oTimerBonusRedComets.reset();
+			aListRedComets = [];
+		}
+	}
 }
 
 /**************************************************************************************************
@@ -527,7 +653,20 @@ Game.prototype.destroyComet = function(val) {
 			this.updateScore(10 * aListComete.length + 250);
 			
 			this.destroyAllComets();
-			oTimerBonusComets.reset();
+			oTimerBonusYellowComets.reset();
+		}
+		
+	}
+	
+	if (aListRedComets.length > 0) {
+	
+		if (aListRedComets[0].eq.solution == val) {
+		
+			this.updateScore(10 * aListComete.length + 250);
+			
+			this.healIgloo();
+			oTimerBonusRedComets.reset();
+			aListRedComets = [];
 		}
 		
 	}
@@ -560,6 +699,51 @@ Game.prototype.goToNextWave = function() {
 	oTimer.reset();
 }
 
+/**************************************************************************************************
+Heals an igloo
+**************************************************************************************************/
+Game.prototype.healIgloo = function() {
+
+	if ((this.activeColumn[0] == false) || (this.activeColumn[1] == false) || (this.activeColumn[2] == false) || (this.activeColumn[3] == false)) {
+		if (this.activeColumn[0] == false) {
+			this.activeColumn[0] = true;
+			document.getElementById("igloo0").src = "resources/igloos/half.png";
+		}
+		else if (this.activeColumn[1] == false) {
+			this.activeColumn[1] = true;
+			document.getElementById("igloo1").src = "resources/igloos/half.png";
+		}
+		else if (this.activeColumn[2] == false) {
+			this.activeColumn[2] = true;
+			document.getElementById("igloo2").src = "resources/igloos/half.png";
+		}
+		else if (this.activeColumn[3] == false) {
+			this.activeColumn[3] = true;
+			document.getElementById("igloo3").src = "resources/igloos/half.png";
+		}
+	}
+	else {
+		
+		var tmp = false;
+		
+		if (document.getElementById("igloo0").src.indexOf("half.png") !== -1) {
+			document.getElementById("igloo0").src = "resources/igloos/intact.png";
+			tmp = true;
+		}
+		else if ((document.getElementById("igloo1").src.indexOf("half.png") !== -1) && (tmp == false)) {
+			document.getElementById("igloo1").src = "resources/igloos/intact.png";
+			tmp = true;
+		}
+		else if ((document.getElementById("igloo2").src.indexOf("half.png") !== -1) && (tmp == false)) {
+			document.getElementById("igloo2").src = "resources/igloos/intact.png";
+			tmp = true;
+		}
+		else if ((document.getElementById("igloo3").src.indexOf("half.png") !== -1) && (tmp == false)) {
+			document.getElementById("igloo3").src = "resources/igloos/intact.png";
+			tmp = true;
+		}
+	}
+}
 
 /**************************************************************************************************
 Destroys all comets present on the screen

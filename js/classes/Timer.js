@@ -13,7 +13,8 @@ Starts the timer
 Timer.prototype.start = function() {
 	this.interval = setInterval(function(){
 							  oTimer.update();
-							  oTimerBonusComets.update();
+							  oTimerBonusYellowComets.update();
+							  oTimerBonusRedComets.update();
 						   },100);
 }
 
@@ -42,6 +43,7 @@ Timer.prototype.update = function() {
 
 	this.cSecondsElapsed++;
 	
+	//console.log(this.secondsElapsed+"-"+this.cSecondsElapsed);
 	if (this.cSecondsElapsed > 9) {
 		this.cSecondsElapsed = 0;
 		this.secondsElapsed++;
