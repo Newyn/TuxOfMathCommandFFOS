@@ -329,7 +329,7 @@ Pause & Game over screen
 }
 
 #tabScore ol {
-	color: #00FF00;
+	color: white;
 	left: 45%;
 	top: 15%;
     position: relative;
@@ -358,7 +358,7 @@ Pause & Game over screen
 #tabOptions ol {
 	margin-top: 2%;
 	color: #00FF00;
-	left: 44%;
+	left: 40%;
 	top: 15%;
     position: relative;
 	list-style-type: none;
@@ -366,4 +366,22 @@ Pause & Game over screen
 
 #tabOptions ol li {
 	margin-bottom: 2%;
+}
+
+#tabOptions ol li img {
+	max-width: 20%;
+	cursor: pointer;
+}
+
+#arrow {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	display: none;
+	margin-bottom: 1%;
+}
+
+#arrow img {
+	max-width: 70%;
+	cursor: pointer;
 }

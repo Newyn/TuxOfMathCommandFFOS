@@ -107,16 +107,22 @@ var itemPlay = document.getElementById("play");
 var itemHelp = document.getElementById("help");
 var itemOptions = document.getElementById("options");
 var itemScores = document.getElementById("scores");
+
 var eltItemOptionsSound = document.getElementById("itemOptionsSound");
 var eltItemOptionsReset = document.getElementById("itemOptionsReset");
+var eltArrow = document.getElementById("arrow");
+var eltHelpValue = document.getElementById("helpValue");
 
 // Set up event listener for menu item
 itemPlay.addEventListener("click", launchGame, false);
 itemHelp.addEventListener("click", launchHelp, false);
 itemOptions.addEventListener("click", showOptions, false);
 itemScores.addEventListener("click", showScores, false);
+
 eltItemOptionsSound.addEventListener("click", updateOptionsSound, false);
 eltItemOptionsReset.addEventListener("click", resetGame, false);
+
+eltArrow.addEventListener("click", goToNextHelp, false);
 
 /**************************************************************************************************
 Initialization of the game
