@@ -645,6 +645,17 @@ Game.prototype.destroyComet = function(val) {
 	
 		if (oYellowComet.eq.solution == val) {
 		
+			soundSizzling.play();
+			
+			verifComet = true;
+			
+			ctx.beginPath();
+			ctx.strokeStyle='red';
+			ctx.lineWidth=4;
+			ctx.moveTo(canvas.width / 2, aLednumsCoords[1]);
+			ctx.lineTo(oYellowComet.x,oYellowComet.y);
+			ctx.stroke();
+			
 			this.updateScore(10 * aListComete.length + 75);
 			
 			this.destroyAllComets();
@@ -657,6 +668,17 @@ Game.prototype.destroyComet = function(val) {
 	
 		if (oRedComet.eq.solution == val) {
 		
+			soundSizzling.play();
+			
+			verifComet = true;
+			
+			ctx.beginPath();
+			ctx.strokeStyle='red';
+			ctx.lineWidth=4;
+			ctx.moveTo(canvas.width / 2, aLednumsCoords[1]);
+			ctx.lineTo(oRedComet.x,oRedComet.y);
+			ctx.stroke();
+			
 			this.updateScore(10 * aListComete.length + 75);
 			
 			this.healIgloo();
